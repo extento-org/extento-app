@@ -14,7 +14,8 @@
     ],
     "scripts": {
         "start": "npm run start --workspace=app",
-        "build": "npm run build --workspace=app"
+        "build": "npm run build --workspace=app",
+        "change": "ls"
     },
     "devDependencies": {
         "@tailwindcss/aspect-ratio": "^0.4.2",
