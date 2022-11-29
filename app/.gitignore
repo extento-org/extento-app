@@ -1,0 +1,9 @@
+node_modules
+.DS_Store
+pids
+logs
+tmp/
+.env
+.env.*
+icons/*
+!icons/.gitignore

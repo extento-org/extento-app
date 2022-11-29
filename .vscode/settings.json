@@ -1,0 +1,10 @@
+{
+    "editor.tabSize": 4,
+    "tailwindCSS.includeLanguages": {
+        "javascript": "javascript",
+        "html": "HTML"
+    },
+    "editor.quickSuggestions": {
+        "strings": true
+    }
+}

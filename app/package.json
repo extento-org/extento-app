@@ -1,0 +1,12 @@
+{
+    "name": "app",
+    "version": "0.0.1",
+    "engines": {
+        "npm": "8.15.0",
+        "node": "18.7.0"
+    },
+    "scripts": {
+        "start": "npx webpack --config ../extento/config/webpack.development.js --watch",
+        "build": "npx webpack --config ../extento/config/webpack.production.js"
+    }
+}
