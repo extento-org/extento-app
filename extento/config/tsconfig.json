@@ -21,13 +21,13 @@
                 "../codegen/src/*"
             ],
             "@workspaces/*": [
-                "../../app/workspaces/*"
+                "../../src/workspaces/*"
             ],
             "@entries/*": [
                 "../entries/src/*"
             ],
             "@app/*": [
-                "../../app/*"
+                "../../src/*"
             ]
         }
     },
@@ -35,12 +35,12 @@
         { "path": "../codegen" },
         { "path": "../entries" },
         { "path": "../library" },
-        { "path": "../../app" }
+        { "path": "../../src" }
     ],
     "include": [
         "../../**/*",
         "../../**/*.json"
     ],
     "exclude": ["node_modules"],
-    "files": ["./typings.d.ts", "../../app/extento.config.json"]
+    "files": ["./typings.d.ts", "../../src/extento.config.json"]
 }

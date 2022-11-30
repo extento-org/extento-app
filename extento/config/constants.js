@@ -1,7 +1,7 @@
 const path = require('path');
 
 const PROJECT_PATH = path.resolve(__dirname, '..', '..');
-const APP_PATH = path.resolve(PROJECT_PATH, 'app');
+const APP_PATH = path.resolve(PROJECT_PATH, 'src');
 const APP_CONFIG_PATH = path.resolve(APP_PATH, 'extento.config.json');
 const CHROME_EXTENSION_PATH = path.resolve(PROJECT_PATH, 'dist');
 const ICONS_PATH = path.resolve(APP_PATH, 'icons');

@@ -13,8 +13,8 @@
         "extento/config"
     ],
     "scripts": {
-        "start": "npm run start --workspace=app",
-        "build": "npm run build --workspace=app",
+        "start": "npm run start --workspace=src",
+        "build": "npm run build --workspace=src",
         "change": "ls"
     },
     "devDependencies": {
