@@ -6,7 +6,7 @@
         "node": "18.7.0"
     },
     "workspaces": [
-        "app",
+        "src",
         "extento/codegen",
         "extento/entries",
         "extento/library",
