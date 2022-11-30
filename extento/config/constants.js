@@ -2,6 +2,7 @@ const path = require('path');
 
 const PROJECT_PATH = path.resolve(__dirname, '..', '..');
 const APP_PATH = path.resolve(PROJECT_PATH, 'src');
+const BUILDS_PATH = path.resolve(APP_PATH, 'extento.builds.json');
 const APP_CONFIG_PATH = path.resolve(APP_PATH, 'extento.config.json');
 const CHROME_EXTENSION_PATH = path.resolve(PROJECT_PATH, 'dist');
 const ICONS_PATH = path.resolve(APP_PATH, 'icons');
@@ -55,6 +56,7 @@ const DIST_UI = PREFIX_DIST + 'ui.js';
 module.exports = {
     PROJECT_PATH,
     APP_PATH,
+    BUILDS_PATH,
     APP_CONFIG_PATH,
     CHROME_EXTENSION_PATH,
     ICONS_PATH,

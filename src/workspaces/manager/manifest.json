@@ -8,7 +8,7 @@
     "matches": {
         "inherit": false,
         "value": [
-            "<all_urls>"
+            "https://www.manager.io/"
         ]
     }
 }

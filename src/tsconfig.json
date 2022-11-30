@@ -5,6 +5,7 @@
         "declaration": true
     },
     "include": [
+        "./config.ts",
         "../**/*",
         "../**/*.json"
     ],

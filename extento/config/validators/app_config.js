@@ -6,6 +6,7 @@ module.exports = (app_config) => {
     const schema = {
         type: "object",
         required: [
+            "builds",
             "order",
             "source_repo",
             "source_commit_hash"
@@ -26,6 +27,9 @@ module.exports = (app_config) => {
                     }
                     return accum;
                 }, {})
+            },
+            builds: {
+                type: "object"
             }
         }
     };

@@ -28,8 +28,10 @@ const {
 const scripts_plugin = require('./scripts');
 
 if (!fs.readdirSync(WORKSPACES_PATH).length) {
-    throw new Error(`You must first create a workspace using the extento cli!`)
+    throw new Error(`You must first create a workspace using the cli!`)
 }
+
+process.env.EXTENTO_APP_BUILD = (process.env.BUILD || 'MASTER').toUpperCase();
 
 const build_webpack_common_config = (common, mode) => webpack_merge.merge({
     mode: mode,
@@ -99,6 +101,9 @@ const build_webpack_common_config = (common, mode) => webpack_merge.merge({
             paths: [
                 WORKSPACES_CODEGEN_PATH
             ]
+        }),
+        new webpack.DefinePlugin({
+            EXTENTO_APP_BUILD: process.env.EXTENTO_APP_BUILD,
         }),
         ...(mode === 'development' ? [
             new webpack.DefinePlugin({

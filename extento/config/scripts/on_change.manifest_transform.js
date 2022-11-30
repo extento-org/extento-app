@@ -7,6 +7,7 @@ const validators = require('../validators');
 const shared = require('../shared');
 
 const {
+    APP_CONFIG_PATH,
     PROJECT_MANIFEST_PATH,
     WORKSPACES_PATH,
     CHROME_EXTENSION_MANIFEST_PATH,
@@ -18,8 +19,18 @@ const {
     INTERNALLY_REQUIRED_PERMISSIONS,
 } = require('../constants.js');
 
+const app_config = require(APP_CONFIG_PATH);
+
+const workspace_allowed_in_build = (workspace) => {
+    if (!Array.isArray(app_config.builds[process.env.EXTENTO_APP_BUILD])) {
+        return true;
+    }
+    return app_config.builds[process.env.EXTENTO_APP_BUILD].includes(workspace);
+};
+
 const accum_workspace_manifest = (accessor_string, on_accum) => {
     const dir_paths = shared.get_workspace_dirs()
+        .filter(name => workspace_allowed_in_build(name))
         .map(name => path.resolve(WORKSPACES_PATH, name));
 
     return dir_paths.reduce((accum, dir_path) => {

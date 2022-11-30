@@ -3,7 +3,7 @@ import subscribe from '@extento/client/subscribe';
 
 const onload = async () => {
     try {
-        subscribe.__template__(
+        subscribe.manager(
             (data: any) => console.info(
                 'subscription worked in TEMPLATE', 
                 data,
@@ -11,7 +11,7 @@ const onload = async () => {
         );
 
         (setInterval(async () => {
-            const response = await api.__template__.example();
+            const response = await api.manager.example();
             console.info('recieved a response in onload from TEMPLATE', { response });
         }, 5000));
     } catch(err) {

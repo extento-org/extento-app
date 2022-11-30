@@ -2,16 +2,16 @@ import api from '@extento/client/background_api';
 import subscribe from '@extento/client/subscribe';
 
 const content_script_process = async () => {
-    subscribe.__template__(
+    subscribe.tester(
         (data: any) => console.info(
-            'subscription worked in __template__', 
+            'subscription worked in tester', 
             data,
         ),
     );
 
     (setInterval(async () => {
-        const response = await api.__template__.example();
-        console.info('recieved a response in onload from __template__', { response });
+        const response = await api.tester.example();
+        console.info('recieved a response in onload from tester', { response });
     }, 5000));
 };
 
