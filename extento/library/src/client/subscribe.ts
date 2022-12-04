@@ -1,4 +1,4 @@
-import { WorkspaceName } from '@codegen/webpack.workspaces';
+import { WorkspaceName } from '@codegen/webpack.types';
 import constants from '@extento/constants';
 
 type Subscriber = { [key in WorkspaceName]: Function };

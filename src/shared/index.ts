@@ -1,0 +1,1 @@
+export const shared_code_here = (): any => null;

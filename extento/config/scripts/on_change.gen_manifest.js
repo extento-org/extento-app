@@ -1,5 +1,4 @@
 const fs_extra = require('fs-extra');
-const ajv = require('ajv');
 const path = require('path');
 const _ = require('lodash');
 
@@ -102,7 +101,7 @@ const manifest_transform = (opts) => {
     }))
 };
 
-const build_manifest = async () => {
+const main = async () => {
     const matches = accum_workspace_manifest(
         'matches.value', 
         (accum = [], match_url_schemes = []) => _.union(accum, match_url_schemes)
@@ -128,10 +127,6 @@ const build_manifest = async () => {
         CHROME_EXTENSION_MANIFEST_PATH,
         JSON.stringify(manifest_transform(opts), null, 2)
     );
-};
-
-const main = async () => {
-    await build_manifest();
 };
 
 main();

@@ -1,41 +1,22 @@
-const shared = require('../shared');
-const ajv = require('ajv');
+const extento_ajv = require('../utils/extento_ajv');
 
 module.exports = (app_config) => {
-    const workspaces = shared.get_workspace_dirs();
     const schema = {
-        type: "object",
+        type: 'object',
         required: [
-            "builds",
-            "order",
-            "source_repo",
-            "source_commit_hash"
+            'selective_builds',
+            'ui_ordering'
         ],
         properties: {
-            source_repo: {
-                type: "string"
+            selective_builds: {
+                type: 'object',
+                additionalProperties: extento_ajv.schemas.some_workspaces
             },
-            source_commit_hash: {
-                type: "string"
-            },
-            order: {
-                type: "object",
-                required: workspaces,
-                properties: workspaces.reduce((accum, workspace) => {
-                    accum[workspace] = {
-                        type: "number"
-                    }
-                    return accum;
-                }, {})
-            },
-            builds: {
-                type: "object"
-            }
+            ui_ordering: extento_ajv.schemas.all_workspaces,
         }
     };
 
-    const ajv_instance = new ajv();
-    const validate = ajv_instance.compile(schema);
+    const validate = extento_ajv._.compile(schema);
     
     if (!validate(app_config)) {
         return new Error(`app config validation errors: ${JSON.stringify(validate.errors, null, 2)}`);

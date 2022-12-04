@@ -1,7 +1,7 @@
 import { v4 as uuid_v4 } from 'uuid';
 import { deserializeError } from 'serialize-error';
 import background_apis from '@codegen/webpack.background_apis';
-import { WorkspaceName } from '@codegen/webpack.workspaces';
+import { WorkspaceName } from '@codegen/webpack.types';
 import constants from '@extento/constants';
 
 type BackgroundApis = typeof background_apis;

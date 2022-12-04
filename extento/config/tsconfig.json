@@ -23,14 +23,14 @@
             "@workspaces/*": [
                 "../../src/workspaces/*"
             ],
-            "@entries/*": [
-                "../entries/src/*"
+            "@browser/*": [
+                "../../src/browser/*"
             ],
-            "@app/*": [
-                "../../src/*"
+            "@shared/*": [
+                "../../src/shared/*"
             ],
             "@config": [
-                "../../src/config.ts"
+                "../codegen/src/config.json"
             ]
         }
     },
@@ -38,12 +38,18 @@
         { "path": "../codegen" },
         { "path": "../entries" },
         { "path": "../library" },
-        { "path": "../../src" }
+        { "path": "../../src/browser" },
+        { "path": "../../src/shared" },
+        { "path": "../../src/workspaces/admin" },
+        { "path": "../../src/workspaces/candidate" },
+        { "path": "../../src/workspaces/devops" },
+        { "path": "../../src/workspaces/manager" },
+        { "path": "../../src/workspaces/tester" },
     ],
     "include": [
         "../../**/*",
         "../../**/*.json"
     ],
     "exclude": ["node_modules"],
-    "files": ["./typings.d.ts", "../../src/extento.config.json"]
+    "files": ["./typings.d.ts"]
 }

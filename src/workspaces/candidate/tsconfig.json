@@ -1,0 +1,12 @@
+{
+    "extends": "../../../extento/config/tsconfig.json",
+    "compilerOptions": {
+        "noImplicitAny": false,
+        "composite": true,
+        "declaration": true
+    },
+    "include": [
+        "../../../**/*"
+    ],
+    "exclude": ["node_modules"]
+}

@@ -1,5 +1,5 @@
 import { serializeError as serialize_error } from 'serialize-error';
-import { workspace_names, WorkspaceName } from '@codegen/webpack.workspaces';
+import { workspace_names, WorkspaceName } from '@codegen/webpack.types';
 import configs from '@codegen/webpack.configs';
 import constants from '@extento/constants';
 import chrome_wrapper from '@extento/shared/chrome_wrapper';

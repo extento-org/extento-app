@@ -2,8 +2,7 @@ const path = require('path');
 
 const PROJECT_PATH = path.resolve(__dirname, '..', '..');
 const APP_PATH = path.resolve(PROJECT_PATH, 'src');
-const BUILDS_PATH = path.resolve(APP_PATH, 'extento.builds.json');
-const APP_CONFIG_PATH = path.resolve(APP_PATH, 'extento.config.json');
+const APP_CONFIG_PATH = path.resolve(APP_PATH, 'extento.config.js');
 const CHROME_EXTENSION_PATH = path.resolve(PROJECT_PATH, 'dist');
 const ICONS_PATH = path.resolve(APP_PATH, 'icons');
 const STYLES_PATH = path.resolve(APP_PATH, 'styles');
@@ -20,7 +19,8 @@ const BACKGROUND_ENTRY_PATH = path.resolve(ENTRIES_PATH, 'background.ts');
 const TSCONFIG_PATH = path.resolve(__dirname, 'tsconfig.json');
 const PROJECT_MANIFEST_PATH = path.resolve(APP_PATH, 'extento.manifest.js');
 const CHROME_EXTENSION_MANIFEST_PATH = path.resolve(CHROME_EXTENSION_PATH, 'manifest.json');
-const WORKSPACES_NAMES_PATH = path.resolve(WORKSPACES_CODEGEN_PATH, 'webpack.workspaces.ts');
+const GENERATED_TYPES_PATH = path.resolve(WORKSPACES_CODEGEN_PATH, 'webpack.types.ts');
+const GENERATED_CONFIG_PATH = path.resolve(WORKSPACES_CODEGEN_PATH, 'config.json');
 const POSTCSS_CONFIG = path.resolve(__dirname, 'postcss.config.js');
 
 const SUPPORTED_WORKSPACE_EXPORTS = [
@@ -56,7 +56,6 @@ const DIST_UI = PREFIX_DIST + 'ui.js';
 module.exports = {
     PROJECT_PATH,
     APP_PATH,
-    BUILDS_PATH,
     APP_CONFIG_PATH,
     CHROME_EXTENSION_PATH,
     ICONS_PATH,
@@ -74,7 +73,8 @@ module.exports = {
     PROJECT_MANIFEST_PATH,
     CHROME_EXTENSION_MANIFEST_PATH,
     WORKSPACES_CODEGEN_PATH,
-    WORKSPACES_NAMES_PATH,
+    GENERATED_TYPES_PATH,
+    GENERATED_CONFIG_PATH,
     SUPPORTED_WORKSPACE_EXPORTS,
     INTERNALLY_REQUIRED_PERMISSIONS,
     PREFIX_DIST,

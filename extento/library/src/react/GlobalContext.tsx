@@ -1,8 +1,8 @@
 import React from 'react';
 import uis from '@codegen/webpack.uis';
-import { WorkspaceName } from '@codegen/webpack.workspaces';
+import { WorkspaceName } from '@codegen/webpack.types';
 import use_ui from '@extento/react/use_ui';
-import config from '@app/extento.config.json';
+import config from '@codegen/config.json';
 
 import '@extento/react/index.css';
 

@@ -1,4 +1,4 @@
-const ajv = require('ajv');
+const extento_ajv = require('../utils/extento_ajv');
 
 const SCHEMA = {
     type: 'object',
@@ -67,8 +67,7 @@ const SCHEMA = {
 };
 
 module.exports = (app_manifest) => {
-    const ajv_instance = new ajv();
-    const validate = ajv_instance.compile(SCHEMA);
+    const validate = extento_ajv.compile(SCHEMA);
     
     if (!validate(app_manifest)) {
         return new Error(`app manifest validation errors: ${JSON.stringify(validate.errors, null, 2)}`);
