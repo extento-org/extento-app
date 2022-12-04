@@ -6,7 +6,7 @@ const workspace_allowed = (workspace: WorkspaceName) => {
         return true;
     }
     
-    return user_config.builds[user_config.EXTENTO_APP_BUILD].includes(workspace);
+    return user_config.selective_builds[user_config.EXTENTO_APP_BUILD].includes(workspace);
 };
 
 function typed_stub<ModuleType>(mod: any, workspace: WorkspaceName, stub: any): ModuleType {

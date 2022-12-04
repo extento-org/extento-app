@@ -7,8 +7,8 @@
         "node": "18.7.0"
     },
     "scripts": {
-        "start": "npx webpack --config ./extento/config/webpack.development.js --watch",
-        "build": "npx webpack --config ./extento/config/webpack.production.js",
+        "start": "npx webpack --config ./.extento/config/webpack.development.js --watch",
+        "build": "npx webpack --config ./.extento/config/webpack.production.js",
         "change": "ls"
     },
     "devDependencies": {

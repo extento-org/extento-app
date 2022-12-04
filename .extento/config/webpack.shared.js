@@ -38,10 +38,10 @@ const build_webpack_common_config = (common, mode) => webpack_merge.merge({
     ...(mode === 'development' ? {
         devtool: 'inline-source-map'
     } : {}),
-    resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
-        plugins: [new tsconfig_paths_webpack_plugin()]
-    },
+    // resolve: {
+    //     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+    //     plugins: [new tsconfig_paths_webpack_plugin()]
+    // },
     module: {
         rules: [
             {

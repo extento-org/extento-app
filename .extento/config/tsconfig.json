@@ -4,7 +4,6 @@
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
         "resolveJsonModule": true,
-        "jsx": "react",
         "moduleResolution": "node",
         "target": "esnext",
         "types": [
@@ -29,10 +28,10 @@
                 "../library/src/*"
             ],
             "@codegen/*": [
-                "../codegen/*"
+                "../codegen/src/*"
             ],
             "@config": [
-                "../codegen/config.json"
+                "../codegen/src/config.json"
             ]
         }
     },

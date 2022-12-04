@@ -22,10 +22,10 @@ const {
 const user_config = require(USER_CONFIG_PATH);
 
 const workspace_allowed_in_build = (workspace) => {
-    if (!Array.isArray(user_config.builds[process.env.EXTENTO_APP_BUILD])) {
+    if (!Array.isArray(user_config.selective_builds[process.env.EXTENTO_APP_BUILD])) {
         return true;
     }
-    return user_config.builds[process.env.EXTENTO_APP_BUILD].includes(workspace);
+    return user_config.selective_builds[process.env.EXTENTO_APP_BUILD].includes(workspace);
 };
 
 const accum_workspace_manifest = (accessor_string, on_accum) => {

@@ -1,7 +1,7 @@
 const path = require('path');
+const fs = require('fs');
 
-const PROJECT_PATH = path.resolve(__dirname, '..', '..');
-const APP_PATH = path.resolve(PROJECT_PATH, 'src');
+const APP_PATH = path.resolve(__dirname, '..', '..');
 const USER_CONFIG_PATH = path.resolve(APP_PATH, 'extento.config.js');
 const ICONS_PATH = path.resolve(APP_PATH, 'icons');
 const STYLES_PATH = path.resolve(APP_PATH, 'styles');
@@ -73,7 +73,6 @@ const ICONS = fs
     }));
 
 module.exports = {
-    PROJECT_PATH,
     APP_PATH,
     USER_CONFIG_PATH,
     CHROME_EXTENSION_PATH,

@@ -1,11 +1,12 @@
 {
-    "extends": "../../extento/config/tsconfig.json",
+    "extends": "../.extento/config/tsconfig.json",
     "compilerOptions": {
         "composite": true,
-        "declaration": true
+        "declaration": true,
+        "jsx": "react"
     },
     "include": [
-        "../../**/*"
+        "../**/*"
     ],
     "exclude": ["node_modules"]
 }

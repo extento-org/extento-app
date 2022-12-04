@@ -6,7 +6,8 @@
     },
     "include": [
         "../../**/*",
-        "../../**/*.json"
+        "../../**/*.json",
+        ".extento"
     ],
     "exclude": ["node_modules"]
 }
