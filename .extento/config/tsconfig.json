@@ -1,0 +1,43 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "moduleResolution": "node",
+        "target": "esnext",
+        "jsx": "react",
+        "types": [
+            "chrome",
+            "node"
+        ],
+        "baseUrl": ".",
+        "rootDir": "../../",
+        "paths": {
+            "@workspaces/*": [
+                "../../workspaces/*"
+            ],
+            "@browser/*": [
+                "../../browser/*"
+            ],
+            "@shared": [
+                "../../shared/index.ts"
+            ],
+            "@shared/*": [
+                "../../shared/*"
+            ],
+            "@extento/*": [
+                "../library/src/*"
+            ],
+            "@codegen/*": [
+                "../codegen/src/*"
+            ]
+        }
+    },
+    "include": [
+        "../**/*",
+        "../../.extento/**/*"
+    ],
+    "exclude": ["node_modules", "../../chrome-v3", "./**/*"],
+    "files": ["./typings.d.ts"]
+}

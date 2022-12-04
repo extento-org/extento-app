@@ -1,4 +1,11 @@
-node_modules 
+node_modules
 .DS_Store
-dist/*
-!.gitignore
+pids
+logs
+tmp/
+.env
+.env.*
+chrome-v3/*
+!chrome-v3/.gitignore
+icons/*
+!icons/.gitignore

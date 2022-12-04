@@ -1,20 +1,14 @@
 {
     "name": "extento-app",
     "version": "0.0.1",
+    "engineStrict": true,
     "engines": {
         "npm": "8.15.0",
         "node": "18.7.0"
     },
-    "workspaces": [
-        "src",
-        "extento/codegen",
-        "extento/entries",
-        "extento/library",
-        "extento/config"
-    ],
     "scripts": {
-        "start": "npm run start --workspace=src",
-        "build": "npm run build --workspace=src",
+        "start": "npx webpack --config ./.extento/config/webpack.development.js --watch",
+        "build": "npx webpack --config ./.extento/config/webpack.production.js",
         "change": "ls"
     },
     "devDependencies": {
