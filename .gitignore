@@ -1,4 +1,9 @@
-node_modules 
+node_modules
 .DS_Store
-dist/*
-!.gitignore
+pids
+logs
+tmp/
+.env
+.env.*
+icons/*
+!icons/.gitignore

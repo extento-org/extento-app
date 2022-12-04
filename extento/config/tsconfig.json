@@ -11,45 +11,48 @@
             "chrome",
             "node"
         ],
+        "noEmit": true,
+        "allowJs": true,
         "baseUrl": ".",
         "rootDir": "../../",
         "paths": {
+            "@workspaces/*": [
+                "../../workspaces/*"
+            ],
+            "@browser/*": [
+                "../../browser/*"
+            ],
+            "@shared/*": [
+                "../../shared/*"
+            ],
             "@extento/*": [
                 "../library/src/*"
             ],
             "@codegen/*": [
-                "../codegen/src/*"
-            ],
-            "@workspaces/*": [
-                "../../src/workspaces/*"
-            ],
-            "@browser/*": [
-                "../../src/browser/*"
-            ],
-            "@shared/*": [
-                "../../src/shared/*"
+                "../codegen/*"
             ],
             "@config": [
-                "../codegen/src/config.json"
+                "../codegen/config.json"
             ]
         }
     },
     "references": [
         { "path": "../codegen" },
         { "path": "../entries" },
-        { "path": "../library" },
-        { "path": "../../src/browser" },
-        { "path": "../../src/shared" },
-        { "path": "../../src/workspaces/admin" },
-        { "path": "../../src/workspaces/candidate" },
-        { "path": "../../src/workspaces/devops" },
-        { "path": "../../src/workspaces/manager" },
-        { "path": "../../src/workspaces/tester" },
+        { "path": "../library/src" },
+        { "path": "../../browser" },
+        { "path": "../../shared" },
+        { "path": "../../workspaces/admin" },
+        { "path": "../../workspaces/candidate" },
+        { "path": "../../workspaces/devops" },
+        { "path": "../../workspaces/manager" },
+        { "path": "../../workspaces/tester" },
     ],
     "include": [
+        "../../*.js",
         "../../**/*",
         "../../**/*.json"
     ],
-    "exclude": ["node_modules"],
+    "exclude": ["node_modules", "dist/*.js"],
     "files": ["./typings.d.ts"]
 }
