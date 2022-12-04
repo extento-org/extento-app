@@ -7,12 +7,10 @@
         "moduleResolution": "node",
         "target": "esnext",
         "jsx": "react",
-        "allowJs": true,
         "types": [
             "chrome",
             "node"
         ],
-        "outDir": "../../.compiled",
         "baseUrl": ".",
         "rootDir": "../../",
         "paths": {

@@ -1,6 +1,3 @@
 {
-    "extends": "./.extento/config/tsconfig.json",
-    "compilerOptions": {
-        "allowJs": false
-    }
+    "extends": "./.extento/config/tsconfig.json"
 }
