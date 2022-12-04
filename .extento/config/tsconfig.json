@@ -12,6 +12,7 @@
             "chrome",
             "node"
         ],
+        "outDir": "../../.compiled",
         "baseUrl": ".",
         "rootDir": "../../",
         "paths": {
@@ -35,23 +36,11 @@
             ]
         }
     },
-    "references": [
-        { "path": "../codegen/tsconfig.extento.json" },
-        { "path": "../entries/tsconfig.extento.json" },
-        { "path": "../library/tsconfig.extento.json" },
-        { "path": "../../browser/tsconfig.extento.json" },
-        { "path": "../../shared/tsconfig.extento.json" },
-        { "path": "../../workspaces/admin/tsconfig.extento.json" },
-        { "path": "../../workspaces/candidate/tsconfig.extento.json" },
-        { "path": "../../workspaces/devops/tsconfig.extento.json" },
-        { "path": "../../workspaces/manager/tsconfig.extento.json" },
-        { "path": "../../workspaces/tester/tsconfig.extento.json" },
-    ],
     "include": [
         "../../**/*",
         "../../**/*.json",
         "../../.extento/**/*"
     ],
-    "exclude": ["node_modules", "chrome-v3"],
+    "exclude": ["node_modules", "chrome-v3", "./**/*"],
     "files": ["./typings.d.ts"]
 }

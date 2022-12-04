@@ -1,7 +1,0 @@
-{
-    "extends": "../../.extento/config/tsconfig.json",
-    "compilerOptions": {
-        "composite": true,
-        "declaration": true
-    }
-}

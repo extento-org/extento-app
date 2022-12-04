@@ -57,8 +57,7 @@ const build_webpack_common_config = (common, mode) => webpack_merge.merge({
                 use: [{
                         loader: 'ts-loader',
                         options: {
-                            configFile: TSCONFIG_PATH,
-                            projectReferences: true
+                            configFile: TSCONFIG_PATH
                         }
                     }],
             },
