@@ -35,10 +35,9 @@
         }
     },
     "include": [
-        "../../**/*",
-        "../../**/*.json",
+        "../**/*",
         "../../.extento/**/*"
     ],
-    "exclude": ["node_modules", "chrome-v3", "./**/*"],
+    "exclude": ["node_modules", "../../chrome-v3", "./**/*"],
     "files": ["./typings.d.ts"]
 }

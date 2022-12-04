@@ -6,6 +6,7 @@ const ICONS_PATH = path.resolve(APP_PATH, 'icons');
 const STYLES_PATH = path.resolve(APP_PATH, 'styles');
 const WORKSPACES_PATH = path.resolve(APP_PATH, 'workspaces');
 const CHROME_EXTENSION_PATH = path.resolve(APP_PATH, 'chrome-v3');
+const USER_WEBPACK_CONFIG_PATH = path.resolve(APP_PATH, 'extento.webpack.js');
 const LIBRARY_PATH = path.resolve(__dirname, '..', 'library');
 const ENTRIES_PATH = path.resolve(__dirname, '..', 'entries', 'src');
 const WORKSPACES_CODEGEN_PATH = path.resolve(__dirname, '..', 'codegen', 'src');
@@ -70,6 +71,7 @@ module.exports = {
     APP_PATH,
     USER_CONFIG_PATH,
     CHROME_EXTENSION_PATH,
+    USER_WEBPACK_CONFIG_PATH,
     ICONS_PATH,
     STYLES_PATH,
     WORKSPACES_PATH,

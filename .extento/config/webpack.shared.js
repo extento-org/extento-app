@@ -4,12 +4,36 @@ const terser_webpack_plugin = require('terser-webpack-plugin');
 const html_webpack_plugin = require('html-webpack-plugin');
 const tsconfig_paths_webpack_plugin = require('tsconfig-paths-webpack-plugin');
 const webpack = require('webpack');
-const { ONLOAD_ENTRY_PATH, BACKGROUND_ENTRY_PATH, CONTENT_SCRIPT_ENTRY_PATH, WORKSPACES_CODEGEN_PATH, WORKSPACES_PATH, BROWSER_INDEX_HTML_PATH, BROWSER_ENTRY_PATH, UI_ENTRY_PATH, TSCONFIG_PATH, DIST_ONLOAD, DIST_BACKGROUND, DIST_CONTENT_SCRIPT, DIST_BROWSER_JS, DIST_BROWSER_HTML, DIST_UI, CHROME_EXTENSION_PATH, POSTCSS_CONFIG, } = require('./constants.js');
+
+const { 
+    USER_WEBPACK_CONFIG_PATH,
+    ONLOAD_ENTRY_PATH, 
+    BACKGROUND_ENTRY_PATH, 
+    CONTENT_SCRIPT_ENTRY_PATH, 
+    WORKSPACES_CODEGEN_PATH, 
+    WORKSPACES_PATH, 
+    BROWSER_INDEX_HTML_PATH, 
+    BROWSER_ENTRY_PATH, 
+    UI_ENTRY_PATH, 
+    TSCONFIG_PATH, 
+    DIST_ONLOAD, 
+    DIST_BACKGROUND, 
+    DIST_CONTENT_SCRIPT, 
+    DIST_BROWSER_JS, 
+    DIST_BROWSER_HTML, 
+    DIST_UI, 
+    CHROME_EXTENSION_PATH, 
+    POSTCSS_CONFIG, 
+} = require('./constants.js');
+
 const scripts_plugin = require('./scripts');
+
 if (!fs.readdirSync(WORKSPACES_PATH).length) {
     throw new Error(`You must first create a workspace using the cli!`);
 }
+
 process.env.EXTENTO_SELECTIVE_BUILD = (process.env.SELECTIVE_BUILD || 'MASTER').toUpperCase();
+
 const build_webpack_common_config = (common, mode) => webpack_merge.merge({
     mode: mode,
     ...(mode === 'development' ? {
@@ -140,4 +164,5 @@ module.exports = (mode) => build_webpack_configs({
     output: {
         path: CHROME_EXTENSION_PATH
     },
+    ...require(USER_WEBPACK_CONFIG_PATH)
 }, mode);
