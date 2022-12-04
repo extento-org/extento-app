@@ -2,7 +2,7 @@ const path = require('path');
 
 const PROJECT_PATH = path.resolve(__dirname, '..', '..');
 const APP_PATH = path.resolve(PROJECT_PATH, 'src');
-const APP_CONFIG_PATH = path.resolve(APP_PATH, 'extento.config.js');
+const USER_CONFIG_PATH = path.resolve(APP_PATH, 'extento.config.js');
 const CHROME_EXTENSION_PATH = path.resolve(PROJECT_PATH, 'dist');
 const ICONS_PATH = path.resolve(APP_PATH, 'icons');
 const STYLES_PATH = path.resolve(APP_PATH, 'styles');
@@ -53,10 +53,29 @@ const DIST_BROWSER_HTML = PREFIX_DIST + 'browser.html';
 const DIST_BROWSER_JS = PREFIX_DIST + 'browser.js';
 const DIST_UI = PREFIX_DIST + 'ui.js';
 
+const WORKSPACES = fs
+    .readdirSync(WORKSPACES_PATH)
+    .filter(name => !name.startsWith('.'))
+    .filter(name => 
+        fs.lstatSync(path.resolve(WORKSPACES_PATH, name)).isDirectory()
+    );
+
+const ICONS = fs
+    .readdirSync(ICONS_PATH)
+    .filter(name => name.startsWith(PREFIX_ICON))
+    .filter(name => 
+        fs.lstatSync(path.resolve(ICONS_PATH, name)).isFile()
+    )
+    .map(name => ({
+        filepath: path.resolve(ICONS_PATH, name),
+        name,
+        size: name.replace(PREFIX_ICON, '').split('.')[0]
+    }));
+
 module.exports = {
     PROJECT_PATH,
     APP_PATH,
-    APP_CONFIG_PATH,
+    USER_CONFIG_PATH,
     CHROME_EXTENSION_PATH,
     ICONS_PATH,
     STYLES_PATH,
@@ -86,4 +105,6 @@ module.exports = {
     DIST_BROWSER_HTML,
     DIST_BROWSER_JS,
     DIST_UI,
+    WORKSPACES,
+    ICONS
 };

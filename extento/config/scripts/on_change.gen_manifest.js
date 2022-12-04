@@ -2,11 +2,10 @@ const fs_extra = require('fs-extra');
 const path = require('path');
 const _ = require('lodash');
 
-const validators = require('../validators');
-const shared = require('../shared');
+const validate = require('../validate');
 
 const {
-    APP_CONFIG_PATH,
+    USER_CONFIG_PATH,
     PROJECT_MANIFEST_PATH,
     WORKSPACES_PATH,
     CHROME_EXTENSION_MANIFEST_PATH,
@@ -16,19 +15,21 @@ const {
     DIST_BROWSER_HTML,
     DIST_UI,
     INTERNALLY_REQUIRED_PERMISSIONS,
+    WORKSPACES,
+    ICONS,
 } = require('../constants.js');
 
-const app_config = require(APP_CONFIG_PATH);
+const user_config = require(USER_CONFIG_PATH);
 
 const workspace_allowed_in_build = (workspace) => {
-    if (!Array.isArray(app_config.builds[process.env.EXTENTO_APP_BUILD])) {
+    if (!Array.isArray(user_config.builds[process.env.EXTENTO_APP_BUILD])) {
         return true;
     }
-    return app_config.builds[process.env.EXTENTO_APP_BUILD].includes(workspace);
+    return user_config.builds[process.env.EXTENTO_APP_BUILD].includes(workspace);
 };
 
 const accum_workspace_manifest = (accessor_string, on_accum) => {
-    const dir_paths = shared.get_workspace_dirs()
+    const dir_paths = WORKSPACES
         .filter(name => workspace_allowed_in_build(name))
         .map(name => path.resolve(WORKSPACES_PATH, name));
 
@@ -49,8 +50,6 @@ const OPTIONS_URL = DIST_BROWSER_HTML + '?options=true';
 const POPUP_URL = DIST_BROWSER_HTML + '?popup=true';
 
 const manifest_transform = (opts) => {
-    const icons = shared.get_icons();
-
     const web_accessible_resources = [
         DIST_ONLOAD,
         DIST_UI,
@@ -87,7 +86,7 @@ const manifest_transform = (opts) => {
             service_worker: DIST_BACKGROUND,
             type: 'module' // optional
         },
-        icons: icons.reduce((accum, { name, size }) => {
+        icons: ICONS.reduce((accum, { name, size }) => {
             accum[String(size)] = name;
             return accum;
         }, {}),
@@ -111,14 +110,12 @@ const main = async () => {
         (accum = [], workspace_permissions = []) => _.union(accum, workspace_permissions)
     );
     
-    const manifest_options = require(PROJECT_MANIFEST_PATH);
-    const validation_error = validators.app_manifest(manifest_options);
-    if (validation_error) { 
-        throw validation_error;
-    }
+    const app_manifest = require(PROJECT_MANIFEST_PATH);
+    
+    validate.app_manifest(app_manifest);
 
     const opts = {
-        ...manifest_options,
+        ...app_manifest,
         matches,
         optional_permissions
     };
