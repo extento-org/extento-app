@@ -12,7 +12,6 @@
             "chrome",
             "node"
         ],
-        "noEmit": true,
         "baseUrl": ".",
         "rootDir": "../../",
         "paths": {
@@ -49,7 +48,9 @@
         { "path": "../../workspaces/tester/tsconfig.extento.json" },
     ],
     "include": [
-        "../../**/*"
+        "../../**/*",
+        "../../**/*.json",
+        "../../.extento/**/*"
     ],
     "exclude": ["node_modules", "chrome-v3"],
     "files": ["./typings.d.ts"]

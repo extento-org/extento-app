@@ -4,6 +4,5 @@
         "composite": true,
         "declaration": true,
         "noImplicitAny": false
-    },
-    "include": ["../../**/*", "../../.extento/**/*", "../../**/*.json"]
+    }
 }
