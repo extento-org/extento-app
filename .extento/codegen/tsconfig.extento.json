@@ -4,9 +4,5 @@
         "composite": true,
         "declaration": true
     },
-    "include": [
-        "../../**/*",
-        "../../**/*.json"
-    ],
-    "exclude": ["node_modules"]
+    "include": ["../../**/*", "../../.extento/**/*", "../../**/*.json"]
 }

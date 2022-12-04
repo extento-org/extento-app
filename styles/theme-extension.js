@@ -1,3 +1,3 @@
 module.exports = {
-    // add theme extensions here
+// add theme extensions here
 };

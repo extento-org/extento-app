@@ -6,12 +6,13 @@
         "resolveJsonModule": true,
         "moduleResolution": "node",
         "target": "esnext",
+        "jsx": "react",
+        "allowJs": true,
         "types": [
             "chrome",
             "node"
         ],
         "noEmit": true,
-        "allowJs": true,
         "baseUrl": ".",
         "rootDir": "../../",
         "paths": {
@@ -21,6 +22,9 @@
             "@browser/*": [
                 "../../browser/*"
             ],
+            "@shared": [
+                "../../shared/index.ts"
+            ],
             "@shared/*": [
                 "../../shared/*"
             ],
@@ -29,29 +33,24 @@
             ],
             "@codegen/*": [
                 "../codegen/src/*"
-            ],
-            "@config": [
-                "../codegen/src/config.json"
             ]
         }
     },
     "references": [
-        { "path": "../codegen" },
-        { "path": "../entries" },
-        { "path": "../library/src" },
-        { "path": "../../browser" },
-        { "path": "../../shared" },
-        { "path": "../../workspaces/admin" },
-        { "path": "../../workspaces/candidate" },
-        { "path": "../../workspaces/devops" },
-        { "path": "../../workspaces/manager" },
-        { "path": "../../workspaces/tester" },
+        { "path": "../codegen/tsconfig.extento.json" },
+        { "path": "../entries/tsconfig.extento.json" },
+        { "path": "../library/tsconfig.extento.json" },
+        { "path": "../../browser/tsconfig.extento.json" },
+        { "path": "../../shared/tsconfig.extento.json" },
+        { "path": "../../workspaces/admin/tsconfig.extento.json" },
+        { "path": "../../workspaces/candidate/tsconfig.extento.json" },
+        { "path": "../../workspaces/devops/tsconfig.extento.json" },
+        { "path": "../../workspaces/manager/tsconfig.extento.json" },
+        { "path": "../../workspaces/tester/tsconfig.extento.json" },
     ],
     "include": [
-        "../../*.js",
-        "../../**/*",
-        "../../**/*.json"
+        "../../**/*"
     ],
-    "exclude": ["node_modules", "dist/*.js"],
+    "exclude": ["node_modules", "chrome-v3"],
     "files": ["./typings.d.ts"]
 }

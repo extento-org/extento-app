@@ -1,8 +1,7 @@
 import React from 'react';
 import uis from '@codegen/webpack.uis';
-import { WorkspaceName } from '@codegen/webpack.types';
+import { WorkspaceName, ui_ordering } from '@codegen/webpack.types';
 import use_ui from '@extento/react/use_ui';
-import config from '@codegen/config.json';
 
 import '@extento/react/index.css';
 
@@ -37,7 +36,7 @@ export const EnabledUIs = () => {
             {components?.map(([FunctionalComponent, workspace_name]) => {
                 return (
                     <div 
-                        style={{ zIndex: config.order[workspace_name], }} 
+                        style={{ zIndex: 100000 + ui_ordering.indexOf(workspace_name), }} 
                         className={`w-full h-full flex relative`} 
                         key={workspace_name}>
                         <FunctionalComponent />

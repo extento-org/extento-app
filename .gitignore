@@ -5,5 +5,7 @@ logs
 tmp/
 .env
 .env.*
+chrome-v3/*
+!chrome-v3/.gitignore
 icons/*
 !icons/.gitignore

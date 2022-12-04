@@ -1,5 +1,4 @@
 const constants = require('../constants');
-
 module.exports = {
     all_workspaces: {
         type: 'array',
