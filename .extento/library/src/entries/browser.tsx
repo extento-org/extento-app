@@ -1,7 +1,7 @@
 import React from 'react';
-import Popup from '@browser/popup';
-import Options from '@browser/options';
-import render_ui from '@extento/react/render_ui';
+import Popup from '@app/popup';
+import Options from '@app/options';
+import render_ui from '@exento/lib/react/render_ui';
 
 const entry = () => {
     render_ui({

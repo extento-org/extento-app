@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import GlobalContext from '@extento/react/GlobalContext';
+import GlobalContext from '@exento/lib/react/GlobalContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

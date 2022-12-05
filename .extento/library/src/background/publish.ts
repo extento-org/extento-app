@@ -1,6 +1,6 @@
-import { WorkspaceName } from '@codegen/webpack.types';
-import chrome_wrapper from '@extento/shared/chrome_wrapper';
-import constants from '@extento/constants';
+import { WorkspaceName } from '@extento/types';
+import chrome_wrapper from '@exento/lib/shared/chrome_wrapper';
+import constants from '@exento/lib/constants';
 
 type Publisher = { [key in WorkspaceName]: Function };
 

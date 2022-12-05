@@ -1,10 +1,10 @@
 import { background_api } from '../utils/strip_build';
 
-import * as admin from '@workspaces/admin/background_api';
-import * as candidate from '@workspaces/candidate/background_api';
-import * as devops from '@workspaces/devops/background_api';
-import * as manager from '@workspaces/manager/background_api';
-import * as tester from '@workspaces/tester/background_api';
+import * as admin from '@_workspace/admin/background_api';
+import * as candidate from '@_workspace/candidate/background_api';
+import * as devops from '@_workspace/devops/background_api';
+import * as manager from '@_workspace/manager/background_api';
+import * as tester from '@_workspace/tester/background_api';
 
 export default {
     admin: background_api<typeof admin>('admin', admin),

@@ -1,16 +1,17 @@
 const constants = require('./constants');
+
 module.exports = {
     content: [
-        `${constants.WORKSPACES_PATH}/**/*.{ts,tsx}`,
-        `${constants.LIBRARY_PATH}/src/**/*.{ts,tsx}`,
-        `${constants.ENTRIES_PATH}/**/*.{ts,tsx}`,
+        `${constants.PATH_APP_WORKSPACES}/**/*.{ts,tsx}`,
+        `${constants.PATH_INTERNAL_LIBRARY}/src/**/*.{ts,tsx}`,
+        `${constants.PATH_INTERNAL_ENTRIES}/**/*.{ts,tsx}`,
     ],
     theme: {
-        extend: require(`${constants.STYLES_PATH}/theme-extension`),
+        extend: require(`${constants.PATH_APP_STYLES}/theme-extension`),
     },
     corePlugins: {
         aspectRatio: false,
         preflight: false,
     },
-    plugins: require(`${constants.STYLES_PATH}/plugins`),
+    plugins: require(`${constants.PATH_APP_STYLES}/plugins`),
 };

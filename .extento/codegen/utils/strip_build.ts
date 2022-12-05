@@ -1,4 +1,4 @@
-import { WorkspaceName, selective_builds, ACTIVE_SELECTIVE_BUILD } from '@codegen/webpack.types';
+import { WorkspaceName, selective_builds, ACTIVE_SELECTIVE_BUILD } from '@extento/types';
 
 function typed_stub<ModuleType>(mod: any, workspace: WorkspaceName, stub: any): ModuleType {
     if (selective_builds[ACTIVE_SELECTIVE_BUILD].includes(workspace)) {

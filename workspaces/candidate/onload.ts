@@ -1,5 +1,5 @@
-import api from '@extento/client/background_api';
-import subscribe from '@extento/client/subscribe';
+import api from '@exento/lib/client/background_api';
+import subscribe from '@exento/lib/client/subscribe';
 
 const onload = async () => {
     try {

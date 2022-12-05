@@ -1,4 +1,4 @@
-import { WorkspaceName, workspace_names, selective_builds, ACTIVE_SELECTIVE_BUILD } from '@codegen/webpack.types';
+import { WorkspaceName, workspace_names, selective_builds, ACTIVE_SELECTIVE_BUILD } from '@extento/types';
 
 export const is_allowed = (workspace: WorkspaceName) => {
     return selective_builds[ACTIVE_SELECTIVE_BUILD].includes(workspace);

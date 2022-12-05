@@ -1,5 +1,5 @@
-import onloads from '@codegen/webpack.onloads';
-import { workspace_names } from '@codegen/webpack.types';
+import onloads from '@_gen/webpack.onloads';
+import { workspace_names } from '@extento/types';
 
 const entry = () => {
     window.onload = async () => {

@@ -1,2 +1,2 @@
-import entry from "@extento/entries/onload";
+import entry from "@exento/lib/entries/onload";
 entry();

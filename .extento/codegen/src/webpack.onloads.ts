@@ -1,10 +1,10 @@
 import { onload } from '../utils/strip_build';
 
-import * as admin from '@workspaces/admin/onload';
-import * as candidate from '@workspaces/candidate/onload';
-import * as devops from '@workspaces/devops/onload';
-import * as manager from '@workspaces/manager/onload';
-import * as tester from '@workspaces/tester/onload';
+import * as admin from '@_workspace/admin/onload';
+import * as candidate from '@_workspace/candidate/onload';
+import * as devops from '@_workspace/devops/onload';
+import * as manager from '@_workspace/manager/onload';
+import * as tester from '@_workspace/tester/onload';
 
 export default {
     admin: onload<typeof admin>('admin', admin),

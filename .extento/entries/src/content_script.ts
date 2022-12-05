@@ -1,2 +1,2 @@
-import entry from "@extento/entries/content_script";
+import entry from "@exento/lib/entries/content_script";
 entry();

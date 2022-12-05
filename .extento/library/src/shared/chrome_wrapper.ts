@@ -1,4 +1,4 @@
-import { WorkspaceName } from '@codegen/webpack.types';
+import { WorkspaceName } from '@extento/types';
 
 const get_active_tabs: () => Promise<chrome.tabs.Tab[]> = (): Promise<chrome.tabs.Tab[]> => new Promise(
     (resolve, reject) => {

@@ -1,2 +1,2 @@
-import entry from '@extento/entries/background';
+import entry from '@exento/lib/entries/background';
 entry();

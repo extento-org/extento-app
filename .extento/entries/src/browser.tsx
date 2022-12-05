@@ -1,2 +1,2 @@
-import entry from '@extento/entries/browser';
+import entry from '@exento/lib/entries/browser';
 entry();

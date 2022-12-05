@@ -2,18 +2,36 @@ const fs_extra = require('fs-extra');
 const path = require('path');
 const _ = require('lodash');
 const validate = require('../validate');
-const { USER_CONFIG_PATH, PROJECT_MANIFEST_PATH, WORKSPACES_PATH, CHROME_EXTENSION_MANIFEST_PATH, DIST_ONLOAD, DIST_BACKGROUND, DIST_CONTENT_SCRIPT, DIST_BROWSER_HTML, DIST_UI, INTERNALLY_REQUIRED_PERMISSIONS, WORKSPACES, ICONS, } = require('../constants.js');
-const user_config = require(USER_CONFIG_PATH);
+
+const { 
+    PATH_APP_CONFIG, 
+    PATH_APP_MANIFEST, 
+    PATH_APP_WORKSPACES, 
+    PATH_APP_EXTENSION_MANIFEST, 
+    DIST_ONLOAD, 
+    DIST_BACKGROUND, 
+    DIST_CONTENT_SCRIPT, 
+    DIST_BROWSER_HTML, 
+    DIST_UI, 
+    BASE_CHROME_PERMISSIONS, 
+    WORKSPACES, 
+    ICONS, 
+} = require('../constants.js');
+
+const user_config = require(PATH_APP_CONFIG);
+
 const workspace_allowed_in_build = (workspace) => {
     if (!Array.isArray(user_config.selective_builds[process.env.EXTENTO_SELECTIVE_BUILD])) {
         return true;
     }
     return user_config.selective_builds[process.env.EXTENTO_SELECTIVE_BUILD].includes(workspace);
 };
+
 const accum_workspace_manifest = (accessor_string, on_accum) => {
     const dir_paths = WORKSPACES
         .filter(name => workspace_allowed_in_build(name))
-        .map(name => path.resolve(WORKSPACES_PATH, name));
+        .map(name => path.resolve(PATH_APP_WORKSPACES, name));
+
     return dir_paths.reduce((accum, dir_path) => {
         let section;
         try {
@@ -21,29 +39,35 @@ const accum_workspace_manifest = (accessor_string, on_accum) => {
             section = _.get(manifest, accessor_string, []);
         }
         catch (err) {
-            throw new Error(`manifest.json not found in ${dir_path.replace(WORKSPACES_PATH, '')}`);
+            throw new Error(`manifest.json not found in ${dir_path.replace(PATH_APP_WORKSPACES, '')}`);
         }
         return on_accum(accum, section);
     }, undefined);
 };
+
 const OPTIONS_URL = DIST_BROWSER_HTML + '?options=true';
 const POPUP_URL = DIST_BROWSER_HTML + '?popup=true';
+
 const manifest_transform = (opts) => {
     const web_accessible_resources = [
         DIST_ONLOAD,
         DIST_UI,
         ...(opts.web_accessible_resources || [])
     ];
+
     const popup = opts.use_popup ? {
         default_title: opts.popup_name || 'Popup',
         default_popup: POPUP_URL
     } : undefined;
+
     const options = opts.use_options
         ? OPTIONS_URL
         : undefined;
+
     const required_permissions = (opts.required_permissions || [])
-        .filter(required_permission => INTERNALLY_REQUIRED_PERMISSIONS.includes(required_permission))
-        .concat(INTERNALLY_REQUIRED_PERMISSIONS);
+        .filter(required_permission => BASE_CHROME_PERMISSIONS.includes(required_permission))
+        .concat(BASE_CHROME_PERMISSIONS);
+
     return JSON.parse(JSON.stringify({
         version: opts.version,
         name: opts.name,
@@ -74,16 +98,24 @@ const manifest_transform = (opts) => {
             }],
     }));
 };
+
 const main = async () => {
     const matches = accum_workspace_manifest('matches.value', (accum = [], match_url_schemes = []) => _.union(accum, match_url_schemes));
     const optional_permissions = accum_workspace_manifest('permissions.value', (accum = [], workspace_permissions = []) => _.union(accum, workspace_permissions));
-    const app_manifest = require(PROJECT_MANIFEST_PATH);
+    const app_manifest = require(PATH_APP_MANIFEST);
+
     validate.app_manifest(app_manifest);
+
     const opts = {
         ...app_manifest,
         matches,
         optional_permissions
     };
-    fs_extra.outputFileSync(CHROME_EXTENSION_MANIFEST_PATH, JSON.stringify(manifest_transform(opts), null, 2));
+
+    fs_extra.outputFileSync(
+        PATH_APP_EXTENSION_MANIFEST, 
+        JSON.stringify(manifest_transform(opts), null, 2)
+    );
 };
+
 main();

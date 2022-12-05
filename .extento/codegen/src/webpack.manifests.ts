@@ -1,10 +1,10 @@
 import { manifest } from '../utils/strip_build';
 
-import * as admin from '@workspaces/admin/manifest.json';
-import * as candidate from '@workspaces/candidate/manifest.json';
-import * as devops from '@workspaces/devops/manifest.json';
-import * as manager from '@workspaces/manager/manifest.json';
-import * as tester from '@workspaces/tester/manifest.json';
+import * as admin from '@_workspace/admin/manifest.json';
+import * as candidate from '@_workspace/candidate/manifest.json';
+import * as devops from '@_workspace/devops/manifest.json';
+import * as manager from '@_workspace/manager/manifest.json';
+import * as tester from '@_workspace/tester/manifest.json';
 
 export default {
     admin: manifest<typeof admin>('admin', admin),
