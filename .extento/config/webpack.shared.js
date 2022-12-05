@@ -77,7 +77,7 @@ const build_webpack_common_config = (common, mode) => webpack_merge.merge({
             },
             { test: /\.json$/, type: 'json' },
             {
-                test: /\.([cm]?ts|tsx)$/,
+                test: /\.tsx$/,
                 use: [{
                         loader: 'ts-loader',
                         options: {

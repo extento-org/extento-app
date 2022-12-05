@@ -1,2 +1,2 @@
-import entry from "@exento/lib/entries/ui";
+import entry from "@extento/lib/entries/ui";
 entry();

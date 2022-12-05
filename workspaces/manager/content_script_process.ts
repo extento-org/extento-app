@@ -1,5 +1,5 @@
-import api from '@exento/lib/client/background_api';
-import subscribe from '@exento/lib/client/subscribe';
+import api from '@extento/lib/client/background_api';
+import subscribe from '@extento/lib/client/subscribe';
 
 const content_script_process = async () => {
     subscribe.manager(

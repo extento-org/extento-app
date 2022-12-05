@@ -1,9 +1,9 @@
 import { serializeError as serialize_error } from 'serialize-error';
 import { workspace_names, WorkspaceName } from '@extento/types';
 import configs from '@_gen/webpack.configs';
-import constants from '@exento/lib/constants';
-import chrome_wrapper from '@exento/lib/shared/chrome_wrapper';
-import method_logger from '@exento/lib/utils/method_logger';
+import constants from '@extento/lib/constants';
+import chrome_wrapper from '@extento/lib/shared/chrome_wrapper';
+import method_logger from '@extento/lib/utils/method_logger';
 
 // Types
 export type CachedConfig = Partial<{ [key in WorkspaceName]: any }>;

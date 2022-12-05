@@ -1,6 +1,6 @@
 import { WorkspaceName } from '@extento/types';
-import chrome_wrapper from '@exento/lib/shared/chrome_wrapper';
-import constants from '@exento/lib/constants';
+import chrome_wrapper from '@extento/lib/shared/chrome_wrapper';
+import constants from '@extento/lib/constants';
 
 type Publisher = { [key in WorkspaceName]: Function };
 

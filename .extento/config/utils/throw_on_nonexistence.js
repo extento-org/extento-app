@@ -10,7 +10,7 @@ module.exports = (file_paths_map) => {
 
     Object.entries(file_paths_map)
         .forEach(([name, _path]) => {
-            if (typeof _path === 'string' && _path.startsWith(must_start_with) && !fs.existsSync(_path)) {
+            if (name.startsWith('PATH_') && typeof _path === 'string' && _path.startsWith(must_start_with) && !fs.existsSync(_path)) {
                 invalid_paths[name] = _path;
             }
         });

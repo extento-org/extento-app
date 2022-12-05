@@ -1,8 +1,9 @@
 import { v4 as uuid_v4 } from 'uuid';
-import { deserializeError } from 'serialize-error';
+import { deserializeError as deserialize_error } from 'serialize-error';
+
 import background_apis from '@_gen/webpack.background_apis';
 import { WorkspaceName } from '@extento/types';
-import constants from '@exento/lib/constants';
+import constants from '@extento/lib/constants';
 
 type BackgroundApis = typeof background_apis;
 type BackgroundApiName = keyof typeof background_apis[WorkspaceName];
@@ -29,7 +30,7 @@ const handler = (
 
             // serialized error originates from the background api
             if (event.data.error) {
-                return reject(deserializeError(event.data.error));
+                return reject(deserialize_error(event.data.error));
             }
 
             resolve(event.data.response);

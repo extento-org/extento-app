@@ -3,7 +3,7 @@ const path = require('path');
 
 const { 
     PATH_APP_EXTENSION, 
-    PATH_APP_EXTENSION_MANIFEST, 
+    OUTPUT_PATH_APP_EXTENSION_MANIFEST, 
     CLEARABLE_PREFIXES, 
 } = require('../constants.js');
 
@@ -20,4 +20,4 @@ const main = async (dir, manifest_path) => {
     });
 };
 
-main(PATH_APP_EXTENSION, PATH_APP_EXTENSION_MANIFEST);
+main(PATH_APP_EXTENSION, OUTPUT_PATH_APP_EXTENSION_MANIFEST);

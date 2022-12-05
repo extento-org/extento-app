@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { is_allowed } from '@exento/lib/shared/get_active_workspaces';
+import { is_allowed } from '@extento/lib/shared/get_active_workspaces';
 import manifests from '@_gen/webpack.manifests';
 import { WorkspaceName } from '@extento/types';
 

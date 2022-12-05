@@ -7,7 +7,7 @@ const {
     PATH_APP_CONFIG, 
     PATH_APP_MANIFEST, 
     PATH_APP_WORKSPACES, 
-    PATH_APP_EXTENSION_MANIFEST, 
+    OUTPUT_PATH_APP_EXTENSION_MANIFEST, 
     DIST_ONLOAD, 
     DIST_BACKGROUND, 
     DIST_CONTENT_SCRIPT, 
@@ -113,7 +113,7 @@ const main = async () => {
     };
 
     fs_extra.outputFileSync(
-        PATH_APP_EXTENSION_MANIFEST, 
+        OUTPUT_PATH_APP_EXTENSION_MANIFEST, 
         JSON.stringify(manifest_transform(opts), null, 2)
     );
 };

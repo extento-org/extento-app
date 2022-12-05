@@ -1,8 +1,8 @@
-import config_cacher from '@exento/lib/shared/config_cacher';
-import chrome_wrapper from '@exento/lib/shared/chrome_wrapper';
-import constants from '@exento/lib/constants';
+import config_cacher from '@extento/lib/shared/config_cacher';
+import chrome_wrapper from '@extento/lib/shared/chrome_wrapper';
+import constants from '@extento/lib/constants';
 
-import '@exento/lib/polyfill.js';
+import '@extento/lib/polyfill.js';
 
 const entry = () => {
     // connects our browser/content script code to the background apis

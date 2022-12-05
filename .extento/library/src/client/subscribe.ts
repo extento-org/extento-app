@@ -1,5 +1,5 @@
 import { WorkspaceName } from '@extento/types';
-import constants from '@exento/lib/constants';
+import constants from '@extento/lib/constants';
 
 type Subscriber = { [key in WorkspaceName]: Function };
 

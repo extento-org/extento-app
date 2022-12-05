@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const throw_on_nonexistence = require('./utils/throw_on_nonexistence');
 
 const PATH_APP = path.resolve(__dirname, '..', '..');
 const PATH_APP_CONFIG = path.resolve(PATH_APP, 'extento.config.js');
@@ -9,7 +10,6 @@ const PATH_APP_WORKSPACES = path.resolve(PATH_APP, 'workspaces');
 const PATH_APP_EXTENSION = path.resolve(PATH_APP, 'chrome-v3');
 const PATH_APP_WEBPACK = path.resolve(PATH_APP, 'extento.webpack.js');
 const PATH_APP_MANIFEST = path.resolve(PATH_APP, 'extento.manifest.js');
-const PATH_APP_EXTENSION_MANIFEST = path.resolve(PATH_APP_EXTENSION, 'manifest.json');
 const PATH_INTERNAL = path.resolve(__dirname, '..');
 const PATH_INTERNAL_LIBRARY = path.resolve(PATH_INTERNAL, 'library');
 const PATH_INTERNAL_ENTRIES = path.resolve(PATH_INTERNAL, 'entries', 'src');
@@ -23,6 +23,8 @@ const PATH_INTERNAL_ENTRIES_CONTENT_SCRIPT = path.resolve(PATH_INTERNAL_ENTRIES,
 const PATH_INTERNAL_ENTRIES_BACKGROUND = path.resolve(PATH_INTERNAL_ENTRIES, 'background.ts');
 const PATH_MASTER_TSCONFIG = path.resolve(__dirname, 'tsconfig.json');
 const PATH_MASTER_POSTCSS = path.resolve(__dirname, 'postcss.config.js');
+
+const OUTPUT_PATH_APP_EXTENSION_MANIFEST = path.resolve(PATH_APP_EXTENSION, 'manifest.json');
 
 // a list of files we want to aggregate in codegen
 const CODE_GEN_WORKSPACE_EXPORTS = [
@@ -81,7 +83,7 @@ const ICONS = fs
     size: name.replace(PREFIX_ICON, '').split('.')[0]
 }));
 
-module.exports = {
+module.exports = throw_on_nonexistence({
     PATH_APP,
     PATH_APP_CONFIG,
     PATH_APP_EXTENSION,
@@ -101,7 +103,7 @@ module.exports = {
     PATH_MASTER_TSCONFIG,
     PATH_MASTER_POSTCSS,
     PATH_APP_MANIFEST,
-    PATH_APP_EXTENSION_MANIFEST,
+    OUTPUT_PATH_APP_EXTENSION_MANIFEST,
     PATH_INTERNAL_CODEGEN,
     PATH_INTERNAL_TYPES,
     CODE_GEN_WORKSPACE_EXPORTS,
@@ -119,4 +121,4 @@ module.exports = {
     WORKSPACES,
     SELECTIVE_BUILDS,
     ICONS
-};
+});

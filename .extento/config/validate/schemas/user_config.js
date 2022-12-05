@@ -1,4 +1,5 @@
 const macros = require('../macros');
+
 module.exports = {
     type: 'object',
     required: [

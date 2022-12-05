@@ -1,4 +1,4 @@
-import { WorkspaceConfigDefaultExport } from '@exento/lib/shared/config_cacher';
+import { WorkspaceConfigDefaultExport } from '@extento/lib/shared/config_cacher';
 
 export type Config = {
     something: string;

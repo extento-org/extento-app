@@ -1,10 +1,10 @@
 import { serializeError as serialize_error } from 'serialize-error';
 import background_apis from '@_gen/webpack.background_apis';
 import { WorkspaceName } from '@extento/types';
-import chrome_wrapper from '@exento/lib/shared/chrome_wrapper';
-import constants from '@exento/lib/constants';
+import chrome_wrapper from '@extento/lib/shared/chrome_wrapper';
+import constants from '@extento/lib/constants';
 
-import '@exento/lib/polyfill.js';
+import '@extento/lib/polyfill.js';
 
 type BackgroundApis = typeof background_apis;
 

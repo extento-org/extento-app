@@ -1,9 +1,9 @@
 import React from 'react';
 import uis from '@_gen/webpack.uis';
 import { WorkspaceName, ui_ordering } from '@extento/types';
-import use_ui from '@exento/lib/react/use_ui';
+import use_ui from '@extento/lib/react/use_ui';
 
-import '@exento/lib/react/index.css';
+import '@extento/lib/react/index.css';
 
 type Output = ReturnType<typeof use_ui>;
 

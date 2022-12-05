@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import GlobalContext, { EnabledUIs } from '@exento/lib/react/GlobalContext';
-import constants from '@exento/lib/constants';
+import GlobalContext, { EnabledUIs } from '@extento/lib/react/GlobalContext';
+import constants from '@extento/lib/constants';
 
 const entry = () => {
     const container = document.createElement('div');

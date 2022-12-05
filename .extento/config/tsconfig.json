@@ -11,7 +11,7 @@
             "chrome",
             "node"
         ],
-        "outDir": "../../dist/",
+        "noEmit": true,
         "baseUrl": ".",
         "rootDir": "../../",
         "paths": {
@@ -31,7 +31,7 @@
                 "../../shared/*"
             ],
             "@extento/lib/*": [
-                "../lib/src/*"
+                "../library/src/*"
             ],
             "@extento/types": [
                 "../types/index.ts"
