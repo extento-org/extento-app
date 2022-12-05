@@ -2,8 +2,7 @@
     "extends": "./tsconfig.base.json",
     "compilerOptions": {
         "outDir": "../../.project/",
-        "rootDir": "../entries",
-        "composite": true
+        "rootDir": "../../"
     },
     "files": [
         "../entries/src/background.ts",
