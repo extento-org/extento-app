@@ -28,6 +28,7 @@ const handle_background_api = async (request: any, send_response: (response?: an
 
     // the function we'll execute
     let background_api_action: any = background_apis[workspace_name][prop_name];
+    
     // some background api's are nested one level deeper
     if (typeof background_api_action[inner_prop_name] !== 'undefined') {
         background_api_action = background_api_action[inner_prop_name];

@@ -24,6 +24,7 @@ const {
     DIST_UI, 
     PATH_APP_EXTENSION, 
     PATH_MASTER_POSTCSS, 
+    PATH_INTERNAL_TYPES,
 } = require('./constants.js');
 
 const scripts_plugin = require('./scripts');
@@ -47,15 +48,16 @@ const build_webpack_common_config = (common, mode) => webpack_merge.merge({
         rules: [
             {
                 test: /\.css$/,
+                exclude: /node_modules/,
                 use: [
                     {
-                        loader: "style-loader"
+                        loader: 'style-loader'
                     },
                     {
-                        loader: "css-loader"
+                        loader: 'css-loader'
                     },
                     {
-                        loader: "postcss-loader",
+                        loader: 'postcss-loader',
                         options: {
                             postcssOptions: {
                                 config: PATH_MASTER_POSTCSS,
@@ -66,22 +68,25 @@ const build_webpack_common_config = (common, mode) => webpack_merge.merge({
             },
             {
                 test: /\.md$/,
+                exclude: /node_modules/,
                 use: [
                     {
-                        loader: "html-loader",
+                        loader: 'html-loader',
                     },
                     {
-                        loader: "markdown-loader"
+                        loader: 'markdown-loader'
                     },
                 ],
             },
-            { test: /\.json$/, type: 'json' },
+            { test: /\.json$/, exclude: /node_modules/, type: 'json' },
             {
-                test: /\.tsx$/,
+                test: /\.(tsx|ts|js|jsx)$/,
+                exclude: /node_modules/,
                 use: [{
                         loader: 'ts-loader',
                         options: {
-                            configFile: PATH_MASTER_TSCONFIG
+                            configFile: PATH_MASTER_TSCONFIG,
+                            projectReferences: true
                         }
                     }],
             },
@@ -100,7 +105,8 @@ const build_webpack_common_config = (common, mode) => webpack_merge.merge({
     plugins: [
         new webpack.WatchIgnorePlugin({
             paths: [
-                PATH_INTERNAL_CODEGEN
+                PATH_INTERNAL_CODEGEN,
+                PATH_INTERNAL_TYPES
             ]
         }),
         new webpack.DefinePlugin({
@@ -115,14 +121,16 @@ const build_webpack_common_config = (common, mode) => webpack_merge.merge({
     ]
 }, common);
 
-const add_dev_server_ports = (webpack_configs) => webpack_configs.map((webpack_config, i) => webpack_merge.merge(webpack_config, {
-    devServer: {
-        port: 42001 + i
-    }
-}));
+const add_dev_server_ports = (webpack_configs) => webpack_configs
+    .map((webpack_config, i) => webpack_merge.merge(webpack_config, {
+        devServer: {
+            port: 42001 + i
+        }
+    }));
 
 const build_webpack_configs = (common, mode) => {
     const webpack_common_config = build_webpack_common_config(common, mode);
+
     return add_dev_server_ports([
         webpack_merge.merge(webpack_common_config, {
             entry: PATH_INTERNAL_ENTRIES_ONLOAD,

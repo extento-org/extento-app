@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "outDir": "./lib",
+        "rootDir": ".",
+        "composite": true,
+        "noImplicitAny": false,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "moduleResolution": "node",
+        "target": "esnext",
+        "jsx": "react",
+        "types": [
+            "chrome",
+            "node"
+        ],
+    },
+    "include": ["."],
+    "references": [
+        {
+            "path": "../.extento/entries"
+        }
+    ]
+}

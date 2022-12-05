@@ -1,4 +1,5 @@
 {
     "extends": "./.extento/config/tsconfig.json",
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules"],
+    "include": ["./**/*"]
 }
