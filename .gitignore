@@ -10,3 +10,4 @@ chrome-v3/*
 icons/*
 !icons/.gitignore
 dist
+.project

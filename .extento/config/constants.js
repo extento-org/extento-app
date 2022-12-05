@@ -21,7 +21,7 @@ const PATH_INTERNAL_ENTRIES_UI = path.resolve(PATH_INTERNAL_ENTRIES, 'ui.tsx');
 const PATH_INTERNAL_ENTRIES_ONLOAD = path.resolve(PATH_INTERNAL_ENTRIES, 'onload.ts');
 const PATH_INTERNAL_ENTRIES_CONTENT_SCRIPT = path.resolve(PATH_INTERNAL_ENTRIES, 'content_script.ts');
 const PATH_INTERNAL_ENTRIES_BACKGROUND = path.resolve(PATH_INTERNAL_ENTRIES, 'background.ts');
-const PATH_MASTER_TSCONFIG = path.resolve(PATH_APP, 'tsconfig.json');
+const PATH_MASTER_TSCONFIG = path.resolve(__dirname, 'tsconfig.json');
 const PATH_MASTER_POSTCSS = path.resolve(__dirname, 'postcss.config.js');
 
 const OUTPUT_PATH_APP_EXTENSION_MANIFEST = path.resolve(PATH_APP_EXTENSION, 'manifest.json');
