@@ -1,9 +1,9 @@
 import React from 'react';
 import Popup from '@_browser/popup';
 import Options from '@_browser/options';
-import render_ui from '@_package/react/render_ui';
+import render_browser from '@extento.api/react.render_browser';
 
-render_ui({
+render_browser({
     options: <Options />,
     popup: <Popup />
 });

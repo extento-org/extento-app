@@ -1,8 +1,9 @@
 import React from 'react';
 import { WorkspaceName, ui_ordering } from '@extento.types';
-import use_ui from '@_package/react/use_ui';
+import { CodegenUis } from '@_core/common.types';
+import use_ui from '@_core/react.use_ui';
 
-import '@_package/react/index.css';
+import '@_core/react/index.css';
 
 type Output = ReturnType<typeof use_ui>;
 
@@ -20,7 +21,7 @@ const GlobalAppContextProvider = (props: {
     );
 };
 
-export function EnabledUIs(props: { uis: { [key in WorkspaceName]: { default: React.FunctionComponent<any> } } }): any {
+export function EnabledUIs(props: { uis: CodegenUis }): any {
     const app = React.useContext(GlobalAppContext);
     const components = app?.enabled?.reduce(
         (

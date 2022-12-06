@@ -2,7 +2,7 @@ import { v4 as uuid_v4 } from 'uuid';
 import { deserializeError as deserialize_error } from 'serialize-error';
 
 import { WorkspaceName } from '@extento.types';
-import constants from '@_package/constants';
+import constants from '@_core/constants';
 
 const TIMEOUT_AT = 20000;
 

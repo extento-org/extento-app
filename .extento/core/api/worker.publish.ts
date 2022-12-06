@@ -1,8 +1,7 @@
 import { WorkspaceName } from '@extento.types';
-import chrome_wrapper from '@_package/shared/chrome_wrapper';
-import constants from '@_package/constants';
-
-type Publisher = { [key in WorkspaceName]: Function };
+import chrome_wrapper from '@_core/lib.chrome';
+import constants from '@_core/constants';
+import { Publisher } from '@_core/common.types'
 
 const publish: any = new Proxy({}, {
     get: (_, workspace: WorkspaceName) => async (data: any) => {

@@ -1,5 +1,5 @@
-import api from '@workspaces/.generated/lib/background_api';
-import subscribe from '@_package/client/subscribe';
+import call_worker from '@extento.api/browser.call_worker';
+import subscribe from '@extento.api/browser.subscribe';
 
 const content_script_process = async () => {
     subscribe.admin(
@@ -10,7 +10,7 @@ const content_script_process = async () => {
     );
 
     (setInterval(async () => {
-        const response = await api.admin.example();
+        const response = await call_worker.admin.example();
         console.info('recieved a response in onload from admin', { response });
     }, 5000));
 };

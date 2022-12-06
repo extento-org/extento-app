@@ -1,5 +1,5 @@
-import api from '@workspaces/.generated/lib/background_api';
-import subscribe from '@_package/client/subscribe';
+import call_worker from '@extento.api/browser.call_worker';
+import subscribe from '@extento.api/browser.subscribe';
 
 const onload = async () => {
     try {
@@ -11,7 +11,7 @@ const onload = async () => {
         );
 
         (setInterval(async () => {
-            const response = await api.tester.example();
+            const response = await call_worker.tester.example();
             console.info('recieved a response in onload from TEMPLATE', { response });
         }, 5000));
     } catch(err) {

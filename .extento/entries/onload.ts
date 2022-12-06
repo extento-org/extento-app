@@ -1,16 +1,3 @@
-import onloads from '@_codegen/webpack.onloads';
-import { workspace_names } from '@extento.types';
+import define_onloads from '@extento.api/window.define_onloads';
 
-const entry = () => {
-    window.onload = async () => {
-        workspace_names.forEach((workspace) => {
-            const onload = onloads[workspace]?.default;
-    
-            if (typeof onload === 'function') {
-                onload();
-            }
-        });
-    };
-};
-
-entry();
+define_onloads();

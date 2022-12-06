@@ -1,8 +1,7 @@
 import { serializeError as serialize_error } from 'serialize-error';
 import { workspace_names, WorkspaceName } from '@extento.types';
-import constants from '@_package/constants';
-import chrome_wrapper from '@_package/shared/chrome_wrapper';
-import method_logger from '@_package/utils/method_logger';
+import constants from '@_core/constants';
+import chrome_wrapper from '@_core/lib.chrome';
 
 // Types
 export type CachedConfig = Partial<{ [key in WorkspaceName]: any }>;
@@ -23,10 +22,10 @@ const storage_get = async (): Promise<Storage> => {
 };
 
 // API
-const update = async (configs: { [key in WorkspaceName]: any }): Promise<Storage> => {
+const update = async (configs?: { [key in WorkspaceName]: any }): Promise<Storage> => {
     const funcs = workspace_names.map((workspace_name: WorkspaceName) => async () => {
         try {
-            const workspace_config = configs[workspace_name];
+            const workspace_config = (configs || {})[workspace_name];
 
             // allow sync/async funcs and plain objects
             let resolved: any = workspace_config;
@@ -133,10 +132,8 @@ const get = async (): Promise<CachedConfig> => new Promise(
     (resolve) => get_cb(({ config }) => resolve(config)),
 );
 
-const exports = {
+export default {
     update,
     get_cb,
     get,
-};
-
-export default method_logger('config_cacher', exports);
+};;
