@@ -1,0 +1,13 @@
+{
+    "extends": "../../workspaces/tsconfig.json",
+    "include": [
+        ".",
+        "../codegen",
+        "../../workspaces/**/*",
+        "../../workspaces/**/*.json"
+    ],
+    "references": [
+        { "path": "../core" },
+        { "path": "../types" }
+    ]
+}

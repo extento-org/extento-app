@@ -15,7 +15,7 @@ const {
     PATH_INTERNAL_ENTRIES_BROWSER_HTML, 
     PATH_INTERNAL_ENTRIES_BROWSER, 
     PATH_INTERNAL_ENTRIES_UI, 
-    PATH_MASTER_TSCONFIG, 
+    PATH_WEBPACK_TSCONFIG, 
     DIST_ONLOAD, 
     DIST_BACKGROUND, 
     DIST_CONTENT_SCRIPT, 
@@ -85,7 +85,8 @@ const build_webpack_common_config = (common, mode) => webpack_merge.merge({
                 use: [{
                         loader: 'ts-loader',
                         options: {
-                            configFile: PATH_MASTER_TSCONFIG
+                            configFile: PATH_WEBPACK_TSCONFIG,
+                            projectReferences: true
                         }
                     }],
             },

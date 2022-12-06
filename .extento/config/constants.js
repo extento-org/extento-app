@@ -22,7 +22,7 @@ const PATH_INTERNAL_ENTRIES_UI = path.resolve(PATH_INTERNAL_ENTRIES, 'ui.tsx');
 const PATH_INTERNAL_ENTRIES_ONLOAD = path.resolve(PATH_INTERNAL_ENTRIES, 'onload.ts');
 const PATH_INTERNAL_ENTRIES_CONTENT_SCRIPT = path.resolve(PATH_INTERNAL_ENTRIES, 'content_script.ts');
 const PATH_INTERNAL_ENTRIES_BACKGROUND = path.resolve(PATH_INTERNAL_ENTRIES, 'background.ts');
-const PATH_MASTER_TSCONFIG = path.resolve(__dirname, 'tsconfig.entries.json');
+const PATH_WEBPACK_TSCONFIG = path.resolve(__dirname, 'tsconfigs', 'webpack.json');
 const PATH_MASTER_POSTCSS = path.resolve(__dirname, 'postcss.config.js');
 
 const OUTPUT_PATH_APP_EXTENSION_MANIFEST = path.resolve(PATH_APP_EXTENSION, 'manifest.json');
@@ -105,7 +105,7 @@ module.exports = throw_on_nonexistence({
     PATH_INTERNAL_ENTRIES_ONLOAD,
     PATH_INTERNAL_ENTRIES_CONTENT_SCRIPT,
     PATH_INTERNAL_ENTRIES_BACKGROUND,
-    PATH_MASTER_TSCONFIG,
+    PATH_WEBPACK_TSCONFIG,
     PATH_MASTER_POSTCSS,
     OUTPUT_PATH_APP_EXTENSION_MANIFEST,
     PATH_INTERNAL_CODEGEN,

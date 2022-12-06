@@ -1,0 +1,14 @@
+{
+    "extends": "../.extento/config/tsconfigs/project.json",
+    "compilerOptions": {
+        "noImplicitAny": false
+    },
+    "include": [
+        "."
+    ],
+    "references": [
+        { "path": "../shared" },
+        { "path": "../.extento/api/tsconfig.json" },
+        { "path": "../.extento/types" }
+    ]
+}

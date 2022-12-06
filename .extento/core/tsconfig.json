@@ -1,0 +1,9 @@
+{
+    "extends": "../config/tsconfigs/project.json",
+    "include": [
+        "."
+    ],
+    "references": [
+        { "path": "../types" }
+    ]
+}

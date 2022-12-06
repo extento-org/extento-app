@@ -1,0 +1,6 @@
+{
+    "extends": "../config/tsconfigs/project.json",
+    "include": [
+        "."
+    ]
+}
