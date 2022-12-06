@@ -1,0 +1,76 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "moduleResolution": "node",
+        "declarationMap": true,
+        "declaration": true,
+        "target": "esnext",
+        "jsx": "react",
+        "types": [
+            "chrome",
+            "node"
+        ],
+        "baseUrl": ".",
+        "paths": {
+            "@_config": [
+                "../"
+            ],
+            "@_codegen": [
+                "../../codegen"
+            ],
+            "@_codegen/*": [
+                "../../codegen/*"
+            ],
+            "@_workspaces": [
+                "../../../workspaces"
+            ],
+            "@_workspace/*": [
+                "../../../workspaces/*"
+            ],
+            "@_entries": [
+                "../../entries"
+            ],
+            "@_entries/*": [
+                "../../entries/*"
+            ],
+            "@_browser": [
+                "../../../browser"
+            ],
+            "@_browser/*": [
+                "../../../browser/*"
+            ],
+            "@_core": [
+                "../../core"
+            ],
+            "@_core/*": [
+                "../../core/*"
+            ],
+            "@app/shared": [
+                "../../../shared/index.ts"
+            ],
+            "@app/shared/*": [
+                "../../../shared/*"
+            ],
+            "@extento.types": [
+                "../../types/index.ts"
+            ],
+            "@extento.api": [
+                "../../api"
+            ],
+            "@extento.api/*": [
+                "../../api/*"
+            ],
+            "@tsconfig.internal/*": [
+                "./tsconfig.*.json"
+            ],
+            "@tsconfig.external/*": [
+                "../../../config/tsconfig.*.json"
+            ]
+        },
+        "rootDir": "../../"
+    },
+    "exclude": ["tsconfig.dist", "node_modules"]
+}

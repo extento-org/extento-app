@@ -1,19 +1,19 @@
 {
-    "extends": "./tsconfig.base.json",
+    "extends": "./tsconfigs/base.json",
     "compilerOptions": {
         "composite": true,
         "outDir": "../../tsconfig.dist"
     },
-    "references": [
-        { "path": "../entries" }
-    ],
     "files": [
-        "../entries/background.ts",
-        "../entries/browser.tsx",
-        "../entries/content_script.ts",
-        "../entries/onload.ts",
-        "../entries/ui.tsx",
-        "./typings.d.ts"
+        "@_entries/background.ts",
+        "@_entries/browser.tsx",
+        "@_entries/content_script.ts",
+        "@_entries/onload.ts",
+        "@_entries/ui.tsx",
+        "@_config/typings.d.ts"
     ],
-    "exclude": ["dist", "node_modules"]
+    "references": [
+        { "path": "@tsconfig.internal/entries" }
+    ],
+    "exclude": ["tsconfig.dist", "node_modules"]
 }
