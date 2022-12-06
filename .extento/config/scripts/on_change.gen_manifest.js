@@ -5,7 +5,6 @@ const validate = require('../validate');
 
 const { 
     PATH_APP_CONFIG, 
-    PATH_APP_MANIFEST, 
     PATH_APP_WORKSPACES, 
     OUTPUT_PATH_APP_EXTENSION_MANIFEST, 
     DIST_ONLOAD, 
@@ -18,13 +17,13 @@ const {
     ICONS, 
 } = require('../constants.js');
 
-const user_config = require(PATH_APP_CONFIG);
+const config = require(PATH_APP_CONFIG);
 
 const workspace_allowed_in_build = (workspace) => {
-    if (!Array.isArray(user_config.selective_builds[process.env.EXTENTO_SELECTIVE_BUILD])) {
+    if (!Array.isArray(config.selective_builds[process.env.EXTENTO_SELECTIVE_BUILD])) {
         return true;
     }
-    return user_config.selective_builds[process.env.EXTENTO_SELECTIVE_BUILD].includes(workspace);
+    return config.selective_builds[process.env.EXTENTO_SELECTIVE_BUILD].includes(workspace);
 };
 
 const accum_workspace_manifest = (accessor_string, on_accum) => {
@@ -74,12 +73,12 @@ const manifest_transform = (opts) => {
         optional_permissions: opts.optional_permissions,
         permissions: required_permissions,
         content_scripts: [{
-                matches: opts.matches,
-                js: [
-                    DIST_CONTENT_SCRIPT,
-                    ...(opts.content_scripts || [])
-                ]
-            }],
+            matches: opts.matches,
+            js: [
+                DIST_CONTENT_SCRIPT,
+                ...(opts.content_scripts || [])
+            ]
+        }],
         manifest_version: 3,
         background: {
             service_worker: DIST_BACKGROUND,
@@ -93,21 +92,20 @@ const manifest_transform = (opts) => {
         action: popup,
         options_page: options,
         web_accessible_resources: [{
-                resources: web_accessible_resources,
-                matches: opts.matches
-            }],
+            resources: web_accessible_resources,
+            matches: opts.matches
+        }],
     }));
 };
 
 const main = async () => {
     const matches = accum_workspace_manifest('matches.value', (accum = [], match_url_schemes = []) => _.union(accum, match_url_schemes));
     const optional_permissions = accum_workspace_manifest('permissions.value', (accum = [], workspace_permissions = []) => _.union(accum, workspace_permissions));
-    const app_manifest = require(PATH_APP_MANIFEST);
 
-    validate.app_manifest(app_manifest);
+    validate.config(config);
 
     const opts = {
-        ...app_manifest,
+        ...config.manifest,
         matches,
         optional_permissions
     };

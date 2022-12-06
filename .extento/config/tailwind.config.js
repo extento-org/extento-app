@@ -3,7 +3,7 @@ const constants = require('./constants');
 module.exports = {
     content: [
         `${constants.PATH_APP_WORKSPACES}/**/*.{ts,tsx}`,
-        `${constants.PATH_INTERNAL_LIBRARY}/src/**/*.{ts,tsx}`,
+        `${constants.PATH_INTERNAL_PACKAGE}/src/**/*.{ts,tsx}`,
         `${constants.PATH_INTERNAL_ENTRIES}/**/*.{ts,tsx}`,
     ],
     theme: {

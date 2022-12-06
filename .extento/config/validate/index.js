@@ -9,7 +9,9 @@ keywords.forEach(params => ajv_instance.addKeyword(params));
 const throw_check = (schema, data) => {
     const validate = ajv_instance.compile(schema);
     if (!validate(data)) {
-        return new Error(`app manifest validation errors: ${JSON.stringify(validate.errors, null, 2)}`);
+        return new Error(
+            `app manifest validation errors: ${JSON.stringify(validate.errors, null, 2)}`
+        );
     }
 };
 
@@ -18,5 +20,6 @@ module.exports = fs.readdirSync(path.resolve(__dirname, 'schemas'))
     .reduce((accum, file) => {
         const export_name = file.split('.')[0];
         accum[export_name] = data => throw_check(require(`./schemas/${file}`), data);
+        
         return accum;
     }, {});

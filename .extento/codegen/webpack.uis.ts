@@ -1,4 +1,4 @@
-import { ui } from '../utils/strip_build';
+import { ui } from '@_package/utils/strip_build';
 
 import * as admin from '@_workspace/admin/ui';
 import * as candidate from '@_workspace/candidate/ui';

@@ -171,8 +171,8 @@ const build_webpack_configs = (common, mode) => {
 };
 
 module.exports = (mode) => build_webpack_configs({
+    ...require(PATH_APP_WEBPACK)(mode),
     output: {
         path: PATH_APP_EXTENSION
-    },
-    ...require(PATH_APP_WEBPACK)
+    }
 }, mode);

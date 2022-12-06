@@ -1,4 +1,4 @@
-import { content_script_process } from '../utils/strip_build';
+import { content_script_process } from '@_package/utils/strip_build';
 
 import * as admin from '@_workspace/admin/content_script_process';
 import * as candidate from '@_workspace/candidate/content_script_process';
