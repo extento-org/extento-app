@@ -3,7 +3,7 @@ import { WorkspaceName, ui_ordering } from '@extento.types';
 import { CodegenUis } from '@_core/common.types';
 import use_ui from '@_core/react.use_ui';
 
-import '@_core/react/index.css';
+import '@_core/react.css';
 
 type Output = ReturnType<typeof use_ui>;
 

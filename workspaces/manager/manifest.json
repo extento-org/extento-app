@@ -8,7 +8,7 @@
     "matches": {
         "inherit": false,
         "value": [
-            "https://www.manager.io/"
+            "https://www.manager.io/*"
         ]
     }
 }
