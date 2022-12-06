@@ -1,45 +1,15 @@
 {
+    "extends": "./tsconfig.base.json",
     "compilerOptions": {
-        "noImplicitAny": true,
-        "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true,
-        "resolveJsonModule": true,
-        "moduleResolution": "node",
-        "target": "esnext",
-        "jsx": "react",
-        "types": [
-            "chrome",
-            "node"
-        ],
-        "baseUrl": ".",
-        "paths": {
-            "@_codegen/*": [
-                "../codegen/*"
-            ],
-            "@_workspace/*": [
-                "../../workspaces/*"
-            ],
-            "@_browser/*": [
-                "../../browser/*"
-            ],
-            "@_core/*": [
-                "../core/*"
-            ],
-            "@app/shared": [
-                "../../shared/index.ts"
-            ],
-            "@app/shared/*": [
-                "../../shared/*"
-            ],
-            "@extento.types": [
-                "../types/index.ts"
-            ],
-            "@extento.api/*": [
-                "../api/*"
-            ]
-        },
-        "rootDir": "../../"
+        "composite": true,
+        "outDir": "../../dist"
     },
+    "references": [
+        { "path": "../entries" },
+        { "path": "../../shared" },
+        { "path": "../../browser" },
+        { "path": "../../workspaces" }
+    ],
     "files": [
         "../entries/background.ts",
         "../entries/browser.tsx",
@@ -47,6 +17,5 @@
         "../entries/onload.ts",
         "../entries/ui.tsx",
         "./typings.d.ts"
-    ],
-    "exclude": ["node_modules"]
+    ]
 }

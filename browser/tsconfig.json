@@ -1,0 +1,15 @@
+{
+    "extends": "../.extento/config/tsconfig.base.json",
+    "compilerOptions": {
+        "composite": true
+    },
+    "include": [
+        ".",
+        "../.extento/codegen",
+        "../.extento/api",
+        "../.extento/types"
+    ],
+    "references": [
+        { "path": "../shared" }
+    ]
+}
