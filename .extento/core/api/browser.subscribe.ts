@@ -1,7 +1,5 @@
-import { WorkspaceName } from '@extento.types';
-import constants from '@_package/constants';
-
-type Subscriber = { [key in WorkspaceName]: Function };
+import constants from '@_core/constants';
+import { Subscriber } from '@_core/common.types';
 
 const subscribe: any = new Proxy({}, {
     get: (_, workspace) => (func: Function) => {

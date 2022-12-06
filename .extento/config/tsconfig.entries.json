@@ -22,8 +22,8 @@
             "@_browser/*": [
                 "../../browser/*"
             ],
-            "@_package/*": [
-                "../package/*"
+            "@_core/*": [
+                "../core/*"
             ],
             "@app/shared": [
                 "../../shared/index.ts"
@@ -34,8 +34,8 @@
             "@extento.types": [
                 "../types/index.ts"
             ],
-            "@extento.core/*": [
-                "../core/*"
+            "@extento.api/*": [
+                "../api/*"
             ]
         },
         "rootDir": "../../"

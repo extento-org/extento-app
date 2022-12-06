@@ -1,4 +1,4 @@
-import { config } from '@_package/utils/strip_build';
+import { config } from '@extento.api/utils.strip_build';
 
 import * as admin from '@_workspace/admin/config';
 import * as candidate from '@_workspace/candidate/config';

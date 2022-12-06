@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { is_allowed } from '@_package/shared/get_active_workspaces';
+import { is_allowed } from '@_core/lib.get_active_workspaces';
 import { WorkspaceName } from '@extento.types';
 
 const get_manifest_values = (

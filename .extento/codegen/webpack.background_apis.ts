@@ -1,4 +1,4 @@
-import { background_api } from '@_package/utils/strip_build';
+import { background_api } from '@extento.api/utils.strip_build';
 
 import * as admin from '@_workspace/admin/background_api';
 import * as candidate from '@_workspace/candidate/background_api';

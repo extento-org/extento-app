@@ -11,7 +11,7 @@ const PATH_APP_WORKSPACES = path.resolve(PATH_APP, 'workspaces');
 const PATH_APP_EXTENSION = path.resolve(PATH_APP, 'chrome-v3');
 const PATH_APP_WEBPACK = path.resolve(PATH_APP, 'config', 'webpack.config.js');
 const PATH_INTERNAL = path.resolve(__dirname, '..');
-const PATH_INTERNAL_PACKAGE = path.resolve(PATH_INTERNAL, 'package');
+const PATH_INTERNAL_CORE = path.resolve(PATH_INTERNAL, 'core');
 const PATH_INTERNAL_ENTRIES = path.resolve(PATH_INTERNAL, 'entries');
 const PATH_INTERNAL_CODEGEN = path.resolve(PATH_INTERNAL, 'codegen');
 const PATH_INTERNAL_TYPES = path.resolve(PATH_INTERNAL, 'types', 'index.ts');
@@ -95,7 +95,7 @@ module.exports = throw_on_nonexistence({
     PATH_APP_STYLES,
     PATH_APP_WORKSPACES,
     PATH_INTERNAL,
-    PATH_INTERNAL_PACKAGE,
+    PATH_INTERNAL_CORE,
     PATH_INTERNAL_ENTRIES,
     PATH_INTERNAL_ENTRIES_BROWSER_HTML,
     PATH_INTERNAL_ENTRIES_BROWSER,

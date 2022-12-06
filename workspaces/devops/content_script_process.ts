@@ -1,5 +1,5 @@
-import api from '@workspaces/.generated/lib/background_api';
-import subscribe from '@_package/client/subscribe';
+import call_worker from '@extento.api/browser.call_worker';
+import subscribe from '@extento.api/browser.subscribe';
 
 const content_script_process = async () => {
     subscribe.devops(
@@ -10,7 +10,7 @@ const content_script_process = async () => {
     );
 
     (setInterval(async () => {
-        const response = await api.devops.example();
+        const response = await call_worker.devops.example();
         console.info('recieved a response in onload from devops', { response });
     }, 5000));
 };
