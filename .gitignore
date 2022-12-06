@@ -9,3 +9,5 @@ chrome-v3/*
 !chrome-v3/.gitignore
 icons/*
 !icons/.gitignore
+dist
+.project

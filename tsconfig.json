@@ -1,3 +1,4 @@
-{
-    "extends": "./.extento/config/tsconfig.json"
+{ 
+    "extends": "./.extento/config/tsconfig.json",
+    "include": ["./**/*.css", "./**/*", "./**/*.json", "./.extento/**/*", "./.extento/**/*.json"]
 }

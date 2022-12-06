@@ -1,4 +1,4 @@
-import config_cacher from '@extento/shared/config_cacher';
+import config_cacher from '@_package/shared/config_cacher';
 
 export const example = async () => {
     const config = await config_cacher.get();

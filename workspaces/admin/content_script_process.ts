@@ -1,5 +1,5 @@
-import api from '@extento/client/background_api';
-import subscribe from '@extento/client/subscribe';
+import api from '@workspaces/.generated/lib/background_api';
+import subscribe from '@_package/client/subscribe';
 
 const content_script_process = async () => {
     subscribe.admin(

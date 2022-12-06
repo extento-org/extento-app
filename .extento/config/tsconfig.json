@@ -12,32 +12,41 @@
             "node"
         ],
         "baseUrl": ".",
-        "rootDir": "../../",
         "paths": {
-            "@workspaces/*": [
+            "@_codegen/*": [
+                "../codegen/*"
+            ],
+            "@_workspace/*": [
                 "../../workspaces/*"
             ],
-            "@browser/*": [
+            "@_browser/*": [
                 "../../browser/*"
             ],
-            "@shared": [
+            "@_package/*": [
+                "../package/*"
+            ],
+            "@app/shared": [
                 "../../shared/index.ts"
             ],
-            "@shared/*": [
+            "@app/shared/*": [
                 "../../shared/*"
             ],
-            "@extento/*": [
-                "../library/src/*"
+            "@extento.types": [
+                "../types/index.ts"
             ],
-            "@codegen/*": [
-                "../codegen/src/*"
+            "@extento.core/*": [
+                "../core/*"
             ]
-        }
+        },
+        "rootDir": "../../"
     },
-    "include": [
-        "../**/*",
-        "../../.extento/**/*"
+    "files": [
+        "../entries/background.ts",
+        "../entries/browser.tsx",
+        "../entries/content_script.ts",
+        "../entries/onload.ts",
+        "../entries/ui.tsx",
+        "./typings.d.ts"
     ],
-    "exclude": ["node_modules", "../../chrome-v3", "./**/*"],
-    "files": ["./typings.d.ts"]
+    "exclude": ["node_modules"]
 }

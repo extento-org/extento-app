@@ -1,28 +1,33 @@
 const path = require('path');
 const fs = require('fs');
-const APP_PATH = path.resolve(__dirname, '..', '..');
-const USER_CONFIG_PATH = path.resolve(APP_PATH, 'extento.config.js');
-const ICONS_PATH = path.resolve(APP_PATH, 'icons');
-const STYLES_PATH = path.resolve(APP_PATH, 'styles');
-const WORKSPACES_PATH = path.resolve(APP_PATH, 'workspaces');
-const CHROME_EXTENSION_PATH = path.resolve(APP_PATH, 'chrome-v3');
-const USER_WEBPACK_CONFIG_PATH = path.resolve(APP_PATH, 'extento.webpack.js');
-const LIBRARY_PATH = path.resolve(__dirname, '..', 'library');
-const ENTRIES_PATH = path.resolve(__dirname, '..', 'entries', 'src');
-const WORKSPACES_CODEGEN_PATH = path.resolve(__dirname, '..', 'codegen', 'src');
-const BROWSER_INDEX_HTML_PATH = path.resolve(ENTRIES_PATH, 'browser.html');
-const BROWSER_ENTRY_PATH = path.resolve(ENTRIES_PATH, 'browser.tsx');
-const UI_ENTRY_PATH = path.resolve(ENTRIES_PATH, 'ui.tsx');
-const ONLOAD_ENTRY_PATH = path.resolve(ENTRIES_PATH, 'onload.ts');
-const CONTENT_SCRIPT_ENTRY_PATH = path.resolve(ENTRIES_PATH, 'content_script.ts');
-const BACKGROUND_ENTRY_PATH = path.resolve(ENTRIES_PATH, 'background.ts');
-const TSCONFIG_PATH = path.resolve(__dirname, 'tsconfig.json');
-const PROJECT_MANIFEST_PATH = path.resolve(APP_PATH, 'extento.manifest.js');
-const CHROME_EXTENSION_MANIFEST_PATH = path.resolve(CHROME_EXTENSION_PATH, 'manifest.json');
-const GENERATED_TYPES_PATH = path.resolve(WORKSPACES_CODEGEN_PATH, 'webpack.types.ts');
-const GENERATED_CONFIG_PATH = path.resolve(WORKSPACES_CODEGEN_PATH, 'config.json');
-const POSTCSS_CONFIG = path.resolve(__dirname, 'postcss.config.js');
-const SUPPORTED_WORKSPACE_EXPORTS = [
+const throw_on_nonexistence = require('./utils/throw_on_nonexistence');
+
+const PATH_APP = path.resolve(__dirname, '..', '..');
+const PATH_APP_CONFIG = path.resolve(PATH_APP, 'extento.config.js');
+const PATH_APP_ICONS = path.resolve(PATH_APP, 'icons');
+const PATH_APP_STYLES = path.resolve(PATH_APP, 'styles');
+const PATH_APP_WORKSPACES = path.resolve(PATH_APP, 'workspaces');
+const PATH_APP_EXTENSION = path.resolve(PATH_APP, 'chrome-v3');
+const PATH_APP_WEBPACK = path.resolve(PATH_APP, 'extento.webpack.js');
+const PATH_APP_MANIFEST = path.resolve(PATH_APP, 'extento.manifest.js');
+const PATH_INTERNAL = path.resolve(__dirname, '..');
+const PATH_INTERNAL_LIBRARY = path.resolve(PATH_INTERNAL, 'library');
+const PATH_INTERNAL_ENTRIES = path.resolve(PATH_INTERNAL, 'entries', 'src');
+const PATH_INTERNAL_CODEGEN = path.resolve(PATH_INTERNAL, 'codegen', 'src');
+const PATH_INTERNAL_TYPES = path.resolve(PATH_INTERNAL, 'types', 'index.ts');
+const PATH_INTERNAL_ENTRIES_BROWSER_HTML = path.resolve(PATH_INTERNAL_ENTRIES, 'browser.html');
+const PATH_INTERNAL_ENTRIES_BROWSER = path.resolve(PATH_INTERNAL_ENTRIES, 'browser.tsx');
+const PATH_INTERNAL_ENTRIES_UI = path.resolve(PATH_INTERNAL_ENTRIES, 'ui.tsx');
+const PATH_INTERNAL_ENTRIES_ONLOAD = path.resolve(PATH_INTERNAL_ENTRIES, 'onload.ts');
+const PATH_INTERNAL_ENTRIES_CONTENT_SCRIPT = path.resolve(PATH_INTERNAL_ENTRIES, 'content_script.ts');
+const PATH_INTERNAL_ENTRIES_BACKGROUND = path.resolve(PATH_INTERNAL_ENTRIES, 'background.ts');
+const PATH_MASTER_TSCONFIG = path.resolve(__dirname, 'tsconfig.json');
+const PATH_MASTER_POSTCSS = path.resolve(__dirname, 'postcss.config.js');
+
+const OUTPUT_PATH_APP_EXTENSION_MANIFEST = path.resolve(PATH_APP_EXTENSION, 'manifest.json');
+
+// a list of files we want to aggregate in codegen
+const CODE_GEN_WORKSPACE_EXPORTS = [
     'onload.ts',
     'ui',
     'content_script_process.ts',
@@ -30,9 +35,11 @@ const SUPPORTED_WORKSPACE_EXPORTS = [
     'background_api.ts',
     'manifest.json',
 ];
-const INTERNALLY_REQUIRED_PERMISSIONS = [
+
+const BASE_CHROME_PERMISSIONS = [
     'storage'
 ];
+
 // never fucking change to dot file. 
 // it'll fail to load locally in the chrome extensions!
 const PREFIX_DIST = 'EXT_DIST.built.';
@@ -41,56 +48,66 @@ const CLEARABLE_PREFIXES = [
     PREFIX_DIST,
     PREFIX_ICON,
 ];
+
+// extension dist files
 const DIST_ONLOAD = PREFIX_DIST + 'onload.js';
 const DIST_BACKGROUND = PREFIX_DIST + 'background.js';
 const DIST_CONTENT_SCRIPT = PREFIX_DIST + 'content_script.js';
 const DIST_BROWSER_HTML = PREFIX_DIST + 'browser.html';
 const DIST_BROWSER_JS = PREFIX_DIST + 'browser.js';
 const DIST_UI = PREFIX_DIST + 'ui.js';
+
+// workspaces
 const WORKSPACES = fs
-    .readdirSync(WORKSPACES_PATH)
+    .readdirSync(PATH_APP_WORKSPACES)
     .filter(name => !name.startsWith('.'))
-    .filter(name => fs.lstatSync(path.resolve(WORKSPACES_PATH, name)).isDirectory());
+    .filter(name => fs.lstatSync(path.resolve(PATH_APP_WORKSPACES, name)).isDirectory());
+
+// related to selective builds
 const DEFAULT_SELECTIVE_BUILD = 'MASTER';
-const USER_SELECTIVE_BUILDS = Object.keys(require(USER_CONFIG_PATH)
+const USER_SELECTIVE_BUILDS = Object.keys(require(PATH_APP_CONFIG)
     .selective_builds);
 if (USER_SELECTIVE_BUILDS.includes(DEFAULT_SELECTIVE_BUILD)) {
     throw new Error(`cannot create a build called: ${DEFAULT_SELECTIVE_BUILD}. it is a reserved build name.`);
 }
 const SELECTIVE_BUILDS = USER_SELECTIVE_BUILDS.concat([DEFAULT_SELECTIVE_BUILD]);
+
+// assets
 const ICONS = fs
-    .readdirSync(ICONS_PATH)
+    .readdirSync(PATH_APP_ICONS)
     .filter(name => name.startsWith(PREFIX_ICON))
-    .filter(name => fs.lstatSync(path.resolve(ICONS_PATH, name)).isFile())
+    .filter(name => fs.lstatSync(path.resolve(PATH_APP_ICONS, name)).isFile())
     .map(name => ({
-    filepath: path.resolve(ICONS_PATH, name),
+    filepath: path.resolve(PATH_APP_ICONS, name),
     name,
     size: name.replace(PREFIX_ICON, '').split('.')[0]
 }));
-module.exports = {
-    APP_PATH,
-    USER_CONFIG_PATH,
-    CHROME_EXTENSION_PATH,
-    USER_WEBPACK_CONFIG_PATH,
-    ICONS_PATH,
-    STYLES_PATH,
-    WORKSPACES_PATH,
-    LIBRARY_PATH,
-    BROWSER_INDEX_HTML_PATH,
-    BROWSER_ENTRY_PATH,
-    UI_ENTRY_PATH,
-    ONLOAD_ENTRY_PATH,
-    CONTENT_SCRIPT_ENTRY_PATH,
-    BACKGROUND_ENTRY_PATH,
-    TSCONFIG_PATH,
-    POSTCSS_CONFIG,
-    PROJECT_MANIFEST_PATH,
-    CHROME_EXTENSION_MANIFEST_PATH,
-    WORKSPACES_CODEGEN_PATH,
-    GENERATED_TYPES_PATH,
-    GENERATED_CONFIG_PATH,
-    SUPPORTED_WORKSPACE_EXPORTS,
-    INTERNALLY_REQUIRED_PERMISSIONS,
+
+module.exports = throw_on_nonexistence({
+    PATH_APP,
+    PATH_APP_CONFIG,
+    PATH_APP_EXTENSION,
+    PATH_APP_WEBPACK,
+    PATH_APP_ICONS,
+    PATH_APP_STYLES,
+    PATH_APP_WORKSPACES,
+    PATH_INTERNAL,
+    PATH_INTERNAL_LIBRARY,
+    PATH_INTERNAL_ENTRIES,
+    PATH_INTERNAL_ENTRIES_BROWSER_HTML,
+    PATH_INTERNAL_ENTRIES_BROWSER,
+    PATH_INTERNAL_ENTRIES_UI,
+    PATH_INTERNAL_ENTRIES_ONLOAD,
+    PATH_INTERNAL_ENTRIES_CONTENT_SCRIPT,
+    PATH_INTERNAL_ENTRIES_BACKGROUND,
+    PATH_MASTER_TSCONFIG,
+    PATH_MASTER_POSTCSS,
+    PATH_APP_MANIFEST,
+    OUTPUT_PATH_APP_EXTENSION_MANIFEST,
+    PATH_INTERNAL_CODEGEN,
+    PATH_INTERNAL_TYPES,
+    CODE_GEN_WORKSPACE_EXPORTS,
+    BASE_CHROME_PERMISSIONS,
     PREFIX_DIST,
     PREFIX_ICON,
     CLEARABLE_PREFIXES,
@@ -104,4 +121,4 @@ module.exports = {
     WORKSPACES,
     SELECTIVE_BUILDS,
     ICONS
-};
+});
