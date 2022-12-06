@@ -8,7 +8,7 @@
     "matches": {
         "inherit": false,
         "value": [
-            "https://funnyjunk.com/"
+            "https://funnyjunk.com/*"
         ]
     }
 }

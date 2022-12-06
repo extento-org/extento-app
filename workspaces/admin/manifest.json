@@ -8,7 +8,7 @@
     "matches": {
         "inherit": false,
         "value": [
-            "https://www.ssa.gov/"
+            "https://www.ssa.gov/*"
         ]
     }
 }

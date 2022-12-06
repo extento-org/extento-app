@@ -110,6 +110,7 @@ const build_webpack_common_config = (common, mode) => webpack_merge.merge({
         }),
         new webpack.DefinePlugin({
             EXTENTO_SELECTIVE_BUILD: process.env.EXTENTO_SELECTIVE_BUILD,
+            'process.env.EXTENTO_SELECTIVE_BUILD': `"${process.env.EXTENTO_SELECTIVE_BUILD}"`
         }),
         ...(mode === 'development' ? [
             new webpack.DefinePlugin({

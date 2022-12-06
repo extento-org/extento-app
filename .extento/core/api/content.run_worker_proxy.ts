@@ -2,8 +2,6 @@ import config from '@_core/api/lib.use_config';
 import chrome_wrapper from '@_core/lib.chrome';
 import constants from '@_core/constants';
 
-import '@_core/polyfill.js';
-
 export default () => {
     // connects our browser/content script code to the background apis
     window.addEventListener(
