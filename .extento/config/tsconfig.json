@@ -2,13 +2,10 @@
     "extends": "./tsconfig.base.json",
     "compilerOptions": {
         "composite": true,
-        "outDir": "../../dist"
+        "outDir": "../../tsconfig.dist"
     },
     "references": [
-        { "path": "../entries" },
-        { "path": "../../shared" },
-        { "path": "../../browser" },
-        { "path": "../../workspaces" }
+        { "path": "../entries" }
     ],
     "files": [
         "../entries/background.ts",
@@ -17,5 +14,6 @@
         "../entries/onload.ts",
         "../entries/ui.tsx",
         "./typings.d.ts"
-    ]
+    ],
+    "exclude": ["dist", "node_modules"]
 }

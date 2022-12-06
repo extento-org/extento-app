@@ -10,5 +10,6 @@ chrome-v3/*
 icons/*
 !icons/.gitignore
 dist
+tsconfig.dist
 .project
 *.tsbuildinfo

@@ -5,6 +5,8 @@
         "esModuleInterop": true,
         "resolveJsonModule": true,
         "moduleResolution": "node",
+        "declarationMap": true,
+        "declaration": true,
         "target": "esnext",
         "jsx": "react",
         "types": [
@@ -40,5 +42,5 @@
         },
         "rootDir": "../../"
     },
-    "exclude": ["node_modules"]
+    "exclude": ["dist", "node_modules"]
 }

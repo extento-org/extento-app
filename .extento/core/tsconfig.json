@@ -2,10 +2,12 @@
     "extends": "../config/tsconfig.base.json",
     "compilerOptions": {
         "composite": true,
-        "outdir": "./dist"
+        "outDir": "./tsconfig.dist"
     },
+    "files": [],
     "include": [
         ".",
         "../types"
-    ]
+    ],
+    "exclude": ["dist", "node_modules"]
 }

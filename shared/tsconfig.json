@@ -2,14 +2,15 @@
     "extends": "../.extento/config/tsconfig.base.json",
     "compilerOptions": {
         "composite": true,
-        "outdir": "./dist"
+        "outDir": "./tsconfig.dist"
     },
     "include": [
         ".",
-        "../.extento/codegen",
         "../.extento/types"
     ],
+    "files": [],
     "references": [
         { "path": "../.extento/api" }
-    ]
+    ],
+    "exclude": ["dist", "node_modules"]
 }
