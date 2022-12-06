@@ -9,15 +9,13 @@
         "declaration": true,
         "target": "esnext",
         "jsx": "react",
+        "allowJs": true,
         "types": [
             "chrome",
             "node"
         ],
         "baseUrl": ".",
         "paths": {
-            "@_config": [
-                "../"
-            ],
             "@_codegen": [
                 "../../codegen"
             ],
@@ -48,10 +46,10 @@
             "@_core/*": [
                 "../../core/*"
             ],
-            "@app/shared": [
+            "@app.shared": [
                 "../../../shared/index.ts"
             ],
-            "@app/shared/*": [
+            "@app.shared/*": [
                 "../../../shared/*"
             ],
             "@extento.types": [
@@ -62,15 +60,9 @@
             ],
             "@extento.api/*": [
                 "../../api/*"
-            ],
-            "@tsconfig.internal/*": [
-                "./tsconfig.*.json"
-            ],
-            "@tsconfig.external/*": [
-                "../../../config/tsconfig.*.json"
             ]
         },
-        "rootDir": "../../"
+        "rootDir": "../../../"
     },
     "exclude": ["tsconfig.dist", "node_modules"]
 }

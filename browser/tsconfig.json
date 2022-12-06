@@ -1,17 +1,14 @@
 {
-    "extends": "../.extento/config/tsconfig.base.json",
+    "extends": "../.extento/config/tsconfigs/project.json",
     "compilerOptions": {
-        "composite": true,
-        "outDir": "./tsconfig.dist"
+        "noImplicitAny": false
     },
     "include": [
-        ".",
-        "../.extento/types"
+        "."
     ],
-    "files": [],
     "references": [
         { "path": "../shared" },
-        { "path": "../.extento/api" }
-    ],
-    "exclude": ["dist", "node_modules"]
+        { "path": "../.extento/api/tsconfig.json" },
+        { "path": "../.extento/types" }
+    ]
 }

@@ -4,12 +4,6 @@
         "composite": true,
         "outDir": "../../../tsconfig.dist"
     },
-    "files": ["@_config/typings.d.ts"],
-    "include": [
-        "@_core"
-    ],
-    "references": [
-        { "path": "@tsconfig.internal/types" }
-    ],
+    "files": ["../typings.d.ts"],
     "exclude": ["tsconfig.dist", "node_modules"]
 }

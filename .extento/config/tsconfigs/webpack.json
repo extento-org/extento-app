@@ -1,0 +1,20 @@
+{
+    "extends": "./base.json",
+    "compilerOptions": {
+        "composite": true,
+        "outDir": "../../../tsconfig.dist"
+    },
+    "files": [
+        "../typings.d.ts"
+    ],
+    "references": [
+        { "path": "../../api" },
+        { "path": "../../core" },
+        { "path": "../../entries" },
+        { "path": "../../types" },
+        { "path": "../../../workspaces" },
+        { "path": "../../../browser" },
+        { "path": "../../../shared" }
+    ],
+    "exclude": ["tsconfig.dist", "node_modules"]
+}

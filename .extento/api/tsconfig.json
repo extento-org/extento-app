@@ -1,20 +1,13 @@
 {
-    "extends": "../config/tsconfig.base.json",
-    "compilerOptions": {
-        "composite": true,
-        "outDir": "./tsconfig.dist",
-        "baseUrl": "../config"
-    },
+    "extends": "../../workspaces/tsconfig.json",
     "include": [
         ".",
         "../codegen",
-        "../types",
-        "../../workspaces",
+        "../../workspaces/**/*",
         "../../workspaces/**/*.json"
     ],
-    "files": [],
     "references": [
-        { "path": "../core" }
-    ],
-    "exclude": ["dist", "node_modules"]
+        { "path": "../core" },
+        { "path": "../types" }
+    ]
 }
