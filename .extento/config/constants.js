@@ -1,19 +1,19 @@
 const path = require('path');
 const fs = require('fs');
+
 const throw_on_nonexistence = require('./utils/throw_on_nonexistence');
 
 const PATH_APP = path.resolve(__dirname, '..', '..');
-const PATH_APP_CONFIG = path.resolve(PATH_APP, 'extento.config.js');
+const PATH_APP_CONFIG = path.resolve(PATH_APP, 'config', 'app.js');
 const PATH_APP_ICONS = path.resolve(PATH_APP, 'icons');
 const PATH_APP_STYLES = path.resolve(PATH_APP, 'styles');
 const PATH_APP_WORKSPACES = path.resolve(PATH_APP, 'workspaces');
 const PATH_APP_EXTENSION = path.resolve(PATH_APP, 'chrome-v3');
-const PATH_APP_WEBPACK = path.resolve(PATH_APP, 'extento.webpack.js');
-const PATH_APP_MANIFEST = path.resolve(PATH_APP, 'extento.manifest.js');
+const PATH_APP_WEBPACK = path.resolve(PATH_APP, 'config', 'webpack.config.js');
 const PATH_INTERNAL = path.resolve(__dirname, '..');
-const PATH_INTERNAL_LIBRARY = path.resolve(PATH_INTERNAL, 'library');
-const PATH_INTERNAL_ENTRIES = path.resolve(PATH_INTERNAL, 'entries', 'src');
-const PATH_INTERNAL_CODEGEN = path.resolve(PATH_INTERNAL, 'codegen', 'src');
+const PATH_INTERNAL_PACKAGE = path.resolve(PATH_INTERNAL, 'package');
+const PATH_INTERNAL_ENTRIES = path.resolve(PATH_INTERNAL, 'entries');
+const PATH_INTERNAL_CODEGEN = path.resolve(PATH_INTERNAL, 'codegen');
 const PATH_INTERNAL_TYPES = path.resolve(PATH_INTERNAL, 'types', 'index.ts');
 const PATH_INTERNAL_ENTRIES_BROWSER_HTML = path.resolve(PATH_INTERNAL_ENTRIES, 'browser.html');
 const PATH_INTERNAL_ENTRIES_BROWSER = path.resolve(PATH_INTERNAL_ENTRIES, 'browser.tsx');
@@ -21,7 +21,7 @@ const PATH_INTERNAL_ENTRIES_UI = path.resolve(PATH_INTERNAL_ENTRIES, 'ui.tsx');
 const PATH_INTERNAL_ENTRIES_ONLOAD = path.resolve(PATH_INTERNAL_ENTRIES, 'onload.ts');
 const PATH_INTERNAL_ENTRIES_CONTENT_SCRIPT = path.resolve(PATH_INTERNAL_ENTRIES, 'content_script.ts');
 const PATH_INTERNAL_ENTRIES_BACKGROUND = path.resolve(PATH_INTERNAL_ENTRIES, 'background.ts');
-const PATH_MASTER_TSCONFIG = path.resolve(__dirname, 'tsconfig.json');
+const PATH_MASTER_TSCONFIG = path.resolve(__dirname, 'tsconfig.entries.json');
 const PATH_MASTER_POSTCSS = path.resolve(__dirname, 'postcss.config.js');
 
 const OUTPUT_PATH_APP_EXTENSION_MANIFEST = path.resolve(PATH_APP_EXTENSION, 'manifest.json');
@@ -36,6 +36,7 @@ const CODE_GEN_WORKSPACE_EXPORTS = [
     'manifest.json',
 ];
 
+// permissions that each workspace needs to have
 const BASE_CHROME_PERMISSIONS = [
     'storage'
 ];
@@ -67,9 +68,11 @@ const WORKSPACES = fs
 const DEFAULT_SELECTIVE_BUILD = 'MASTER';
 const USER_SELECTIVE_BUILDS = Object.keys(require(PATH_APP_CONFIG)
     .selective_builds);
+
 if (USER_SELECTIVE_BUILDS.includes(DEFAULT_SELECTIVE_BUILD)) {
     throw new Error(`cannot create a build called: ${DEFAULT_SELECTIVE_BUILD}. it is a reserved build name.`);
 }
+
 const SELECTIVE_BUILDS = USER_SELECTIVE_BUILDS.concat([DEFAULT_SELECTIVE_BUILD]);
 
 // assets
@@ -92,7 +95,7 @@ module.exports = throw_on_nonexistence({
     PATH_APP_STYLES,
     PATH_APP_WORKSPACES,
     PATH_INTERNAL,
-    PATH_INTERNAL_LIBRARY,
+    PATH_INTERNAL_PACKAGE,
     PATH_INTERNAL_ENTRIES,
     PATH_INTERNAL_ENTRIES_BROWSER_HTML,
     PATH_INTERNAL_ENTRIES_BROWSER,
@@ -102,7 +105,6 @@ module.exports = throw_on_nonexistence({
     PATH_INTERNAL_ENTRIES_BACKGROUND,
     PATH_MASTER_TSCONFIG,
     PATH_MASTER_POSTCSS,
-    PATH_APP_MANIFEST,
     OUTPUT_PATH_APP_EXTENSION_MANIFEST,
     PATH_INTERNAL_CODEGEN,
     PATH_INTERNAL_TYPES,

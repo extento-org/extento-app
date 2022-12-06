@@ -11,7 +11,6 @@ const to_var = str => str.split('-').join('_');
 const print_arr = arr => `[${arr.map(el => `'${el}'`).join(', ')}]`;
 
 const main = async () => {
-
     // workspaces
     let contents = `export type WorkspaceName = ${WORKSPACES.map((workspace) => `'${to_var(workspace)}'`).join(' | ')}\n\n`
         + `export const workspace_names: Array<WorkspaceName> = [\n` +
@@ -21,7 +20,6 @@ const main = async () => {
     // selective builds
     const user_config = require(PATH_APP_CONFIG);
     const { selective_builds } = user_config;
-
     contents = contents +
         `\n\nexport type SelectiveBuild = ${SELECTIVE_BUILDS.map((name) => `'${to_var(name)}'`).join(' | ')}\n\n`
         + `export const selective_builds: { [key in SelectiveBuild]: Array<WorkspaceName> } = {\n` +

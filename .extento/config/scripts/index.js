@@ -69,7 +69,10 @@ const commands = Object.entries(fs.readdirSync(path.resolve(__dirname))
                 recursive_sequential_scripts(scripts, () => cb());
             }
             else {
-                supported_script_prefixes[command](compiler, (callback = () => null) => recursive_sequential_scripts(scripts, callback));
+                supported_script_prefixes[command](
+                    compiler, 
+                    (callback = () => null) => recursive_sequential_scripts(scripts, callback)
+                );
             }
         }
     ]), []);

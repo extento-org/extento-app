@@ -1,4 +1,4 @@
-import { onload } from '../utils/strip_build';
+import { onload } from '@_package/utils/strip_build';
 
 import * as admin from '@_workspace/admin/onload';
 import * as candidate from '@_workspace/candidate/onload';
