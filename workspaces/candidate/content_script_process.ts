@@ -1,5 +1,5 @@
-import api from '@extento/lib/client/background_api';
-import subscribe from '@extento/lib/client/subscribe';
+import api from '@workspaces/.generated/lib/background_api';
+import subscribe from '@_package/client/subscribe';
 
 const content_script_process = async () => {
     subscribe.candidate(

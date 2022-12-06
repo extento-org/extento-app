@@ -1,15 +1,52 @@
 {
-    "extends": "./tsconfig.base.json",
     "compilerOptions": {
-        "outDir": "../../.project/",
+        "noImplicitAny": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "moduleResolution": "node",
+        "target": "esnext",
+        "jsx": "react",
+        "types": [
+            "chrome",
+            "node"
+        ],
+        "baseUrl": ".",
+        "paths": {
+            "@_codegen/*": [
+                "../codegen/*"
+            ],
+            "@_workspace/*": [
+                "../../workspaces/*"
+            ],
+            "@_browser/*": [
+                "../../browser/*"
+            ],
+            "@_package/*": [
+                "../package/*"
+            ],
+            "@app/shared": [
+                "../../shared/index.ts"
+            ],
+            "@app/shared/*": [
+                "../../shared/*"
+            ],
+            "@extento.types": [
+                "../types/index.ts"
+            ],
+            "@extento.core/*": [
+                "../core/*"
+            ]
+        },
         "rootDir": "../../"
     },
     "files": [
-        "../entries/src/background.ts",
-        "../entries/src/browser.tsx",
-        "../entries/src/content_script.ts",
-        "../entries/src/onload.ts",
-        "../entries/src/ui.tsx"
+        "../entries/background.ts",
+        "../entries/browser.tsx",
+        "../entries/content_script.ts",
+        "../entries/onload.ts",
+        "../entries/ui.tsx",
+        "./typings.d.ts"
     ],
     "exclude": ["node_modules"]
 }

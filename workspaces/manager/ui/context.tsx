@@ -1,5 +1,5 @@
 import React from 'react';
-import { Provider as WorkspaceContextProvider, create_context } from '@extento/lib/react/WorkspaceContext';
+import { Provider as WorkspaceContextProvider, create_context } from '@_package/react/WorkspaceContext';
 import ui_states from '../ui_states';
 
 const context = create_context<typeof ui_states>(ui_states.initial);
