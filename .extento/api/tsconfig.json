@@ -7,10 +7,10 @@
     "include": [
         ".",
         "../codegen",
-        "../api",
         "../types"
     ],
     "references": [
-        { "path": "../../browser" }
+        { "path": "../core" },
+        { "path": "../../workspaces" }
     ]
 }

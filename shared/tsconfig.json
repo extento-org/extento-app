@@ -1,12 +1,15 @@
 {
     "extends": "../.extento/config/tsconfig.base.json",
     "compilerOptions": {
-        "composite": true
+        "composite": true,
+        "outdir": "./dist"
     },
     "include": [
         ".",
         "../.extento/codegen",
-        "../.extento/api",
         "../.extento/types"
+    ],
+    "references": [
+        { "path": "../.extento/api" }
     ]
 }
