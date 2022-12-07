@@ -64,5 +64,5 @@
         },
         "rootDir": "../../../"
     },
-    "exclude": ["tsconfig.dist", "node_modules"]
+    "exclude": [".eslintrc.js", "tsconfig.dist", "node_modules"]
 }

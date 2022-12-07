@@ -1,9 +1,9 @@
 export type State = {
-    field: string
+    field: string,
 };
 
 const initial: State = {
-    field: 'add possible ui states in this file'
+    field: 'add possible ui states in this file',
 };
 
 export default {
