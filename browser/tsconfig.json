@@ -8,7 +8,7 @@
     ],
     "references": [
         { "path": "../shared" },
-        { "path": "../.extento/api/tsconfig.json" },
+        { "path": "../.extento/api" },
         { "path": "../.extento/types" }
     ]
 }
