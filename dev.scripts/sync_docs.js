@@ -45,8 +45,8 @@ const readmes = sidebar.split(TERMINATION_STRING)[0].split('\n')
     .map(str => str.trim())
     .map(str => (
         str.split('\n')
-            .map(line => line.startsWith('## ') ? (
-                `## <h2 id="${extract_header_to_id(str, line)}-${id_fix_timestamp}">${line.replaceAll('#', '').trim()}</h2>`
+            .map(line => line.trim().startsWith('## ') ? (
+                ` ## <h2 id="${extract_header_to_id(str, line)}-${id_fix_timestamp}">${line.replaceAll('#', '').trim()}</h2>`
             ) : line)
             .map(line => line.startsWith('# ') ? (
                 `# <h1 id="${extract_header_to_id(str)}-${id_fix_timestamp}">${line.replaceAll('#', '').trim()}</h1>`
