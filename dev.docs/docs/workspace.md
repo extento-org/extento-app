@@ -1,6 +1,6 @@
 # Workspace
 
-> Think of a workspace directory as a "micro-service" (kinda) for your Chrome Extension.
+> Think of a workspace directory as a mini extension.
 
 After successfully running ```@extento/cli workspace <name>``` inside of your project repo, a new directory will appear: ```src/workspaces/<name>```. This is where you write your business logic.
 
@@ -21,86 +21,79 @@ $EXTENTO_WORKSPACE_DIR_STRUCTURE
 $EXTENTO_WORKSPACE_DIR_STRUCTURE
 ```
 
-  ## UI
-
+ ## UI
+ 
  - **TODO**: explain
  - **TODO**: add code examples
-
+ 
+ ```
+  
+ 
+ 
  ```
  
-
-
-
- ```
-
  ## Config Management
-
+ 
  - **TODO**: explain
  - **TODO**: add code examples
-
+ 
+ ```
+  
+ 
+ 
  ```
  
-
-
-
- ```
-
  ## Continuous Content Script Processes
-
+ 
  - **TODO**: explain
  - **TODO**: add code examples
-
+ 
+ ```
+  
+ 
+ 
  ```
  
-
-
-
- ```
-
- ## Onload Hook
-
+ ## Onload
+ 
  - **TODO**: explain
  - **TODO**: add code examples
-
+ 
+ ```
+  
+ 
+ 
  ```
  
-
-
-
- ```
-
  ## Manifest
-
+ 
  - **TODO**: explain
  - **TODO**: add code examples
-
+ 
+ ```
+  
+ 
+ 
  ```
  
-
-
-
- ```
-
  ## Background API
-
+ 
  - **TODO**: explain
  - **TODO**: add code examples
-
+ 
+ ```
+  
+ 
+ 
  ```
  
-
-
-
- ```
-
-# Testing
-
+ # Testing
+ 
  - **TODO**: explain
  - **TODO**: add code examples
-
- ```
  
-
-
-
+ ```
+  
+ 
+ 
  ```
