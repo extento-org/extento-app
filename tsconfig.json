@@ -1,4 +1,0 @@
-// DO NOT CHANGE THIS 
-// it ensures your code editor's built in TS linting works
-
-{ "extends": "./.extento/config/tsconfigs/webpack.json" }
