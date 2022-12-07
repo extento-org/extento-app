@@ -4,7 +4,7 @@ const markdown_toc = require('markdown-toc');
 
 const TERMINATION_STRING = 'EXTENTO_README_END';
 const STRIP_STRING = '[//]: # (EXTENTO_README_SITE_ONLY)';
-const PATH_TO_DOCS = path.resolve(__dirname, '../dev.docs');
+const PATH_TO_DOCS = path.resolve(__dirname, '../docs');
 const PATH_TO_APP_README = path.resolve(__dirname, '../README.md');
 const EXTRA_README_FILENAME = '.repo.md';
 
