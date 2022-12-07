@@ -3,6 +3,7 @@ const fs = require('fs');
 const markdown_toc = require('markdown-toc');
 
 const TERMINATION_STRING = 'EXTENTO_README_END';
+const STRIP_STRING = '[//]: # (EXTENTO_README_SITE_ONLY)';
 const PATH_TO_DOCS = path.resolve(__dirname, '../dev.docs');
 const PATH_TO_APP_README = path.resolve(__dirname, '../README.md');
 const EXTRA_README_FILENAME = '.repo.md';
@@ -78,6 +79,11 @@ const translated_toc = table_of_contents
 
 const with_timestamps = repo_readme_header + '\n\n' + translated_toc + '\n\n' + translated_readme;
 
-const final_readme = with_timestamps.replaceAll('-' + id_fix_timestamp, '');
+const final_readme = with_timestamps
+    .replaceAll('-' + id_fix_timestamp, '')
+    .split('\n' + STRIP_STRING)
+    .map((str, i) => i % 2 === 1 ? null : str)
+    .filter(str => typeof str === 'string')
+    .join('');
 
 fs.writeFileSync(PATH_TO_APP_README, final_readme);
