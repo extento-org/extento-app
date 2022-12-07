@@ -31,6 +31,8 @@ const extract_header_to_id = (str, subheader_line = '') => (
         )
 ).toLowerCase();
 
+const id_fix_timestamp = Date.now();
+
 const readmes = sidebar.split(TERMINATION_STRING)[0].split('\n')
     .filter(line => line.trim().startsWith('- ['))
     .map(str => str.split('](')[1].split(')')[0])
@@ -43,10 +45,10 @@ const readmes = sidebar.split(TERMINATION_STRING)[0].split('\n')
     .map(str => (
         str.split('\n')
             .map(line => line.startsWith('## ') ? (
-                `## <a id="${extract_header_to_id(str, line)}">${line.replaceAll('#', '').trim()}</a>`
+                `## <h2 id="${extract_header_to_id(str, line)}-${id_fix_timestamp}">${line.replaceAll('#', '').trim()}</h2>`
             ) : line)
             .map(line => line.startsWith('# ') ? (
-                `# <a id="${extract_header_to_id(str)}">${line.replaceAll('#', '').trim()}</a>`
+                `# <h1 id="${extract_header_to_id(str)}-${id_fix_timestamp}">${line.replaceAll('#', '').trim()}</h1>`
             ) : line)
             .join('\n')
     ))
@@ -55,11 +57,27 @@ const translated_readme = readmes.join('\n\n')
     .replaceAll('(docs/', '(#')
     .replaceAll('?id=', '-');
 
-
 const table_of_contents = markdown_toc(translated_readme, {
-    withLinks: true,
     stripHeadingTags: false
-}).content;;
-const final_readme = repo_readme_header + '\n\n' + table_of_contents + '\n\n' + translated_readme;
+}).content;
+
+const translated_toc = table_of_contents 
+    .replaceAll('#h1-id', '#')
+    .replaceAll('#h2-id', '#')
+    .replaceAll('h1)', ')')
+    .replaceAll('h2)', ')')
+    .split('\n')
+    .map(line => {
+        if (line.includes(id_fix_timestamp)) {
+            const [id, ...rest] = line.split(')');
+            return [id.split('-' + id_fix_timestamp)[0], ...rest].join(')')
+        }
+        return line;
+    })
+    .join('\n')
+
+const with_timestamps = repo_readme_header + '\n\n' + translated_toc + '\n\n' + translated_readme;
+
+const final_readme = with_timestamps.replaceAll('-' + id_fix_timestamp, '');
 
 fs.writeFileSync(PATH_TO_APP_README, final_readme);
