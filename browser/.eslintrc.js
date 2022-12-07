@@ -1,5 +1,5 @@
 const path = require('path');
-const eslint_base = require('../.extento/config/eslints/base.eslintrc');
+const eslint_base = require('../.extento.eslintrc.js');
 
 module.exports = {
     ...eslint_base,
