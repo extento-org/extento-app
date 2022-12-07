@@ -1,1 +1,282 @@
-# TODO
+## Quick Start
+
+**TODO**
+
+---
+
+## Extento CLI
+
+> An NPM package to scaffold new Extento projects and workspaces.
+
+:warning: *Always use **npx** unless you really know what you're doing.*
+
+---
+
+### Create
+
+This command will download and modify the [extento-app](https://github.com/extento-org/extento-app) repo under the hood to set up your new project. 
+
+```bash
+> npx @extento/cli create my_app
+> cd my_app
+> npm i
+> npm run start
+```
+
+---
+
+### Workspace
+
+Must be run inside of an existing Extento project. It will download more code from the [extento-app](https://github.com/extento-org/extento-app) repo and prepare some files for you to write your application logic inside of.
+
+:warning: *If you're getting strange compile errors after using this command, try restarting webpack*
+
+```bash
+> npx @extento/cli workspace my_workspace
+> npm run start
+```
+
+---
+
+## Workspace
+
+> Think of a workspace directory as a "micro-service" (kinda) for your Chrome Extension.
+
+After successfully running ```@extento/cli workspace <name>``` inside of your project repo, a new directory will appear: ```src/workspaces/<name>```. This is where you write your business logic.
+
+```
+$EXTENTO_WORKSPACE_DIR_STRUCTURE
+├── <workspace_name>
+│   ├── background_api.ts
+│   ├── config.ts
+│   ├── content_script_process.ts
+│   ├── manifest.json
+│   ├── onload.ts
+│   ├── readme.md
+│   ├── ui
+│   │   ├── Example.tsx
+│   │   ├── context.tsx
+│   │   └── index.tsx
+│   └── ui_states.ts
+$EXTENTO_WORKSPACE_DIR_STRUCTURE
+```
+
+---
+
+### UI
+
+- **TODO**: explain
+- **TODO**: add code examples
+
+```
+ 
+
+
+
+```
+
+---
+
+### Config Management
+
+- **TODO**: explain
+- **TODO**: add code examples
+
+```
+ 
+
+
+
+```
+
+---
+
+### Continuous Content Script Processes
+
+- **TODO**: explain
+- **TODO**: add code examples
+
+```
+ 
+
+
+
+```
+
+---
+
+### Onload Hook
+
+- **TODO**: explain
+- **TODO**: add code examples
+
+```
+ 
+
+
+
+```
+
+---
+
+### Manifest
+
+- **TODO**: explain
+- **TODO**: add code examples
+
+```
+ 
+
+
+
+```
+
+---
+
+### Background API
+
+- **TODO**: explain
+- **TODO**: add code examples
+
+```
+ 
+
+
+
+```
+
+## Testing
+
+- **TODO**: explain
+- **TODO**: add code examples
+
+```
+ 
+
+
+
+```
+
+---
+
+## Popup and Options Pages
+
+> Customize your extension's popup and options UI.
+
+Within your project there is a folder: **browser/** with two files: **popup.tsx**, **options.tsx**. Use React and TailwindCSS to customize these however you would like. 
+
+```
+$EXTENTO_BROWSER_DIR_STRUCTURE
+├── browser
+│   ├── options.tsx
+│   └── popup.tsx
+$EXTENTO_BROWSER_DIR_STRUCTURE
+```
+
+These files will have access to certain portions of the [Chrome Extension API](https://developer.chrome.com/docs/extensions/reference/) not available in regular content scripts. For more information on what these files will compile down to see Chrome's official documentation: 
+
+- Options: https://developer.chrome.com/docs/extensions/mv3/options/
+- Popup: https://developer.chrome.com/docs/extensions/reference/action/
+
+---
+
+## Application Configuration
+
+### Selective Builds
+
+> Allow developers to specify a subset of workspaces they want to include in a given webpack build. 
+
+One problem with Extento's workspace model is that it encourages over-priviledged extensions if the developer is not careful. Each workspace requires it's [own set of permissions and site access rules](docs/workspace?id=manifest), which means adding workspaces will cause the entire set of required permissions and access rules in our final manifest to build up. In conclusion: **too many workspaces = not enough security**. By giving developers the ability to release only a subset of workspaces to different users, this is no longer a problem.
+
+### UI Ordering
+
+**TODO**
+
+### Manifest V3
+
+**TODO**
+
+### TypeScript
+
+**TODO**
+
+### Webpack
+
+**TODO**
+
+---
+
+## Styles
+
+---
+
+### TailwindCSS
+
+Extento uses TailwindCSS out of the box. Wherever you are able to write React code you will be able to use tailwind's built-in utility classes. For further customization there are 3 files available inside of src/styles: **plugins.js**, **theme-extension.js**, **theme.css**. These files make it possible to manage tailwind plugins, theme extensions, and custom stylesheets for a more custom look. 
+
+Don't want to use tailwind? Just avoid those utility classes and don't modify any files in src/styles.
+
+:warning: Support for other styling libraries will not be a part of Extento V1. Extento is run by a single developer at the moment.
+
+```
+$EXTENTO_STYLES_DIR_STRUCTURE
+├── styles
+│   ├── plugins.js
+│   ├── theme-extension.js
+│   └── theme.css
+$EXTENTO_STYLES_DIR_STRUCTURE
+```
+
+[Tailwind's (very awesome and thorough) documentation](https://tailwindcss.com/docs/installation)
+
+---
+
+### Assets
+
+**TODO**
+
+---
+
+## Run, Build, and Deploy
+
+---
+
+### Development
+
+- **TODO**: explain
+- **TODO**: add code examples
+
+```
+ 
+
+
+
+```
+
+---
+
+### Release
+
+- **TODO**: explain
+- **TODO**: add code examples
+
+```
+ 
+
+
+
+```
+
+---
+
+### Distribution
+
+- **TODO**: explain
+- **TODO**: add code examples
+
+```
+ 
+
+
+
+```
