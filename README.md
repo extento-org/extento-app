@@ -33,7 +33,6 @@ For full documentation visit [https://beta.extento.org](https://beta.extento.org
 
 # <h1 id="quick-start">Quick Start</h1>
 
-> [Learn more about Extento before trying it out](/learn/overview.md)
 
 # <h1 id="extento-cli">Extento CLI</h1>
 
