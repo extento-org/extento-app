@@ -12,6 +12,7 @@
     "scripts": {
         "build": "npm run build --workspace=.extento",
         "start": "npm run start --workspace=.extento",
+        "lint": "npm run lint --workspace=.extento",
         "change": "ls"
     }
 }
