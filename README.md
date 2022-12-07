@@ -2,6 +2,35 @@
 
 **TODO**
 
+___
+
+- [Quick Start](#quick-start)
+- [Extento CLI](#extento-cli)
+  * [Create](#create)
+  * [Workspace](#workspace)
+- [Workspace](#workspace-1)
+  * [UI](#ui)
+  * [Config Management](#config-management)
+  * [Continuous Content Script Processes](#continuous-content-script-processes)
+  * [Onload Hook](#onload-hook)
+  * [Manifest](#manifest)
+  * [Background API](#background-api)
+- [Testing](#testing)
+- [Popup and Options Pages](#popup-and-options-pages)
+- [Application Configuration](#application-configuration)
+  * [Selective Builds](#selective-builds)
+  * [UI Ordering](#ui-ordering)
+  * [Manifest V3](#manifest-v3)
+  * [TypeScript](#typescript)
+  * [Webpack](#webpack)
+- [Styles](#styles)
+  * [TailwindCSS](#tailwindcss)
+  * [Assets](#assets)
+- [Run, Build, and Deploy](#run--build--and-deploy)
+  * [Development](#development)
+  * [Release](#release)
+  * [Distribution](#distribution)
+
 ---
 
 ## Extento CLI
