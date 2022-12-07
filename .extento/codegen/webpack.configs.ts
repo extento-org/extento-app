@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { config } from '@extento.api/utils.strip_build';
 
 import * as admin from '@_workspace/admin/config';

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { onload } from '@extento.api/utils.strip_build';
 
 import * as admin from '@_workspace/admin/onload';

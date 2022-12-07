@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { WorkspaceName, selective_builds, ACTIVE_SELECTIVE_BUILD } from '@extento.types';
 
 function typed_stub<ModuleType>(mod: any, workspace: WorkspaceName, stub: any): ModuleType {

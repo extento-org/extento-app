@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import background_apis from '@_codegen/webpack.background_apis';
 import define_listener from '@_core/api/worker.define_listener';
 
