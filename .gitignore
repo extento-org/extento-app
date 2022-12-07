@@ -6,7 +6,7 @@ tmp/
 .env
 .env.*
 !.gitignore
-codegen/
+codegen/*
 chrome-v3/*
 !chrome-v3/.gitignore
 icons/*
