@@ -1,0 +1,12 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "devDependencies": {
+    "docsify-cli": "^4.4.4",
+    "markdown-toc": "^1.2.0"
+  },
+  "scripts": {
+    "docs": "npx docsify serve --port 4001 ../dev.docs",
+    "sync_docs": "node sync_docs.js"
+  }
+}
