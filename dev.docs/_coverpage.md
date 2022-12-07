@@ -8,8 +8,8 @@
 - Exclusive support for Chrome's Manifest V3
 - Powered by TypeScript, React, and TailwindCSS
 
-[Documentation](learn/overview.md)
-[Enterprise Support](enterprise/hire.md)
+[Learn More](learn/overview.md)
+[Get Started](docs/quickstart.md)
 
 <!-- background color -->
 
