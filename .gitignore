@@ -5,11 +5,11 @@ logs
 tmp/
 .env
 .env.*
+!.gitignore
+codegen/
 chrome-v3/*
 !chrome-v3/.gitignore
 icons/*
 !icons/.gitignore
-dist
 tsconfig.dist
-.project
 *.tsbuildinfo

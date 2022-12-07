@@ -8,6 +8,7 @@
         "./**/*.json"
     ],
     "references": [
+        { "path": "../shared" },
         { "path": "../.extento/api" },
         { "path": "../.extento/types" }
     ]

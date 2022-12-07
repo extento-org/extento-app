@@ -28,7 +28,7 @@ const main = () => {
             return `${to_var(workspace)}: ${name}<typeof ${to_var(workspace)}>('${to_var(workspace)}', ${to_var(workspace)})`;
         };
 
-        const export_contents = `import { ${name} } from '@extento.api/utils.strip_build';\n\n` +
+        const export_contents = `// @ts-nocheck\n\nimport { ${name} } from '@extento.api/utils.strip_build';\n\n` +
             `${enabled_workspaces
                 .map((workspace) => `import * as ${to_var(workspace)} from '@_workspace/${workspace}/${fixed_import_name}';`)
                 .filter(e => e)
