@@ -9,7 +9,7 @@
 - Powered by TypeScript, React, and TailwindCSS
 
 [Learn More](learn/overview.md)
-[Get Started](docs/quickstart.md)
+[Getting Started](docs/quickstart.md)
 
 <!-- background color -->
 

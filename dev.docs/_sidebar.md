@@ -1,6 +1,6 @@
 - Docs
 
-  - [Quick start](docs/quickstart.md)
+  - [Quick Start](docs/quickstart.md)
   - [CLI](docs/cli.md)
   - [Workspace](docs/workspace.md)
   - [Popup/Options Pages](docs/popupoptions.md)

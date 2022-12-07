@@ -2,13 +2,13 @@
 
 > Customize your extension's popup and options UI.
 
-Within your project there is a folder: **browser/** with two files: **popup.tsx**, **options.tsx**. Use React and TailwindCSS to customize these however you would like. 
+Within your project there is a folder: **src/browser** with two files: **Popup.tsx**, **Options.tsx**. Use React and TailwindCSS to customize these however you would like. 
 
 ```
 $EXTENTO_BROWSER_DIR_STRUCTURE
 ├── browser
-│   ├── options.tsx
-│   └── popup.tsx
+│   ├── Options.tsx
+│   └── Popup.tsx
 $EXTENTO_BROWSER_DIR_STRUCTURE
 ```
 
