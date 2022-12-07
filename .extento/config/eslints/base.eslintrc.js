@@ -8,7 +8,8 @@ module.exports = {
     root: true,
     ignorePatterns: ["**/*.js"],
     rules: {
-      "@typescript-eslint/no-explicit-any": "off"
+      "@typescript-eslint/no-explicit-any": "off",
+      "import/prefer-default-export": "off"
     },
     extends: [
       'airbnb',

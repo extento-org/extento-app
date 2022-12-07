@@ -19,7 +19,7 @@ tmp/
 !.gitignore
 
 # generated
-codegen/*
+.extento/codegen/*
 
 # compiled
 chrome-v3/*
