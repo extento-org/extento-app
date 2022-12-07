@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { content_script_process } from '@extento.api/utils.strip_build';
 
 import * as admin from '@_workspace/admin/content_script_process';
