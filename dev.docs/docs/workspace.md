@@ -21,86 +21,86 @@ $EXTENTO_WORKSPACE_DIR_STRUCTURE
 $EXTENTO_WORKSPACE_DIR_STRUCTURE
 ```
 
-## UI
+  ## UI
 
-- **TODO**: explain
-- **TODO**: add code examples
+ - **TODO**: explain
+ - **TODO**: add code examples
 
-```
+ ```
  
 
 
 
-```
+ ```
 
-## Config Management
+ ## Config Management
 
-- **TODO**: explain
-- **TODO**: add code examples
+ - **TODO**: explain
+ - **TODO**: add code examples
 
-```
+ ```
  
 
 
 
-```
+ ```
 
-## Continuous Content Script Processes
+ ## Continuous Content Script Processes
 
-- **TODO**: explain
-- **TODO**: add code examples
+ - **TODO**: explain
+ - **TODO**: add code examples
 
-```
+ ```
  
 
 
 
-```
+ ```
 
-## Onload Hook
+ ## Onload Hook
 
-- **TODO**: explain
-- **TODO**: add code examples
+ - **TODO**: explain
+ - **TODO**: add code examples
 
-```
+ ```
  
 
 
 
-```
+ ```
 
-## Manifest
+ ## Manifest
 
-- **TODO**: explain
-- **TODO**: add code examples
+ - **TODO**: explain
+ - **TODO**: add code examples
 
-```
+ ```
  
 
 
 
-```
+ ```
 
-## Background API
+ ## Background API
 
-- **TODO**: explain
-- **TODO**: add code examples
+ - **TODO**: explain
+ - **TODO**: add code examples
 
-```
+ ```
  
 
 
 
-```
+ ```
 
 # Testing
 
-- **TODO**: explain
-- **TODO**: add code examples
+ - **TODO**: explain
+ - **TODO**: add code examples
 
-```
+ ```
  
 
 
 
-```
+ ```

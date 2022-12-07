@@ -1,3 +1,3 @@
 # Quick Start
 
-**TODO**
+> [Learn more about Extento before trying it out](/learn/overview.md)

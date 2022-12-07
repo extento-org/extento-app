@@ -1,6 +1,6 @@
 # Run, Build, and Deploy
 
-## Development
+ ## Development
 
 - **TODO**: explain
 - **TODO**: add code examples
@@ -12,7 +12,7 @@
 
 ```
 
-## Release
+ ## Release
 
 - **TODO**: explain
 - **TODO**: add code examples
@@ -24,7 +24,7 @@
 
 ```
 
-## Distribution
+ ## Distribution
 
 - **TODO**: explain
 - **TODO**: add code examples
