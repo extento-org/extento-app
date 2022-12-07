@@ -4,44 +4,44 @@ For full documentation visit [https://beta.extento.org](https://beta.extento.org
 
 
 
-- [Quick Start](#quick-start)
-- [Extento CLI](#extento-cli)
-  * [Create](#create)
-  * [Workspace](#workspace)
-- [Workspace](#workspace-1)
-  * [UI](#ui)
-  * [Config Management](#config-management)
-  * [Continuous Content Script Processes](#continuous-content-script-processes)
-  * [Onload Hook](#onload-hook)
-  * [Manifest](#manifest)
-  * [Background API](#background-api)
-- [Testing](#testing)
-- [Popup and Options Pages](#popup-and-options-pages)
-- [Application Configuration](#application-configuration)
-  * [Selective Builds](#selective-builds)
-  * [UI Ordering](#ui-ordering)
-  * [Manifest V3](#manifest-v3)
-  * [TypeScript](#typescript)
-  * [Webpack](#webpack)
-- [Styles](#styles)
-  * [TailwindCSS](#tailwindcss)
-  * [Assets](#assets)
-- [Run, Build, and Deploy](#run-build-and-deploy)
-  * [Development](#development)
-  * [Release](#release)
-  * [Distribution](#distribution)
+- [Quick Start](#a-idquick-startquick-starta)
+- [Extento CLI](#a-idextento-cliextento-clia)
+  * [Create](#a-idextento-cli-createcreatea)
+  * [Workspace](#a-idextento-cli-workspaceworkspacea)
+- [Workspace](#a-idworkspaceworkspacea)
+  * [UI](#a-idworkspace-uiuia)
+  * [Config Management](#a-idworkspace-config-managementconfig-managementa)
+  * [Continuous Content Script Processes](#a-idworkspace-continuous-content-script-processescontinuous-content-script-processesa)
+  * [Onload Hook](#a-idworkspace-onload-hookonload-hooka)
+  * [Manifest](#a-idworkspace-manifestmanifesta)
+  * [Background API](#a-idworkspace-background-apibackground-apia)
+- [Testing](#a-idworkspacetestinga)
+- [Popup and Options Pages](#a-idpopup-and-options-pagespopup-and-options-pagesa)
+- [Application Configuration](#a-idapplication-configurationapplication-configurationa)
+  * [Selective Builds](#a-idapplication-configuration-selective-buildsselective-buildsa)
+  * [UI Ordering](#a-idapplication-configuration-ui-orderingui-orderinga)
+  * [Manifest V3](#a-idapplication-configuration-manifest-v3manifest-v3a)
+  * [TypeScript](#a-idapplication-configuration-typescripttypescripta)
+  * [Webpack](#a-idapplication-configuration-webpackwebpacka)
+- [Styles](#a-idstylesstylesa)
+  * [TailwindCSS](#a-idstyles-tailwindcsstailwindcssa)
+  * [Assets](#a-idstyles-assetsassetsa)
+- [Run, Build, and Deploy](#a-idrun-build-and-deployrun-build-and-deploya)
+  * [Development](#a-idrun-build-and-deploy-developmentdevelopmenta)
+  * [Release](#a-idrun-build-and-deploy-releasereleasea)
+  * [Distribution](#a-idrun-build-and-deploy-distributiondistributiona)
 
-# Quick Start
+# <a id="quick-start">Quick Start</a>
 
 **TODO**
 
-# Extento CLI
+# <a id="extento-cli">Extento CLI</a>
 
 > An NPM package to scaffold new Extento projects and workspaces.
 
 :warning: *Always use **npx** unless you really know what you're doing.*
 
-## Create
+## <a id="extento-cli-create">Create</a>
 
 This command will download and modify the [extento-app](https://github.com/extento-org/extento-app) repo under the hood to set up your new project. 
 
@@ -52,7 +52,7 @@ This command will download and modify the [extento-app](https://github.com/exten
 > npm run start
 ```
 
-## Workspace
+## <a id="extento-cli-workspace">Workspace</a>
 
 Must be run inside of an existing Extento project. It will download more code from the [extento-app](https://github.com/extento-org/extento-app) repo and prepare some files for you to write your application logic inside of.
 
@@ -63,7 +63,7 @@ Must be run inside of an existing Extento project. It will download more code fr
 > npm run start
 ```
 
-# Workspace
+# <a id="workspace">Workspace</a>
 
 > Think of a workspace directory as a "micro-service" (kinda) for your Chrome Extension.
 
@@ -86,7 +86,7 @@ $EXTENTO_WORKSPACE_DIR_STRUCTURE
 $EXTENTO_WORKSPACE_DIR_STRUCTURE
 ```
 
-## UI
+## <a id="workspace-ui">UI</a>
 
 - **TODO**: explain
 - **TODO**: add code examples
@@ -98,7 +98,7 @@ $EXTENTO_WORKSPACE_DIR_STRUCTURE
 
 ```
 
-## Config Management
+## <a id="workspace-config-management">Config Management</a>
 
 - **TODO**: explain
 - **TODO**: add code examples
@@ -110,7 +110,7 @@ $EXTENTO_WORKSPACE_DIR_STRUCTURE
 
 ```
 
-## Continuous Content Script Processes
+## <a id="workspace-continuous-content-script-processes">Continuous Content Script Processes</a>
 
 - **TODO**: explain
 - **TODO**: add code examples
@@ -122,7 +122,7 @@ $EXTENTO_WORKSPACE_DIR_STRUCTURE
 
 ```
 
-## Onload Hook
+## <a id="workspace-onload-hook">Onload Hook</a>
 
 - **TODO**: explain
 - **TODO**: add code examples
@@ -134,7 +134,7 @@ $EXTENTO_WORKSPACE_DIR_STRUCTURE
 
 ```
 
-## Manifest
+## <a id="workspace-manifest">Manifest</a>
 
 - **TODO**: explain
 - **TODO**: add code examples
@@ -146,7 +146,7 @@ $EXTENTO_WORKSPACE_DIR_STRUCTURE
 
 ```
 
-## Background API
+## <a id="workspace-background-api">Background API</a>
 
 - **TODO**: explain
 - **TODO**: add code examples
@@ -158,7 +158,7 @@ $EXTENTO_WORKSPACE_DIR_STRUCTURE
 
 ```
 
-# Testing
+# <a id="workspace">Testing</a>
 
 - **TODO**: explain
 - **TODO**: add code examples
@@ -170,7 +170,7 @@ $EXTENTO_WORKSPACE_DIR_STRUCTURE
 
 ```
 
-# Popup and Options Pages
+# <a id="popup-and-options-pages">Popup and Options Pages</a>
 
 > Customize your extension's popup and options UI.
 
@@ -189,33 +189,33 @@ These files will have access to certain portions of the [Chrome Extension API](h
 - Options: https://developer.chrome.com/docs/extensions/mv3/options/
 - Popup: https://developer.chrome.com/docs/extensions/reference/action/
 
-# Application Configuration
+# <a id="application-configuration">Application Configuration</a>
 
-## Selective Builds
+## <a id="application-configuration-selective-builds">Selective Builds</a>
 
 > Allow developers to specify a subset of workspaces they want to include in a given webpack build. 
 
-One problem with Extento's workspace model is that it encourages over-priviledged extensions if the developer is not careful. Each workspace requires it's [own set of permissions and site access rules](docs/workspace?id=manifest), which means adding workspaces will cause the entire set of required permissions and access rules in our final manifest to build up. In conclusion: **too many workspaces = not enough security**. By giving developers the ability to release only a subset of workspaces to different users, this is no longer a problem.
+One problem with Extento's workspace model is that it encourages over-priviledged extensions if the developer is not careful. Each workspace requires it's [own set of permissions and site access rules](#workspace-manifest), which means adding workspaces will cause the entire set of required permissions and access rules in our final manifest to build up. In conclusion: **too many workspaces = not enough security**. By giving developers the ability to release only a subset of workspaces to different users, this is no longer a problem.
 
-## UI Ordering
-
-**TODO**
-
-## Manifest V3
+## <a id="application-configuration-ui-ordering">UI Ordering</a>
 
 **TODO**
 
-## TypeScript
+## <a id="application-configuration-manifest-v3">Manifest V3</a>
 
 **TODO**
 
-## Webpack
+## <a id="application-configuration-typescript">TypeScript</a>
 
 **TODO**
 
-# Styles
+## <a id="application-configuration-webpack">Webpack</a>
 
-## TailwindCSS
+**TODO**
+
+# <a id="styles">Styles</a>
+
+## <a id="styles-tailwindcss">TailwindCSS</a>
 
 Extento uses TailwindCSS out of the box. Wherever you are able to write React code you will be able to use tailwind's built-in utility classes. For further customization there are 3 files available inside of src/styles: **plugins.js**, **theme-extension.js**, **theme.css**. These files make it possible to manage tailwind plugins, theme extensions, and custom stylesheets for a more custom look. 
 
@@ -234,25 +234,13 @@ $EXTENTO_STYLES_DIR_STRUCTURE
 
 [Tailwind's (very awesome and thorough) documentation](https://tailwindcss.com/docs/installation)
 
-## Assets
+## <a id="styles-assets">Assets</a>
 
 **TODO**
 
-# Run, Build, and Deploy
+# <a id="run,-build,-and-deploy">Run, Build, and Deploy</a>
 
-## Development
-
-- **TODO**: explain
-- **TODO**: add code examples
-
-```
- 
-
-
-
-```
-
-## Release
+## <a id="run,-build,-and-deploy-development">Development</a>
 
 - **TODO**: explain
 - **TODO**: add code examples
@@ -264,7 +252,19 @@ $EXTENTO_STYLES_DIR_STRUCTURE
 
 ```
 
-## Distribution
+## <a id="run,-build,-and-deploy-release">Release</a>
+
+- **TODO**: explain
+- **TODO**: add code examples
+
+```
+ 
+
+
+
+```
+
+## <a id="run,-build,-and-deploy-distribution">Distribution</a>
 
 - **TODO**: explain
 - **TODO**: add code examples
