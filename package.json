@@ -7,12 +7,14 @@
         "node": "18.7.0"
     },
     "workspaces": [
-        ".extento"
+        ".extento",
+        "dev.scripts"
     ],
     "scripts": {
         "build": "npm run build --workspace=.extento",
         "start": "npm run start --workspace=.extento",
         "lint": "npm run lint --workspace=.extento",
-        "change": "ls"
+        "dev:docs": "npm run docs --workspace=dev.scripts",
+        "dev:sync_docs": "npm run sync_docs --workspace=dev.scripts"
     }
 }
