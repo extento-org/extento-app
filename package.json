@@ -16,5 +16,15 @@
         "lint": "npm run lint --workspace=.extento",
         "dev:docs": "npm run docs --workspace=dev.scripts",
         "dev:sync_docs": "npm run sync_docs --workspace=dev.scripts"
+    },
+    "devDependencies": {
+        "autoprefixer": "^10.4.8",
+        "@tailwindcss/aspect-ratio": "^0.4.2",
+        "@tailwindcss/container-queries": "^0.1.0",
+        "@tailwindcss/forms": "^0.5.3",
+        "@tailwindcss/line-clamp": "^0.4.2",
+        "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
+        "@tailwindcss/typography": "^0.5.8",
+        "tailwindcss": "^3.2.4"
     }
 }

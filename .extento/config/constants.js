@@ -16,14 +16,15 @@ const PATH_INTERNAL_API = path.resolve(PATH_INTERNAL, 'api');
 const PATH_INTERNAL_ENTRIES = path.resolve(PATH_INTERNAL, 'entries');
 const PATH_INTERNAL_CODEGEN = path.resolve(PATH_INTERNAL, 'codegen');
 const PATH_INTERNAL_TYPES = path.resolve(PATH_INTERNAL, 'types', 'index.ts');
-const PATH_INTERNAL_ENTRIES_BROWSER_HTML = path.resolve(PATH_INTERNAL_ENTRIES, 'browser.html');
-const PATH_INTERNAL_ENTRIES_BROWSER = path.resolve(PATH_INTERNAL_ENTRIES, 'browser.tsx');
+const PATH_INTERNAL_ENTRIES_PAGES_HTML = path.resolve(PATH_INTERNAL_ENTRIES, 'pages.html');
+const PATH_INTERNAL_ENTRIES_PAGES = path.resolve(PATH_INTERNAL_ENTRIES, 'pages.tsx');
 const PATH_INTERNAL_ENTRIES_UI = path.resolve(PATH_INTERNAL_ENTRIES, 'ui.tsx');
 const PATH_INTERNAL_ENTRIES_ONLOAD = path.resolve(PATH_INTERNAL_ENTRIES, 'onload.ts');
 const PATH_INTERNAL_ENTRIES_CONTENT_SCRIPT = path.resolve(PATH_INTERNAL_ENTRIES, 'content_script.ts');
 const PATH_INTERNAL_ENTRIES_BACKGROUND = path.resolve(PATH_INTERNAL_ENTRIES, 'background.ts');
 const PATH_WEBPACK_TSCONFIG = path.resolve(__dirname, 'tsconfigs', 'webpack.json');
-const PATH_MASTER_POSTCSS = path.resolve(__dirname, 'postcss.config.js');
+const PATH_BASE_TSCONFIG = path.resolve(__dirname, 'tsconfigs', 'base.json');
+const PATH_MASTER_POSTCSS = path.resolve(PATH_APP, '.extento.postcss.js');
 
 const OUTPUT_PATH_APP_EXTENSION_MANIFEST = path.resolve(PATH_APP_EXTENSION, 'manifest.json');
 
@@ -55,8 +56,8 @@ const CLEARABLE_PREFIXES = [
 const DIST_ONLOAD = PREFIX_DIST + 'onload.js';
 const DIST_BACKGROUND = PREFIX_DIST + 'background.js';
 const DIST_CONTENT_SCRIPT = PREFIX_DIST + 'content_script.js';
-const DIST_BROWSER_HTML = PREFIX_DIST + 'browser.html';
-const DIST_BROWSER_JS = PREFIX_DIST + 'browser.js';
+const DIST_PAGES_HTML = PREFIX_DIST + 'pages.html';
+const DIST_PAGES_JS = PREFIX_DIST + 'pages.js';
 const DIST_UI = PREFIX_DIST + 'ui.js';
 
 // workspaces
@@ -99,19 +100,19 @@ module.exports = throw_on_nonexistence({
     PATH_INTERNAL_CORE,
     PATH_INTERNAL_API,
     PATH_INTERNAL_ENTRIES,
-    PATH_INTERNAL_ENTRIES_BROWSER_HTML,
-    PATH_INTERNAL_ENTRIES_BROWSER,
+    PATH_INTERNAL_ENTRIES_PAGES_HTML,
+    PATH_INTERNAL_ENTRIES_PAGES,
     PATH_INTERNAL_ENTRIES_UI,
     PATH_INTERNAL_ENTRIES_ONLOAD,
     PATH_INTERNAL_ENTRIES_CONTENT_SCRIPT,
     PATH_INTERNAL_ENTRIES_BACKGROUND,
     PATH_WEBPACK_TSCONFIG,
+    PATH_BASE_TSCONFIG,
     PATH_MASTER_POSTCSS,
     OUTPUT_PATH_APP_EXTENSION_MANIFEST,
     PATH_INTERNAL_CODEGEN,
     PATH_INTERNAL_TYPES,
     CODE_GEN_WORKSPACE_EXPORTS,
-    CODE_GEN_STYLESHEETS,
     BASE_CHROME_PERMISSIONS,
     PREFIX_DIST,
     PREFIX_ICON,
@@ -119,8 +120,8 @@ module.exports = throw_on_nonexistence({
     DIST_ONLOAD,
     DIST_BACKGROUND,
     DIST_CONTENT_SCRIPT,
-    DIST_BROWSER_HTML,
-    DIST_BROWSER_JS,
+    DIST_PAGES_HTML,
+    DIST_PAGES_JS,
     DIST_UI,
     DEFAULT_SELECTIVE_BUILD,
     WORKSPACES,

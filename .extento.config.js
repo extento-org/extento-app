@@ -11,10 +11,10 @@ module.exports = {
         required_permissions: [],
     },
     ui_ordering: [
+        'admin',
         'tester',
         'manager',
         'candidate',
-        'admin',
         'devops'
     ],
     selective_builds: {

@@ -1,3 +1,3 @@
-import create_react_root from '@extento.api/content.create_react_root';
+import create_workspace_roots from '@extento.api/content.create_workspace_roots';
 
-create_react_root();
+create_workspace_roots();

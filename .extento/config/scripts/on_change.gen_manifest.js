@@ -10,7 +10,7 @@ const {
     DIST_ONLOAD, 
     DIST_BACKGROUND, 
     DIST_CONTENT_SCRIPT, 
-    DIST_BROWSER_HTML, 
+    DIST_PAGES_HTML, 
     DIST_UI, 
     BASE_CHROME_PERMISSIONS, 
     WORKSPACES, 
@@ -44,8 +44,8 @@ const accum_workspace_manifest = (accessor_string, on_accum) => {
     }, undefined);
 };
 
-const OPTIONS_URL = DIST_BROWSER_HTML + '?options=true';
-const POPUP_URL = DIST_BROWSER_HTML + '?popup=true';
+const OPTIONS_URL = DIST_PAGES_HTML + '?options=true';
+const POPUP_URL = DIST_PAGES_HTML + '?popup=true';
 
 const manifest_transform = (opts) => {
     const web_accessible_resources = [
