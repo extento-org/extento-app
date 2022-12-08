@@ -1,18 +1,17 @@
+const { PATH_BASE_TSCONFIG } = require('../constants');
+
 module.exports = {
+    env: {
+        node: true
+    },
     extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
     parser: '@typescript-eslint/parser',
     plugins: ['@typescript-eslint'],
-    env: {
-      node: true
-    },
     root: true,
-    ignorePatterns: ["**/*.js"],
     rules: {
-      "@typescript-eslint/no-explicit-any": "off",
-      "import/prefer-default-export": "off"
+        "@typescript-eslint/no-explicit-any": "off"
     },
-    extends: [
-      'airbnb',
-      'airbnb-typescript'
-    ]
+    parserOptions: {
+        project: [PATH_BASE_TSCONFIG], // Specify it only for TypeScript files
+    }
 };

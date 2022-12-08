@@ -28,17 +28,20 @@
             "@_workspace/*": [
                 "../../../workspaces/*"
             ],
+            "@_styles/*": [
+                "../../../styles/*"
+            ],
             "@_entries": [
                 "../../entries"
             ],
             "@_entries/*": [
                 "../../entries/*"
             ],
-            "@_browser": [
-                "../../../browser"
+            "@_pages": [
+                "../../../pages"
             ],
-            "@_browser/*": [
-                "../../../browser/*"
+            "@_pages/*": [
+                "../../../pages/*"
             ],
             "@_core": [
                 "../../core"

@@ -4,7 +4,7 @@
         "."
     ],
     "references": [
-        { "path": "../../browser" },
+        { "path": "../../pages" },
         { "path": "../api" },
         { "path": "../types" }
     ]

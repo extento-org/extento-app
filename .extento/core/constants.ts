@@ -8,6 +8,7 @@ export default {
     EXTENT_CONFIG_STORE: 'EXTENT_CONFIG_STORE',
     MSG_NO_CONFIG_DATA_FOUND: 'Config data not stored in browser yet',
     MSG_STALE_CONFIG_DATA_FOUND: 'Config data was found but is old',
-    DOM_ID_UI_MOUNT: 'extent-react-ui-dom-node',
+    DOM_ID_UI_MOUNT: 'extento-dom-node',
+    DOM_ID_SHADOW_ROOT: 'extento-shadow-node',
     BASE_Z_INDEX: 100000000000000,
 };

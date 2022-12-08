@@ -13,7 +13,7 @@
         { "path": "../../entries" },
         { "path": "../../types" },
         { "path": "../../../workspaces" },
-        { "path": "../../../browser" },
+        { "path": "../../../pages" },
         { "path": "../../../shared" }
     ],
     "exclude": ["tsconfig.dist", "node_modules"]

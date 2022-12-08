@@ -21,4 +21,4 @@ export const selective_builds: { [key in SelectiveBuild]: Array<WorkspaceName> }
 const _ACTIVE_SELECTIVE_BUILD: any = process.env.EXTENTO_SELECTIVE_BUILD;
 export const ACTIVE_SELECTIVE_BUILD: SelectiveBuild = _ACTIVE_SELECTIVE_BUILD;
 
-export const ui_ordering: Array<WorkspaceName> = ['tester', 'manager', 'candidate', 'admin', 'devops'];
+export const ui_ordering: Array<WorkspaceName> = ['admin', 'tester', 'manager', 'candidate', 'devops'];

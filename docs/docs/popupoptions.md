@@ -2,14 +2,14 @@
 
 > Customize your extension's popup and options UI.
 
-Within your project there is a folder: **src/browser** with two files: **Popup.tsx**, **Options.tsx**. Use React and TailwindCSS to customize these however you would like. 
+Within your project there is a folder: **src/pages** with two files: **Popup.tsx**, **Options.tsx**. Use React and TailwindCSS to customize these however you would like. 
 
 ```
-$EXTENTO_BROWSER_DIR_STRUCTURE
-├── browser
-│   ├── Options.tsx
-│   └── Popup.tsx
-$EXTENTO_BROWSER_DIR_STRUCTURE
+$EXTENTO_PAGES_DIR_STRUCTURE
+├── pages
+│   ├── options.tsx
+│   └── popup.tsx
+$EXTENTO_PAGES_DIR_STRUCTURE
 ```
 
 These files will have access to certain portions of the [Chrome Extension API](https://developer.chrome.com/docs/extensions/reference/) not available in regular content scripts. For more information on what these files will compile down to see Chrome's official documentation: 

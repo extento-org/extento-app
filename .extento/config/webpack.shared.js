@@ -2,25 +2,27 @@ const fs = require('fs');
 const webpack_merge = require('webpack-merge');
 const terser_webpack_plugin = require('terser-webpack-plugin');
 const html_webpack_plugin = require('html-webpack-plugin');
+const webpack_watch_files_plugin = require('webpack-watch-files-plugin');
 const tsconfig_paths_webpack_plugin = require('tsconfig-paths-webpack-plugin');
 const webpack = require('webpack');
 
 const { 
     PATH_APP_WEBPACK,
+    PATH_APP_STYLES,
     PATH_INTERNAL_ENTRIES_ONLOAD, 
     PATH_INTERNAL_ENTRIES_BACKGROUND, 
     PATH_INTERNAL_ENTRIES_CONTENT_SCRIPT, 
     PATH_INTERNAL_CODEGEN, 
     PATH_APP_WORKSPACES, 
-    PATH_INTERNAL_ENTRIES_BROWSER_HTML, 
-    PATH_INTERNAL_ENTRIES_BROWSER, 
+    PATH_INTERNAL_ENTRIES_PAGES_HTML, 
+    PATH_INTERNAL_ENTRIES_PAGES, 
     PATH_INTERNAL_ENTRIES_UI, 
     PATH_WEBPACK_TSCONFIG, 
     DIST_ONLOAD, 
     DIST_BACKGROUND, 
     DIST_CONTENT_SCRIPT, 
-    DIST_BROWSER_JS, 
-    DIST_BROWSER_HTML, 
+    DIST_PAGES_JS, 
+    DIST_PAGES_HTML, 
     DIST_UI, 
     PATH_APP_EXTENSION, 
     PATH_MASTER_POSTCSS, 
@@ -50,9 +52,7 @@ const build_webpack_common_config = (common, mode) => webpack_merge.merge({
                 test: /\.css$/,
                 exclude: /node_modules/,
                 use: [
-                    {
-                        loader: 'style-loader'
-                    },
+                    'to-string-loader',
                     {
                         loader: 'css-loader'
                     },
@@ -103,6 +103,12 @@ const build_webpack_common_config = (common, mode) => webpack_merge.merge({
         }
     } : {}),
     plugins: [
+        new webpack_watch_files_plugin.default({
+            files: [
+                PATH_APP_STYLES + '/**/*.css',
+                PATH_APP_STYLES + '/**/*.js'
+            ]
+        }),
         new webpack.WatchIgnorePlugin({
             paths: [
                 PATH_INTERNAL_CODEGEN,
@@ -152,14 +158,14 @@ const build_webpack_configs = (common, mode) => {
             }
         }),
         webpack_merge.merge(webpack_common_config, {
-            entry: PATH_INTERNAL_ENTRIES_BROWSER,
+            entry: PATH_INTERNAL_ENTRIES_PAGES,
             output: {
-                filename: DIST_BROWSER_JS
+                filename: DIST_PAGES_JS
             },
             plugins: [
                 new html_webpack_plugin({
-                    template: PATH_INTERNAL_ENTRIES_BROWSER_HTML,
-                    filename: DIST_BROWSER_HTML
+                    template: PATH_INTERNAL_ENTRIES_PAGES_HTML,
+                    filename: DIST_PAGES_HTML
                 })
             ]
         }),
