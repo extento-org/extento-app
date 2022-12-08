@@ -1,9 +1,5 @@
 import React from 'react';
-import { WorkspaceName, ui_ordering } from '@extento.types';
-import { CodegenUis } from '@_core/common.types';
 import use_ui from '@_core/react.use_ui';
-
-import '@_core/react.css';
 
 type Output = ReturnType<typeof use_ui>;
 
@@ -18,32 +14,6 @@ const GlobalAppContextProvider = (props: {
         <GlobalAppContext.Provider value={app_hook_output}>
             {props.children}
         </GlobalAppContext.Provider>
-    );
-};
-
-export function EnabledUIs(props: { uis: CodegenUis }): any {
-    const app = React.useContext(GlobalAppContext);
-    const components = app?.enabled?.reduce(
-        (
-            accum: Array<[React.FunctionComponent<any>, WorkspaceName]>,
-            workspace_name: WorkspaceName,
-        ) => accum.concat([[props.uis[workspace_name]?.default, workspace_name]]),
-        [],
-    );
-    
-    return (
-        <>
-            {components?.map(([FunctionalComponent, workspace_name]) => {
-                return (
-                    <div 
-                        style={{ zIndex: 100000 + ui_ordering.indexOf(workspace_name), }} 
-                        className={`w-full h-full flex relative`} 
-                        key={workspace_name}>
-                        <FunctionalComponent />
-                    </div>
-                )
-            })}
-        </>
     );
 };
 

@@ -1,6 +1,7 @@
 const constants = require('./constants');
 
 module.exports = {
+    mode: "jit",
     content: [
         `${constants.PATH_APP_WORKSPACES}/**/*.{ts,tsx}`,
         `${constants.PATH_INTERNAL_CORE}/src/**/*.{ts,tsx}`,

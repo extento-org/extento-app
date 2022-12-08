@@ -50,9 +50,7 @@ const build_webpack_common_config = (common, mode) => webpack_merge.merge({
                 test: /\.css$/,
                 exclude: /node_modules/,
                 use: [
-                    {
-                        loader: 'style-loader'
-                    },
+                    'to-string-loader',
                     {
                         loader: 'css-loader'
                     },
