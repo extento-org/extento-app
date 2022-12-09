@@ -1,4 +1,0 @@
-{
-    "extends": "./webpack.json",
-    "exclude": [".eslintrc.js", "tsconfig.dist", "node_modules"]
-}
