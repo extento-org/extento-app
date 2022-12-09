@@ -9,7 +9,10 @@
     "scripts": {
         "start": "trap 'exit 0' SIGINT; npx webpack --config ./config/webpack.development.js --watch",
         "poststart": "node ./config/scripts/reset_selective_workspaces.js",
-        "build": "npx webpack --config ./config/webpack.production.js",
+        "build:release": "node ./config/scripts/build_workspaces",
+        "build-all:release": "EXTENTO_BUILD_ALL=true node ./config/scripts/build_workspaces",
+        "build:dev": "EXTENTO_DEV=true node ./config/scripts/build_workspaces",
+        "build-all:dev": "EXTENTO_DEV=true EXTENTO_BUILD_ALL=true node ./config/scripts/build_workspaces",
         "lint": "npx eslint ../workspaces ../shared ../pages"
     },
     "devDependencies": {
@@ -45,6 +48,7 @@
         "webpack": "^5.75.0",
         "webpack-cli": "^4.10.0",
         "webpack-merge": "^5.8.0",
-        "webpack-watch-files-plugin": "^1.2.1"
+        "webpack-watch-files-plugin": "^1.2.1",
+        "zip-local": "^0.3.5"
     }
 }

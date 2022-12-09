@@ -11,8 +11,11 @@
         "dev.scripts"
     ],
     "scripts": {
-        "build": "npm run build --workspace=.extento",
         "start": "npm run start --workspace=.extento",
+        "build:release": "npm run build:release --workspace=.extento",
+        "build-all:release": "npm run build-all:release --workspace=.extento",
+        "build:dev": "npm run build:dev --workspace=.extento",
+        "build-all:dev": "npm run build-all:dev --workspace=.extento",
         "lint": "npm run lint --workspace=.extento",
         "dev:docs": "npm run docs --workspace=dev.scripts",
         "dev:sync_docs": "npm run sync_docs --workspace=dev.scripts"

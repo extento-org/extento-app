@@ -28,9 +28,10 @@ const {
     PATH_MASTER_POSTCSS, 
     PATH_INTERNAL_TYPES,
     SELECTIVE_BUILD,
+    PATH_WEBPACK_SCRIPTS,
 } = require('./constants.js');
 
-const scripts_plugin = require('./webpack-scripts');
+const scripts_plugin = require(PATH_WEBPACK_SCRIPTS);
 
 if (!fs.readdirSync(PATH_APP_WORKSPACES).length) {
     throw new Error(`You must first create a workspace using the cli!`);
