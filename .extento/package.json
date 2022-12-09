@@ -8,7 +8,7 @@
     },
     "scripts": {
         "start": "trap 'exit 0' SIGINT; npx webpack --config ./config/webpack.development.js --watch",
-        "poststart": "node ./config/scripts/shutdown.reset_selective_workspaces.js",
+        "poststart": "node ./config/scripts/reset_selective_workspaces.js",
         "build": "npx webpack --config ./config/webpack.production.js",
         "lint": "npx eslint ../workspaces ../shared ../pages"
     },

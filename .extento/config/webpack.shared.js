@@ -30,7 +30,7 @@ const {
     SELECTIVE_BUILD,
 } = require('./constants.js');
 
-const scripts_plugin = require('./scripts');
+const scripts_plugin = require('./webpack-scripts');
 
 if (!fs.readdirSync(PATH_APP_WORKSPACES).length) {
     throw new Error(`You must first create a workspace using the cli!`);
