@@ -15,6 +15,5 @@
         { "path": "../../../workspaces" },
         { "path": "../../../pages" },
         { "path": "../../../shared" }
-    ],
-    "exclude": ["tsconfig.dist", "node_modules"]
+    ]
 }

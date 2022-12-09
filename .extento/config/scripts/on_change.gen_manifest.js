@@ -17,7 +17,7 @@ const {
     DIST_PAGES_HTML, 
     DIST_UI, 
     BASE_CHROME_PERMISSIONS, 
-    WORKSPACES, 
+    SELECTIVE_BUILD_WORKSPACES, 
     ICONS, 
 } = require('../constants.js');
 
@@ -31,7 +31,7 @@ const workspace_allowed_in_build = (workspace) => {
 };
 
 const accum_workspace_manifest = (accessor_string, on_accum) => {
-    const dir_paths = WORKSPACES
+    const dir_paths = SELECTIVE_BUILD_WORKSPACES
         .filter(name => workspace_allowed_in_build(name))
         .map(name => path.resolve(PATH_APP_WORKSPACES, name));
 
@@ -109,8 +109,14 @@ const manifest_transform = (opts) => {
 };
 
 const main = async () => {
-    const matches = accum_workspace_manifest('matches.value', (accum = [], match_url_schemes = []) => _.union(accum, match_url_schemes));
-    const optional_permissions = accum_workspace_manifest('permissions.value', (accum = [], workspace_permissions = []) => _.union(accum, workspace_permissions));
+    const matches = accum_workspace_manifest(
+        'matches.value', 
+        (accum = [], match_url_schemes = []) => _.union(accum, match_url_schemes)
+    );
+    const optional_permissions = accum_workspace_manifest(
+        'permissions.value', 
+        (accum = [], workspace_permissions = []) => _.union(accum, workspace_permissions)
+    );
 
     validate.config(config);
 

@@ -9,6 +9,9 @@ const supported_script_prefixes = {
     },
     initialize: (compiler, func) => {
         compiler.hooks.initialize.tap('Initialize', func);
+    },
+    shutdown: (compiler, func) => {
+        compiler.hooks.shutdown.tapAsync('Shutdown', (...[, callback]) => func(callback));
     }
 };
 

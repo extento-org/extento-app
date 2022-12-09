@@ -1,6 +1,5 @@
 import _ from 'lodash';
-import { is_allowed } from '@_core/lib.get_active_workspaces';
-import { WorkspaceName } from '@extento.types';
+import { WorkspaceName, workspace_names } from '@extento.types';
 
 const get_manifest_values = (
     manifests: { [key in WorkspaceName]: any }, 
@@ -8,11 +7,9 @@ const get_manifest_values = (
     manifest_section_name: string
 ): Array<any> => {
     const inherits = _.get(manifests[workspace_name], `${manifest_section_name}.inherits`, false);
-    const workspaces = Object.keys(manifests)
-        .filter(is_allowed);
 
     if (inherits) {
-        return workspaces.map(
+        return workspace_names.map(
             (name: WorkspaceName) => _.get(manifests[name], `${manifest_section_name}.value`),
         );
     }
