@@ -1,9 +1,11 @@
 const fs_extra = require('fs-extra');
+const fs = require('fs');
 const path = require('path');
 const _ = require('lodash');
 const validate = require('../validate');
 
 const { 
+    PATH_APP_TAB_PAGE,
     PATH_APP_CONFIG, 
     PATH_APP_WORKSPACES, 
     OUTPUT_PATH_APP_EXTENSION_MANIFEST, 
@@ -46,6 +48,7 @@ const accum_workspace_manifest = (accessor_string, on_accum) => {
 
 const OPTIONS_URL = DIST_PAGES_HTML + '?options=true';
 const POPUP_URL = DIST_PAGES_HTML + '?popup=true';
+const TAB_URL = DIST_PAGES_HTML + '?tab=true';
 
 const manifest_transform = (opts) => {
     const web_accessible_resources = [
@@ -62,6 +65,10 @@ const manifest_transform = (opts) => {
     const options = opts.use_options
         ? OPTIONS_URL
         : undefined;
+    
+    const chrome_url_overrides = fs.existsSync(PATH_APP_TAB_PAGE) ? {
+        newtab: TAB_URL
+    } : undefined
 
     const required_permissions = (opts.required_permissions || [])
         .filter(required_permission => BASE_CHROME_PERMISSIONS.includes(required_permission))
@@ -95,6 +102,7 @@ const manifest_transform = (opts) => {
             resources: web_accessible_resources,
             matches: opts.matches
         }],
+        chrome_url_overrides
     }));
 };
 

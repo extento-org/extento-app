@@ -2,33 +2,41 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import GlobalContext from '@_core/react.context_global';
 
-const shared_css = require('@_styles/shared.css');
-const pages_css = require('@_styles/pages.css');
-const shared_scss = require('@_styles/shared.scss');
-const pages_scss = require('@_styles/pages.scss');
+const shared_css = require('@_styles/global.css');
+const pages_css = require('@_pages/styles/index.css');
+const shared_scss = require('@_styles/global.scss');
+const pages_scss = require('@_pages/styles/index.scss');
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const App = (props: { options: React.ReactElement, popup: React.ReactElement }) => {
+const App = (props: { Tab?: React.FunctionComponent, Options: React.FunctionComponent, Popup: React.FunctionComponent }) => {
     const params = React.useMemo(
         () => new URLSearchParams(window.location.search),
         [window.location.search],
     );
 
     if (params.get('options') === 'true') {
-        return props.options;
+        return <props.Options />;
+    }
+
+    if (
+        typeof props.Tab !== 'undefined' 
+            && params.get('tab') === 'true'
+    ) {
+        return <props.Tab />;
     }
 
     if (params.get('popup') === 'true') {
-        return props.popup;
+        return <props.Popup />;
     }
 
     return <div />;
 };
 
 const render_pages = (opts: {
-    popup: React.ReactElement,
-    options: React.ReactElement,
+    Popup: React.FunctionComponent,
+    Options: React.FunctionComponent,
+    Tab?: React.FunctionComponent,
 }) => {
     const style_tag = document.createElement('style');
     document.head.appendChild(style_tag);
@@ -37,7 +45,7 @@ const render_pages = (opts: {
     root.render(
         <React.StrictMode>
             <GlobalContext>
-                <App popup={opts.popup} options={opts.options}/>
+                <App Popup={opts.Popup} Tab={opts.Tab} Options={opts.Options}/>
             </GlobalContext>
         </React.StrictMode>,
     )

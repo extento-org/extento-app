@@ -6,9 +6,9 @@ import render_shadow_root from '@_core/content.render_shadow_root';
 import constants from '@_core/constants';
 import GlobalContext from '@_core/react.context_global';
 
-const shared_css = require('@_styles/shared.css');
+const shared_css = require('@_styles/global.css');
 const workspaces_css = require('@_styles/workspaces.css');
-const shared_scss = require('@_styles/shared.scss');
+const shared_scss = require('@_styles/global.scss');
 const workspaces_scss = require('@_styles/workspaces.scss');
 
 export const get_workspace_id = (workspace_name: WorkspaceName) => 
