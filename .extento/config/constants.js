@@ -5,8 +5,7 @@ const _ = require('lodash');
 const throw_on_nonexistence = require('./utils/throw_on_nonexistence');
 
 const PATH_APP = path.resolve(__dirname, '..', '..');
-const PATH_APP_CONFIG = path.resolve(PATH_APP, '.extento.config.js');
-const PATH_APP_ICONS = path.resolve(PATH_APP, 'icons');
+const PATH_PACKAGE_JSON = path.resolve(PATH_APP, 'package.json');
 const PATH_APP_STYLES = path.resolve(PATH_APP, 'styles');
 const PATH_APP_WORKSPACES = path.resolve(PATH_APP, 'workspaces');
 const PATH_APP_EXTENSION = path.resolve(PATH_APP, 'chrome-v3');
@@ -41,6 +40,8 @@ const OPTIONAL_PATH_APP_TAB_PAGE = path.resolve(PATH_APP, 'pages', 'Tab.tsx');
 const OPTIONAL_PATH_APP_POPUP_PAGE = path.resolve(PATH_APP, 'pages', 'Popup.tsx');
 const OPTIONAL_PATH_APP_OPTIONS_PAGE = path.resolve(PATH_APP, 'pages', 'Options.tsx');
 
+const USER_CONFIG = require(PATH_PACKAGE_JSON).extento
+
 // a list of files we want to aggregate in codegen
 const CODE_GEN_WORKSPACE_EXPORTS = [
     'onload.ts',
@@ -59,7 +60,7 @@ const BASE_CHROME_PERMISSIONS = [
 // never fucking change to dot file. 
 // it'll fail to load locally in the chrome extensions!
 const PREFIX_DIST = 'EXT_DIST.built.';
-const PREFIX_ICON = 'icon';
+const PREFIX_ICON = 'icon_';
 const CLEARABLE_PREFIXES = [
     PREFIX_DIST,
     PREFIX_ICON,
@@ -79,30 +80,38 @@ const WORKSPACES = fs
     .filter(name => !name.startsWith('.'))
     .filter(name => fs.lstatSync(path.resolve(PATH_APP_WORKSPACES, name)).isDirectory());
 
-const PROVIDED_SELECTIVE_BUILD_CONFIG = require(PATH_APP_CONFIG).selective_builds;
-const DEFAULT_SELECTIVE_BUILD = 'MASTER';
+const PROVIDED_SELECTIVE_BUILD_CONFIG = USER_CONFIG.selective_builds;
+const DEFAULT_SELECTIVE_BUILD = 'master';
 const SELECTIVE_BUILD = process.env.SELECTIVE_BUILD || process.env.EXTENTO_SELECTIVE_BUILD || DEFAULT_SELECTIVE_BUILD;
 const SELECTIVE_BUILDS_CONFIG = {
-    MASTER: WORKSPACES,
+    master: {
+        workspaces: WORKSPACES
+    },
     ...PROVIDED_SELECTIVE_BUILD_CONFIG
 };
-const SELECTIVE_BUILD_WORKSPACES = SELECTIVE_BUILDS_CONFIG[SELECTIVE_BUILD];
+const SELECTIVE_BUILD_WORKSPACES = SELECTIVE_BUILDS_CONFIG[SELECTIVE_BUILD].workspaces;
 const SELECTIVE_BUILDS = _.union(Object.keys(PROVIDED_SELECTIVE_BUILD_CONFIG), [DEFAULT_SELECTIVE_BUILD]);
 
+const PATH_APP_ICON_BASE_DIR = path.resolve(PATH_APP, 'icons');
+const PATH_APP_ICONS = 
+    fs.existsSync(path.resolve(PATH_APP_ICON_BASE_DIR, SELECTIVE_BUILD))
+        ? path.resolve(PATH_APP_ICON_BASE_DIR, SELECTIVE_BUILD)
+        : path.resolve(PATH_APP_ICON_BASE_DIR, DEFAULT_SELECTIVE_BUILD);
+        
 // assets
 const ICONS = fs
     .readdirSync(PATH_APP_ICONS)
     .filter(name => name.startsWith(PREFIX_ICON))
     .filter(name => fs.lstatSync(path.resolve(PATH_APP_ICONS, name)).isFile())
     .map(name => ({
-    filepath: path.resolve(PATH_APP_ICONS, name),
-    name,
-    size: name.replace(PREFIX_ICON, '').split('.')[0]
-}));
+        filepath: path.resolve(PATH_APP_ICONS, name),
+        name,
+        size: name.replace(PREFIX_ICON, '').split('.')[0]
+    }));
 
 module.exports = throw_on_nonexistence({
     PATH_APP,
-    PATH_APP_CONFIG,
+    PATH_PACKAGE_JSON,
     PATH_APP_BUILDS,
     PATH_APP_EXTENSION,
     PATH_APP_WEBPACK,
@@ -153,5 +162,6 @@ module.exports = throw_on_nonexistence({
     SELECTIVE_BUILD_WORKSPACES,
     SELECTIVE_BUILDS,
     SELECTIVE_BUILDS_CONFIG,
-    ICONS
+    ICONS,
+    USER_CONFIG
 });

@@ -5,7 +5,7 @@ const {
     SELECTIVE_BUILDS,
     SELECTIVE_BUILD_WORKSPACES,
     SELECTIVE_BUILDS_CONFIG,
-    PATH_APP_CONFIG,
+    USER_CONFIG,
     PATH_INTERNAL_TYPES,
     WORKSPACES
 } = require('../constants.js');
@@ -25,16 +25,15 @@ const main = async () => {
         `];`;
 
     // selective builds
-    const user_config = require(PATH_APP_CONFIG);
     contents = contents
         + `\n\nexport type SelectiveBuild = ${SELECTIVE_BUILDS.map((name) => `'${to_var(name)}'`).join(' | ')}\n\n`
         + `export const selective_builds: { [key in SelectiveBuild]: Array<AllWorkspaceName> } = {\n` +
-        `${SELECTIVE_BUILDS.map((build_name) => `    ${to_var(build_name)}: ${print_arr(SELECTIVE_BUILDS_CONFIG[build_name])}`).join(',\n')}\n` +
+        `${SELECTIVE_BUILDS.map((build_name) => `    ${to_var(build_name)}: ${print_arr(SELECTIVE_BUILDS_CONFIG[build_name].workspaces)}`).join(',\n')}\n` +
         `};\n\n`
         + `export const SELECTIVE_BUILD: SelectiveBuild = '${SELECTIVE_BUILD}';\n\n`;
 
     // ui ordering
-    const { ui_ordering } = user_config;
+    const { ui_ordering } = USER_CONFIG;
     const WORKSPACES_UI_ORDERED = ui_ordering.filter(workspace => SELECTIVE_BUILD_WORKSPACES.includes(workspace));
     contents = contents
         + `export const ui_ordering: Array<WorkspaceName> = ${print_arr(WORKSPACES_UI_ORDERED)};`;

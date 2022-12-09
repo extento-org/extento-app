@@ -27,6 +27,7 @@ tsconfig.dist
 *.tsbuildinfo
 
 # assets
-icons/*
+icons/*/*
 
+# only include RELEASE builds in VC
 builds/*.DEV*

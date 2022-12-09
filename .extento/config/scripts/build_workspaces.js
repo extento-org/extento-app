@@ -1,18 +1,18 @@
 const path = require('path');
+const get_build_details = require('../utils/get_build_details.js');
 const reset_require_cache = require('../utils/reset_require_cache.js');
 const zip = require('../utils/zip');
 const {
     SELECTIVE_BUILDS,
     PATH_WEBPACK_PRODUCTION,
     SELECTIVE_BUILD,
-    PATH_APP_CONFIG,
     PATH_APP_BUILDS,
     PATH_APP_EXTENSION
 } = require('../constants');
 
 const package_distribution = async (build_name) => {
     // zip up everything in chrome-v3 and place in our builds folder under the correct name
-    const version = require(PATH_APP_CONFIG).manifest.version;
+    const { version } = get_build_details(build_name);
     const timestamp = Date.now();
     const suffix = process.env.EXTENTO_DEV === 'true'
         ? '.DEV'
