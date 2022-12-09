@@ -7,6 +7,7 @@ const PATH_APP = path.resolve(__dirname, '..', '..');
 const PATH_APP_CONFIG = path.resolve(PATH_APP, '.extento.config.js');
 const PATH_APP_ICONS = path.resolve(PATH_APP, 'icons');
 const PATH_APP_STYLES = path.resolve(PATH_APP, 'styles');
+const PATH_APP_TAB_PAGE = path.resolve(PATH_APP, 'pages', 'Tab.tsx');
 const PATH_APP_WORKSPACES = path.resolve(PATH_APP, 'workspaces');
 const PATH_APP_EXTENSION = path.resolve(PATH_APP, 'chrome-v3');
 const PATH_APP_WEBPACK = path.resolve(PATH_APP, '.extento.webpack.js');
@@ -95,6 +96,7 @@ module.exports = throw_on_nonexistence({
     PATH_APP_WEBPACK,
     PATH_APP_ICONS,
     PATH_APP_STYLES,
+    PATH_APP_TAB_PAGE,
     PATH_APP_WORKSPACES,
     PATH_INTERNAL,
     PATH_INTERNAL_CORE,
