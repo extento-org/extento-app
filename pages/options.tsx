@@ -2,6 +2,6 @@ import React from 'react';
 
 export default function Options() {
     return (
-        <div>ADD OPTIONS UI</div>
+        <div className="w-full h-full bg-red-800 rounded-full">ADD OPTIONS UI</div>
     );
 }

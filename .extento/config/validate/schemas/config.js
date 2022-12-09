@@ -13,8 +13,6 @@ module.exports = {
             required: [
                 'name',
                 'version',
-                'use_options',
-                'use_popup',
                 'allowed_extensions'
             ],
             properties: {
@@ -23,9 +21,6 @@ module.exports = {
                 },
                 version: {
                     type: 'string'
-                },
-                use_options: {
-                    type: 'boolean'
                 },
                 backgrounds: {
                     type: 'array',
@@ -52,9 +47,6 @@ module.exports = {
                     items: {
                         type: 'string'
                     }
-                },
-                use_popup: {
-                    type: 'boolean'
                 },
                 popup_name: {
                     type: 'string'
