@@ -3,13 +3,14 @@ const fs = require('fs');
 const path = require('path');
 const _ = require('lodash');
 const validate = require('../validate');
+const get_build_details = require('../utils/get_build_details');
 
 const { 
     OPTIONAL_PATH_APP_TAB_PAGE,
     OPTIONAL_PATH_APP_POPUP_PAGE,
     OPTIONAL_PATH_APP_OPTIONS_PAGE,
-    PATH_APP_CONFIG, 
-    PATH_APP_WORKSPACES, 
+    PATH_APP_WORKSPACES,
+    USER_CONFIG,
     OUTPUT_PATH_APP_EXTENSION_MANIFEST, 
     DIST_ONLOAD, 
     DIST_BACKGROUND, 
@@ -19,20 +20,11 @@ const {
     BASE_CHROME_PERMISSIONS, 
     SELECTIVE_BUILD_WORKSPACES, 
     ICONS, 
+    SELECTIVE_BUILD,
 } = require('../constants.js');
-
-const config = require(PATH_APP_CONFIG);
-
-const workspace_allowed_in_build = (workspace) => {
-    if (!Array.isArray(config.selective_builds[process.env.EXTENTO_SELECTIVE_BUILD])) {
-        return true;
-    }
-    return config.selective_builds[process.env.EXTENTO_SELECTIVE_BUILD].includes(workspace);
-};
 
 const accum_workspace_manifest = (accessor_string, on_accum) => {
     const dir_paths = SELECTIVE_BUILD_WORKSPACES
-        .filter(name => workspace_allowed_in_build(name))
         .map(name => path.resolve(PATH_APP_WORKSPACES, name));
 
     return dir_paths.reduce((accum, dir_path) => {
@@ -60,7 +52,6 @@ const manifest_transform = (opts) => {
     ];
 
     const popup = fs.existsSync(OPTIONAL_PATH_APP_POPUP_PAGE) ? {
-        default_title: opts.popup_name || 'Popup',
         default_popup: POPUP_URL
     } : undefined;
 
@@ -70,15 +61,17 @@ const manifest_transform = (opts) => {
     
     const chrome_url_overrides = fs.existsSync(OPTIONAL_PATH_APP_TAB_PAGE) ? {
         newtab: TAB_URL
-    } : undefined
+    } : undefined;
 
     const required_permissions = (opts.required_permissions || [])
         .filter(required_permission => BASE_CHROME_PERMISSIONS.includes(required_permission))
         .concat(BASE_CHROME_PERMISSIONS);
+    
+    const { version, name } = get_build_details(SELECTIVE_BUILD);
 
     return JSON.parse(JSON.stringify({
-        version: opts.version,
-        name: opts.name,
+        version,
+        name,
         optional_permissions: opts.optional_permissions,
         permissions: required_permissions,
         content_scripts: [{
@@ -118,10 +111,10 @@ const main = async () => {
         (accum = [], workspace_permissions = []) => _.union(accum, workspace_permissions)
     );
 
-    validate.config(config);
+    validate.config(USER_CONFIG);
 
     const opts = {
-        ...config.manifest,
+        ...USER_CONFIG.manifest,
         matches,
         optional_permissions
     };

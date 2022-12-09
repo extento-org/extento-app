@@ -29,5 +29,52 @@
         "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
         "@tailwindcss/typography": "^0.5.8",
         "tailwindcss": "^3.2.4"
+    },
+    "extento": {
+        "manifest": {
+            "name": "fallbackname",
+            "version": "0.0.1",
+            "allowed_extensions": []
+        },
+        "ui_ordering": [
+            "admin",
+            "tester",
+            "manager",
+            "candidate",
+            "devops"
+        ],
+        "selective_builds": {
+            "QA": {
+                "version": "0.0.2",
+                "name": "coolqaguy",
+                "workspaces": [
+                    "tester",
+                    "candidate"
+                ]
+            },
+            "BOSS": {
+                "workspaces": [
+                    "manager",
+                    "admin"
+                ]
+            },
+            "NEW_GUY": {
+                "version": "0.0.1",
+                "name": "nooooob",
+                "workspaces": [
+                    "devops",
+                    "candidate"
+                ]
+            },
+            "CEO": {
+                "name": "suit",
+                "workspaces": [
+                    "admin",
+                    "candidate",
+                    "manager",
+                    "tester"
+                ]
+            }
+        }
     }
 }
