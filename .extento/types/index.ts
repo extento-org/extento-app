@@ -1,10 +1,13 @@
 export type AllWorkspaceName = 'admin' | 'candidate' | 'devops' | 'manager' | 'tester'
 
-export type WorkspaceName = 'manager' | 'admin'
+export type WorkspaceName = 'admin' | 'candidate' | 'devops' | 'manager' | 'tester'
 
 export const workspace_names: Array<WorkspaceName> = [
+    'admin',
+    'candidate',
+    'devops',
     'manager',
-    'admin'
+    'tester'
 ];
 
 export const all_workspace_names: Array<AllWorkspaceName> = [
@@ -25,6 +28,6 @@ export const selective_builds: { [key in SelectiveBuild]: Array<AllWorkspaceName
     MASTER: ['admin', 'candidate', 'devops', 'manager', 'tester']
 };
 
-export const SELECTIVE_BUILD: SelectiveBuild = 'BOSS';
+export const SELECTIVE_BUILD: SelectiveBuild = 'MASTER';
 
-export const ui_ordering: Array<WorkspaceName> = ['admin', 'manager'];
+export const ui_ordering: Array<WorkspaceName> = ['admin', 'tester', 'manager', 'candidate', 'devops'];
