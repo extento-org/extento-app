@@ -1,75 +1,75 @@
 {
-  "compilerOptions": {
-    "noImplicitAny": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "moduleResolution": "node",
-    "declarationMap": true,
-    "declaration": true,
-    "target": "esnext",
-    "jsx": "react",
-    "allowJs": true,
-    "types": [
-      "chrome",
-      "node"
-    ],
-    "baseUrl": ".",
-    "paths": {
-      "@_codegen": [
-        "../../codegen"
-      ],
-      "@_codegen/*": [
-        "../../codegen/*"
-      ],
-      "@_workspaces": [
-        "../../../workspaces"
-      ],
-      "@_workspace/*": [
-        "../../../workspaces/*"
-      ],
-      "@_styles/*": [
-        "../../../styles/*"
-      ],
-      "@_entries": [
-        "../../entries"
-      ],
-      "@_entries/*": [
-        "../../entries/*"
-      ],
-      "@_pages": [
-        "../../../pages"
-      ],
-      "@_pages/*": [
-        "../../../pages/*"
-      ],
-      "@_core": [
-        "../../core"
-      ],
-      "@_core/*": [
-        "../../core/*"
-      ],
-      "@app.shared": [
-        "../../../shared/index.ts"
-      ],
-      "@app.shared/*": [
-        "../../../shared/*"
-      ],
-      "@extento.types": [
-        "../../types/index.ts"
-      ],
-      "@extento.api": [
-        "../../api"
-      ],
-      "@extento.api/*": [
-        "../../api/*"
-      ]
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "moduleResolution": "node",
+        "declarationMap": true,
+        "declaration": true,
+        "target": "esnext",
+        "jsx": "react",
+        "allowJs": true,
+        "types": [
+            "chrome",
+            "node"
+        ],
+        "baseUrl": ".",
+        "paths": {
+            "@_codegen": [
+                "../../codegen"
+            ],
+            "@_codegen/*": [
+                "../../codegen/*"
+            ],
+            "@_workspaces": [
+                "../../../workspaces"
+            ],
+            "@_workspace/*": [
+                "../../../workspaces/*"
+            ],
+            "@_styles/*": [
+                "../../../styles/*"
+            ],
+            "@_entries": [
+                "../../entries"
+            ],
+            "@_entries/*": [
+                "../../entries/*"
+            ],
+            "@_pages": [
+                "../../../pages"
+            ],
+            "@_pages/*": [
+                "../../../pages/*"
+            ],
+            "@_core": [
+                "../../core"
+            ],
+            "@_core/*": [
+                "../../core/*"
+            ],
+            "@app.shared": [
+                "../../../shared/index.ts"
+            ],
+            "@app.shared/*": [
+                "../../../shared/*"
+            ],
+            "@extento.types": [
+                "../../types/index.ts"
+            ],
+            "@extento.api": [
+                "../../api"
+            ],
+            "@extento.api/*": [
+                "../../api/*"
+            ]
+        },
+        "rootDir": "../../../"
     },
-    "rootDir": "../../../"
-  },
-  "exclude": [
-    ".eslintrc.js",
-    "tsconfig.dist",
-    "node_modules"
-  ]
+    "exclude": [
+        ".eslintrc.js",
+        "tsconfig.dist",
+        "node_modules"
+    ]
 }

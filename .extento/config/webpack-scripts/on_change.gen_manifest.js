@@ -128,7 +128,7 @@ const main = async () => {
 
     fs_extra.outputFileSync(
         OUTPUT_PATH_APP_EXTENSION_MANIFEST, 
-        JSON.stringify(manifest_transform(opts), null, 2)
+        JSON.stringify(manifest_transform(opts), null, 4)
     );
 };
 
