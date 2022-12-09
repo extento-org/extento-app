@@ -10,6 +10,7 @@ const PATH_APP_ICONS = path.resolve(PATH_APP, 'icons');
 const PATH_APP_STYLES = path.resolve(PATH_APP, 'styles');
 const PATH_APP_WORKSPACES = path.resolve(PATH_APP, 'workspaces');
 const PATH_APP_EXTENSION = path.resolve(PATH_APP, 'chrome-v3');
+const PATH_APP_BUILDS = path.resolve(PATH_APP, 'builds');
 const PATH_APP_WEBPACK = path.resolve(PATH_APP, '.extento.webpack.js');
 const PATH_INTERNAL = path.resolve(__dirname, '..');
 const PATH_INTERNAL_CORE = path.resolve(PATH_INTERNAL, 'core');
@@ -26,12 +27,14 @@ const PATH_INTERNAL_ENTRIES_BACKGROUND = path.resolve(PATH_INTERNAL_ENTRIES, 'ba
 const PATH_WEBPACK_TSCONFIG = path.resolve(__dirname, 'tsconfigs', 'webpack.json');
 const PATH_BASE_TSCONFIG = path.resolve(__dirname, 'tsconfigs', 'base.json');
 const PATH_MASTER_POSTCSS = path.resolve(PATH_APP, '.extento.postcss.js');
-const PATH_SCRIPT_GEN_MANIFEST = path.resolve(__dirname, 'webpack-scripts', 'on_change.gen_manifest.js');
-const PATH_SCRIPT_SELECTIVE_BUILD_COMPILER_ADJUSTMENTS = path.resolve(__dirname, 'webpack-scripts', 'initialize.selective_build_compiler_adjustments.js');
-const PATH_SCRIPT_GEN_STYLESHEETS = path.resolve(__dirname, 'webpack-scripts', 'on_change.gen_stylesheets.js');
-const PATH_SCRIPT_GEN_TYPES = path.resolve(__dirname, 'webpack-scripts', 'on_change.gen_types.js');
-const PATH_SCRIPT_GEN_WORKSPACE_MODULES = path.resolve(__dirname, 'webpack-scripts', 'on_change.gen_workspace_modules.js');
-const PATH_SCRIPT_PREPARE_ASSETS = path.resolve(__dirname, 'webpack-scripts', 'on_change.prepare_assets.js');
+const PATH_WEBPACK_PRODUCTION = path.resolve(__dirname, 'webpack.production.js');
+const PATH_WEBPACK_SCRIPTS = path.resolve(__dirname, 'webpack-scripts');
+const PATH_WEBPACK_SCRIPT_GEN_MANIFEST = path.resolve(PATH_WEBPACK_SCRIPTS, 'on_change.gen_manifest.js');
+const PATH_WEBPACK_SCRIPT_SELECTIVE_BUILD_COMPILER_ADJUSTMENTS = path.resolve(PATH_WEBPACK_SCRIPTS, 'initialize.selective_build_compiler_adjustments.js');
+const PATH_WEBPACK_SCRIPT_GEN_STYLESHEETS = path.resolve(PATH_WEBPACK_SCRIPTS, 'on_change.gen_stylesheets.js');
+const PATH_WEBPACK_SCRIPT_GEN_TYPES = path.resolve(PATH_WEBPACK_SCRIPTS, 'on_change.gen_types.js');
+const PATH_WEBPACK_SCRIPT_GEN_WORKSPACE_MODULES = path.resolve(PATH_WEBPACK_SCRIPTS, 'on_change.gen_workspace_modules.js');
+const PATH_WEBPACK_SCRIPT_PREPARE_ASSETS = path.resolve(PATH_WEBPACK_SCRIPTS, 'on_change.prepare_assets.js');
 
 const OUTPUT_PATH_APP_EXTENSION_MANIFEST = path.resolve(PATH_APP_EXTENSION, 'manifest.json');
 const OPTIONAL_PATH_APP_TAB_PAGE = path.resolve(PATH_APP, 'pages', 'Tab.tsx');
@@ -100,6 +103,7 @@ const ICONS = fs
 module.exports = throw_on_nonexistence({
     PATH_APP,
     PATH_APP_CONFIG,
+    PATH_APP_BUILDS,
     PATH_APP_EXTENSION,
     PATH_APP_WEBPACK,
     PATH_APP_ICONS,
@@ -121,12 +125,14 @@ module.exports = throw_on_nonexistence({
     PATH_WEBPACK_TSCONFIG,
     PATH_BASE_TSCONFIG,
     PATH_MASTER_POSTCSS,
-    PATH_SCRIPT_GEN_MANIFEST,
-    PATH_SCRIPT_SELECTIVE_BUILD_COMPILER_ADJUSTMENTS,
-    PATH_SCRIPT_GEN_STYLESHEETS,
-    PATH_SCRIPT_GEN_TYPES,
-    PATH_SCRIPT_GEN_WORKSPACE_MODULES,
-    PATH_SCRIPT_PREPARE_ASSETS,
+    PATH_WEBPACK_PRODUCTION,
+    PATH_WEBPACK_SCRIPTS,
+    PATH_WEBPACK_SCRIPT_GEN_MANIFEST,
+    PATH_WEBPACK_SCRIPT_SELECTIVE_BUILD_COMPILER_ADJUSTMENTS,
+    PATH_WEBPACK_SCRIPT_GEN_STYLESHEETS,
+    PATH_WEBPACK_SCRIPT_GEN_TYPES,
+    PATH_WEBPACK_SCRIPT_GEN_WORKSPACE_MODULES,
+    PATH_WEBPACK_SCRIPT_PREPARE_ASSETS,
     OUTPUT_PATH_APP_EXTENSION_MANIFEST,
     PATH_INTERNAL_CODEGEN,
     PATH_INTERNAL_TYPES,
