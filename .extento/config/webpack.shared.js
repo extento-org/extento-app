@@ -27,6 +27,7 @@ const {
     PATH_APP_EXTENSION, 
     PATH_MASTER_POSTCSS, 
     PATH_INTERNAL_TYPES,
+    SELECTIVE_BUILD,
 } = require('./constants.js');
 
 const scripts_plugin = require('./scripts');
@@ -35,7 +36,7 @@ if (!fs.readdirSync(PATH_APP_WORKSPACES).length) {
     throw new Error(`You must first create a workspace using the cli!`);
 }
 
-process.env.EXTENTO_SELECTIVE_BUILD = (process.env.SELECTIVE_BUILD || 'MASTER').toUpperCase();
+process.env.EXTENTO_SELECTIVE_BUILD = SELECTIVE_BUILD;
 
 const build_webpack_common_config = (common, mode) => webpack_merge.merge({
     mode: mode,
@@ -114,10 +115,6 @@ const build_webpack_common_config = (common, mode) => webpack_merge.merge({
                 PATH_INTERNAL_CODEGEN,
                 PATH_INTERNAL_TYPES
             ]
-        }),
-        new webpack.DefinePlugin({
-            EXTENTO_SELECTIVE_BUILD: process.env.EXTENTO_SELECTIVE_BUILD,
-            'process.env.EXTENTO_SELECTIVE_BUILD': `"${process.env.EXTENTO_SELECTIVE_BUILD}"`
         }),
         ...(mode === 'development' ? [
             new webpack.DefinePlugin({

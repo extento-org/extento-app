@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const _ = require('lodash');
 
 const throw_on_nonexistence = require('./utils/throw_on_nonexistence');
 
@@ -25,6 +26,12 @@ const PATH_INTERNAL_ENTRIES_BACKGROUND = path.resolve(PATH_INTERNAL_ENTRIES, 'ba
 const PATH_WEBPACK_TSCONFIG = path.resolve(__dirname, 'tsconfigs', 'webpack.json');
 const PATH_BASE_TSCONFIG = path.resolve(__dirname, 'tsconfigs', 'base.json');
 const PATH_MASTER_POSTCSS = path.resolve(PATH_APP, '.extento.postcss.js');
+const PATH_SCRIPT_GEN_MANIFEST = path.resolve(__dirname, 'scripts', 'on_change.gen_manifest.js');
+const PATH_SCRIPT_SELECTIVE_BUILD_COMPILER_ADJUSTMENTS = path.resolve(__dirname, 'scripts', 'initialized.selective_build_compiler_adjustments.js');
+const PATH_SCRIPT_GEN_STYLESHEETS = path.resolve(__dirname, 'scripts', 'on_change.gen_stylesheets.js');
+const PATH_SCRIPT_GEN_TYPES = path.resolve(__dirname, 'scripts', 'on_change.gen_types.js');
+const PATH_SCRIPT_GEN_WORKSPACE_MODULES = path.resolve(__dirname, 'scripts', 'on_change.gen_workspace_modules.js');
+const PATH_SCRIPT_PREPARE_ASSETS = path.resolve(__dirname, 'scripts', 'on_change.prepare_assets.js');
 
 const OUTPUT_PATH_APP_EXTENSION_MANIFEST = path.resolve(PATH_APP_EXTENSION, 'manifest.json');
 const OPTIONAL_PATH_APP_TAB_PAGE = path.resolve(PATH_APP, 'pages', 'Tab.tsx');
@@ -69,16 +76,15 @@ const WORKSPACES = fs
     .filter(name => !name.startsWith('.'))
     .filter(name => fs.lstatSync(path.resolve(PATH_APP_WORKSPACES, name)).isDirectory());
 
-// related to selective builds
+const PROVIDED_SELECTIVE_BUILD_CONFIG = require(PATH_APP_CONFIG).selective_builds;
 const DEFAULT_SELECTIVE_BUILD = 'MASTER';
-const USER_SELECTIVE_BUILDS = Object.keys(require(PATH_APP_CONFIG)
-    .selective_builds);
-
-if (USER_SELECTIVE_BUILDS.includes(DEFAULT_SELECTIVE_BUILD)) {
-    throw new Error(`cannot create a build called: ${DEFAULT_SELECTIVE_BUILD}. it is a reserved build name.`);
-}
-
-const SELECTIVE_BUILDS = USER_SELECTIVE_BUILDS.concat([DEFAULT_SELECTIVE_BUILD]);
+const SELECTIVE_BUILD = process.env.SELECTIVE_BUILD || process.env.EXTENTO_SELECTIVE_BUILD || DEFAULT_SELECTIVE_BUILD;
+const SELECTIVE_BUILDS_CONFIG = {
+    MASTER: WORKSPACES,
+    ...PROVIDED_SELECTIVE_BUILD_CONFIG
+};
+const SELECTIVE_BUILD_WORKSPACES = SELECTIVE_BUILDS_CONFIG[SELECTIVE_BUILD];
+const SELECTIVE_BUILDS = _.union(Object.keys(PROVIDED_SELECTIVE_BUILD_CONFIG), [DEFAULT_SELECTIVE_BUILD]);
 
 // assets
 const ICONS = fs
@@ -115,6 +121,12 @@ module.exports = throw_on_nonexistence({
     PATH_WEBPACK_TSCONFIG,
     PATH_BASE_TSCONFIG,
     PATH_MASTER_POSTCSS,
+    PATH_SCRIPT_GEN_MANIFEST,
+    PATH_SCRIPT_SELECTIVE_BUILD_COMPILER_ADJUSTMENTS,
+    PATH_SCRIPT_GEN_STYLESHEETS,
+    PATH_SCRIPT_GEN_TYPES,
+    PATH_SCRIPT_GEN_WORKSPACE_MODULES,
+    PATH_SCRIPT_PREPARE_ASSETS,
     OUTPUT_PATH_APP_EXTENSION_MANIFEST,
     PATH_INTERNAL_CODEGEN,
     PATH_INTERNAL_TYPES,
@@ -131,6 +143,9 @@ module.exports = throw_on_nonexistence({
     DIST_UI,
     DEFAULT_SELECTIVE_BUILD,
     WORKSPACES,
+    SELECTIVE_BUILD,
+    SELECTIVE_BUILD_WORKSPACES,
     SELECTIVE_BUILDS,
+    SELECTIVE_BUILDS_CONFIG,
     ICONS
 });

@@ -4,6 +4,5 @@
         "composite": true,
         "outDir": "../../tsconfig.dist"
     },
-    "files": ["../typings.d.ts"],
-    "exclude": ["tsconfig.dist", "node_modules"]
+    "files": ["../typings.d.ts"]
 }

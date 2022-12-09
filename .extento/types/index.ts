@@ -1,6 +1,13 @@
-export type WorkspaceName = 'admin' | 'candidate' | 'devops' | 'manager' | 'tester'
+export type AllWorkspaceName = 'admin' | 'candidate' | 'devops' | 'manager' | 'tester'
+
+export type WorkspaceName = 'manager' | 'admin'
 
 export const workspace_names: Array<WorkspaceName> = [
+    'manager',
+    'admin'
+];
+
+export const all_workspace_names: Array<AllWorkspaceName> = [
     'admin',
     'candidate',
     'devops',
@@ -10,7 +17,7 @@ export const workspace_names: Array<WorkspaceName> = [
 
 export type SelectiveBuild = 'QA' | 'BOSS' | 'NEW_GUY' | 'CEO' | 'MASTER'
 
-export const selective_builds: { [key in SelectiveBuild]: Array<WorkspaceName> } = {
+export const selective_builds: { [key in SelectiveBuild]: Array<AllWorkspaceName> } = {
     QA: ['tester', 'candidate'],
     BOSS: ['manager', 'admin'],
     NEW_GUY: ['devops', 'candidate'],
@@ -18,7 +25,6 @@ export const selective_builds: { [key in SelectiveBuild]: Array<WorkspaceName> }
     MASTER: ['admin', 'candidate', 'devops', 'manager', 'tester']
 };
 
-const _ACTIVE_SELECTIVE_BUILD: any = process.env.EXTENTO_SELECTIVE_BUILD;
-export const ACTIVE_SELECTIVE_BUILD: SelectiveBuild = _ACTIVE_SELECTIVE_BUILD;
+export const SELECTIVE_BUILD: SelectiveBuild = 'BOSS';
 
-export const ui_ordering: Array<WorkspaceName> = ['admin', 'tester', 'manager', 'candidate', 'devops'];
+export const ui_ordering: Array<WorkspaceName> = ['admin', 'manager'];

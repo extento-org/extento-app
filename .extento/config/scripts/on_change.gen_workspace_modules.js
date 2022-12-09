@@ -5,7 +5,7 @@ const {
     CODE_GEN_WORKSPACE_EXPORTS,
     PATH_INTERNAL_CODEGEN,
     PATH_APP,
-    WORKSPACES,
+    SELECTIVE_BUILD_WORKSPACES,
 } = require('../constants.js');
 
 const to_var = str => str.split('-').join('_');
@@ -21,14 +21,14 @@ const main = () => {
             path.resolve(PATH_APP, `workspaces/${dir}/${import_name}`)
         );
 
-        const enabled_workspaces = WORKSPACES
-            .filter(workspace => module_exists(workspace));
+        const enabled_workspaces = SELECTIVE_BUILD_WORKSPACES
+            .filter(workspace => module_exists(workspace))
 
         const build_export_line = (workspace) => {
-            return `${to_var(workspace)}: ${name}<typeof ${to_var(workspace)}>('${to_var(workspace)}', ${to_var(workspace)})`;
+            return `${to_var(workspace)}`;
         };
 
-        const export_contents = `// @ts-nocheck\n\nimport { ${name} } from '@extento.api/utils.strip_build';\n\n` +
+        const export_contents = `// @ts-nocheck\n\n` +
             `${enabled_workspaces
                 .map((workspace) => `import * as ${to_var(workspace)} from '@_workspace/${workspace}/${fixed_import_name}';`)
                 .filter(e => e)
@@ -37,7 +37,10 @@ const main = () => {
             `${enabled_workspaces.map((workspace) => `    ${build_export_line(workspace)},`).join('\n')}\n` +
             `};\n`;
 
-        fs.writeFileSync(path.resolve(PATH_INTERNAL_CODEGEN, `webpack.${pluralize_suffix(name)}.ts`), export_contents);
+        fs.writeFileSync(
+            path.resolve(PATH_INTERNAL_CODEGEN, `webpack.${pluralize_suffix(name)}.ts`), 
+            export_contents
+        );
     });
 };
 main();
