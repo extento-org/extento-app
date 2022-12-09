@@ -7,7 +7,6 @@ const PATH_APP = path.resolve(__dirname, '..', '..');
 const PATH_APP_CONFIG = path.resolve(PATH_APP, '.extento.config.js');
 const PATH_APP_ICONS = path.resolve(PATH_APP, 'icons');
 const PATH_APP_STYLES = path.resolve(PATH_APP, 'styles');
-const PATH_APP_TAB_PAGE = path.resolve(PATH_APP, 'pages', 'Tab.tsx');
 const PATH_APP_WORKSPACES = path.resolve(PATH_APP, 'workspaces');
 const PATH_APP_EXTENSION = path.resolve(PATH_APP, 'chrome-v3');
 const PATH_APP_WEBPACK = path.resolve(PATH_APP, '.extento.webpack.js');
@@ -28,6 +27,9 @@ const PATH_BASE_TSCONFIG = path.resolve(__dirname, 'tsconfigs', 'base.json');
 const PATH_MASTER_POSTCSS = path.resolve(PATH_APP, '.extento.postcss.js');
 
 const OUTPUT_PATH_APP_EXTENSION_MANIFEST = path.resolve(PATH_APP_EXTENSION, 'manifest.json');
+const OPTIONAL_PATH_APP_TAB_PAGE = path.resolve(PATH_APP, 'pages', 'Tab.tsx');
+const OPTIONAL_PATH_APP_POPUP_PAGE = path.resolve(PATH_APP, 'pages', 'Popup.tsx');
+const OPTIONAL_PATH_APP_OPTIONS_PAGE = path.resolve(PATH_APP, 'pages', 'Options.tsx');
 
 // a list of files we want to aggregate in codegen
 const CODE_GEN_WORKSPACE_EXPORTS = [
@@ -96,7 +98,9 @@ module.exports = throw_on_nonexistence({
     PATH_APP_WEBPACK,
     PATH_APP_ICONS,
     PATH_APP_STYLES,
-    PATH_APP_TAB_PAGE,
+    OPTIONAL_PATH_APP_TAB_PAGE,
+    OPTIONAL_PATH_APP_POPUP_PAGE,
+    OPTIONAL_PATH_APP_OPTIONS_PAGE,
     PATH_APP_WORKSPACES,
     PATH_INTERNAL,
     PATH_INTERNAL_CORE,

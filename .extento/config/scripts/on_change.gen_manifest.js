@@ -5,7 +5,9 @@ const _ = require('lodash');
 const validate = require('../validate');
 
 const { 
-    PATH_APP_TAB_PAGE,
+    OPTIONAL_PATH_APP_TAB_PAGE,
+    OPTIONAL_PATH_APP_POPUP_PAGE,
+    OPTIONAL_PATH_APP_OPTIONS_PAGE,
     PATH_APP_CONFIG, 
     PATH_APP_WORKSPACES, 
     OUTPUT_PATH_APP_EXTENSION_MANIFEST, 
@@ -57,16 +59,16 @@ const manifest_transform = (opts) => {
         ...(opts.web_accessible_resources || [])
     ];
 
-    const popup = opts.use_popup ? {
+    const popup = fs.existsSync(OPTIONAL_PATH_APP_POPUP_PAGE) ? {
         default_title: opts.popup_name || 'Popup',
         default_popup: POPUP_URL
     } : undefined;
 
-    const options = opts.use_options
+    const options = fs.existsSync(OPTIONAL_PATH_APP_OPTIONS_PAGE)
         ? OPTIONS_URL
         : undefined;
     
-    const chrome_url_overrides = fs.existsSync(PATH_APP_TAB_PAGE) ? {
+    const chrome_url_overrides = fs.existsSync(OPTIONAL_PATH_APP_TAB_PAGE) ? {
         newtab: TAB_URL
     } : undefined
 

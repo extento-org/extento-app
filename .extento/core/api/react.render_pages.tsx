@@ -9,13 +9,16 @@ const pages_scss = require('@_pages/styles/index.scss');
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const App = (props: { Tab?: React.FunctionComponent, Options: React.FunctionComponent, Popup: React.FunctionComponent }) => {
+const App = (props: { Tab?: React.FunctionComponent, Options?: React.FunctionComponent, Popup?: React.FunctionComponent }) => {
     const params = React.useMemo(
         () => new URLSearchParams(window.location.search),
         [window.location.search],
     );
 
-    if (params.get('options') === 'true') {
+    if (
+        typeof props.Options !== 'undefined' 
+            && params.get('options') === 'true'
+    ) {
         return <props.Options />;
     }
 
@@ -26,7 +29,10 @@ const App = (props: { Tab?: React.FunctionComponent, Options: React.FunctionComp
         return <props.Tab />;
     }
 
-    if (params.get('popup') === 'true') {
+    if (
+        typeof props.Popup !== 'undefined' 
+            && params.get('popup') === 'true'
+    ) {
         return <props.Popup />;
     }
 
@@ -34,8 +40,8 @@ const App = (props: { Tab?: React.FunctionComponent, Options: React.FunctionComp
 };
 
 const render_pages = (opts: {
-    Popup: React.FunctionComponent,
-    Options: React.FunctionComponent,
+    Popup?: React.FunctionComponent,
+    Options?: React.FunctionComponent,
     Tab?: React.FunctionComponent,
 }) => {
     const style_tag = document.createElement('style');
