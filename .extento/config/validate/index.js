@@ -10,7 +10,7 @@ const throw_check = (schema, data) => {
     const validate = ajv_instance.compile(schema);
     if (!validate(data)) {
         return new Error(
-            `app manifest validation errors: ${JSON.stringify(validate.errors, null, 2)}`
+            `app manifest validation errors: ${JSON.stringify(validate.errors, null, 4)}`
         );
     }
 };

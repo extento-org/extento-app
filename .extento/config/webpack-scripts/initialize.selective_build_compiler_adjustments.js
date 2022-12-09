@@ -16,7 +16,7 @@ const main = async () => {
             .map(name => `${PATH_APP_WORKSPACES}/${name}/**/*`)
     );
 
-    fs.writeFileSync(PATH_BASE_TSCONFIG, JSON.stringify(tsconfig, null, 2));
+    fs.writeFileSync(PATH_BASE_TSCONFIG, JSON.stringify(tsconfig, null, 4));
 };
 
 main();

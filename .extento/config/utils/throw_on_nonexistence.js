@@ -21,7 +21,7 @@ module.exports = (file_paths_map) => {
         });
 
     if (!_.isEmpty(invalid_paths)) {
-        console.error(JSON.stringify({ invalid_paths }, null, 2));
+        console.error(JSON.stringify({ invalid_paths }, null, 4));
         throw new Error(`some of the paths specified in the constants file do not exist`);
     }
     
