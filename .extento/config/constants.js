@@ -45,12 +45,13 @@ const { extento: USER_CONFIG } = PACKAGE_JSON;
 
 // a list of files we want to aggregate in codegen
 const CODE_GEN_WORKSPACE_EXPORTS = [
-    'background_api.ts',
+    'backgroundApi.ts',
     'config.ts',
-    'content_script_process.ts',
+    'contentScriptProcess.ts',
     'manifest.json',
     'onload.ts',
     'ui',
+    'state.ts',
 ];
 
 // permissions that each workspace needs to have

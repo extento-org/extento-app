@@ -7,9 +7,9 @@ After successfully running ```@extento/cli workspace <name>``` inside of your pr
 ```
 $EXTENTO_WORKSPACE_DIR_STRUCTURE
 ├── <workspace_name>
-│   ├── background_api.ts
+│   ├── backgroundApi.ts
 │   ├── config.ts
-│   ├── content_script_process.ts
+│   ├── contentScriptProcess.ts
 │   ├── manifest.json
 │   ├── onload.ts
 │   ├── readme.md
