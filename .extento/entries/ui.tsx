@@ -1,3 +1,3 @@
-import create_workspace_roots from '@extento.api/content.create_workspace_roots';
+import createWorkspaceRoots from '@extento.api/content.createWorkspaceRoots';
 
-create_workspace_roots();
+createWorkspaceRoots();

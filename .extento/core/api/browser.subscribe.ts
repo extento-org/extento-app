@@ -16,6 +16,6 @@ const subscribe: any = new Proxy({}, {
     },
 });
 
-const _: Subscriber = subscribe;
+const defaultExport: Subscriber = subscribe;
 
-export default _;
+export default defaultExport;

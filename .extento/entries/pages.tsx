@@ -1,7 +1,8 @@
 import pages from '@_pages';
-import render_pages from '@extento.api/react.render_pages';
+import renderPages from '@extento.api/react.renderPages';
 
-import './polyfill.js';
+import './polyfill';
 
-const untyped_pages: any = pages;
-render_pages(untyped_pages);
+const untypedPages: any = pages;
+
+renderPages(untypedPages);

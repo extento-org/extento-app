@@ -1,4 +1,4 @@
-import call_worker from '@extento.api/browser.call_worker';
+import callWorker from '@extento.api/browser.callWorker';
 import subscribe from '@extento.api/browser.subscribe';
 
 const onload = async () => {
@@ -11,7 +11,7 @@ const onload = async () => {
         );
 
         (setInterval(async () => {
-            const response = await call_worker.manager.example();
+            const response = await callWorker.manager.example();
             console.info('recieved a response in onload from TEMPLATE', { response });
         }, 5000));
     } catch(err) {

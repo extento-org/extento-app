@@ -1,11 +1,11 @@
-import mount_onload_script from '@extento.api/content.mount_onload_script';
-import mount_react_script from '@extento.api/content.mount_react_script';
-import run_worker_proxy from '@extento.api/content.run_worker_proxy';
-import run_config_updater from '@extento.api/content.run_config_updater';
+import mountOnloadScript from '@extento.api/content.mountOnloadScript';
+import mountReactScript from '@extento.api/content.mountReactScript';
+import runWorkerProxy from '@extento.api/content.runWorkerProxy';
+import runConfigUpdater from '@extento.api/content.runConfigUpdater';
 
-import './polyfill.js';
+import './polyfill';
 
-run_worker_proxy();
-mount_onload_script();
-mount_react_script();
-run_config_updater();
+runWorkerProxy();
+mountOnloadScript();
+mountReactScript();
+runConfigUpdater();
