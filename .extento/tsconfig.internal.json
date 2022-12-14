@@ -1,0 +1,7 @@
+// DO NOT CHANGE THIS 
+// it ensures your code editor's built in TS linting works
+
+{ 
+    "extends": "./config/eslints/tsconfig.json",
+    "include": ["*/**/*.ts", "*/**/*.tsx", "*/**/*.json"]
+}

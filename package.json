@@ -44,7 +44,7 @@
             "devops"
         ],
         "selective_builds": {
-            "QA": {
+            "qa": {
                 "version": "0.0.2",
                 "name": "coolqaguy",
                 "workspaces": [
@@ -52,13 +52,13 @@
                     "candidate"
                 ]
             },
-            "BOSS": {
+            "boss": {
                 "workspaces": [
                     "manager",
                     "admin"
                 ]
             },
-            "NEW_GUY": {
+            "new_guy": {
                 "version": "0.0.1",
                 "name": "nooooob",
                 "workspaces": [
@@ -66,7 +66,7 @@
                     "candidate"
                 ]
             },
-            "CEO": {
+            "ceo": {
                 "name": "suit",
                 "workspaces": [
                     "admin",

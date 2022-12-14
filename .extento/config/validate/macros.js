@@ -1,21 +1,21 @@
-const { WORKSPACES } = require('../constants');
+const constants = require('../constants');
 
 module.exports = {
     all_workspaces: {
         type: 'array',
         uniqueItems: true,
-        maxItems: WORKSPACES.length,
-        minItems: WORKSPACES.length,
+        maxItems: constants.WORKSPACES.length,
+        minItems: constants.WORKSPACES.length,
         items: {
-            workspace: true
-        }
+            workspace: true,
+        },
     },
     some_workspaces: {
         type: 'array',
         uniqueItems: true,
-        maxItems: WORKSPACES.length,
+        maxItems: constants.WORKSPACES.length,
         items: {
-            workspace: true
-        }
-    }
+            workspace: true,
+        },
+    },
 };

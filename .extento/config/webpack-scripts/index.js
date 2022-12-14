@@ -1,49 +1,38 @@
-const execSync = require('child_process').execSync;
 const fs = require('fs');
 const path = require('path');
+const { eLog, sLog } = require('../utils/logging');
 
 // UPDATE ME to add new script.<lifecycle> scripts
-const supported_script_prefixes = {
+const SUPPORTED_PREFIXES = {
     on_change: (compiler, func) => {
         compiler.hooks.beforeCompile.tapAsync('BeforeCompilePlugin', (...[, callback]) => func(callback));
     },
     initialize: (compiler, func) => {
         compiler.hooks.initialize.tap('Initialize', func);
     },
-    shutdown: (compiler, func) => {
-        compiler.hooks.shutdown.tapAsync('Shutdown', (...[, callback]) => func(callback));
-    }
-};
-
-function wrappedExec(cmd) {
-    try {
-        return {
-            stdout: execSync(cmd).toString()
-        };
-    }
-    catch (error) {
-        return {
-            stderr: error.stderr
-        };
-    }
 };
 
 // runs node scripts in series and aggregates results
 // will run each script regardless if a previous one errors
-const recursive_sequential_scripts = (last_scripts, cb, results = []) => {
-    if (last_scripts.length === 0) {
-        return cb();
+const recursiveSequentialScripts = (lastScripts, results = []) => {
+    if (lastScripts.length === 0) {
+        return;
     }
-    const script_name = last_scripts[0];
-    const { stderr, stdout } = wrappedExec(`node ${path.resolve(__dirname, script_name)}`);
-    if (stdout)
-        process.stdout.write(stdout);
-    if (stderr)
-        process.stderr.write(stderr);
+    const scriptName = lastScripts[0];
+    const scriptFunction = require(path.resolve(__dirname, scriptName));
 
-    results.push({ [script_name]: { stdout, stderr } });
-    
-    recursive_sequential_scripts(last_scripts.slice(1), cb, results);
+    let result;
+    let err;
+    try {
+        result = scriptFunction();
+        sLog(`ran ${scriptName}`);
+    } catch (_err) {
+        err = _err;
+        eLog(`failed ${scriptName} with message: ${_err.message}`, err);
+    }
+
+    results.push({ [scriptName]: { result, err } });
+    recursiveSequentialScripts(lastScripts.slice(1), results);
 };
 
 // produces an array of functions, each of which run scripts associated with a webpack hook
@@ -56,32 +45,34 @@ const commands = Object.entries(fs.readdirSync(path.resolve(__dirname))
             }
             accum[command].push(name);
         }
-        
+
         return accum;
     }, {}))
     .reduce((accum, [command, scripts]) => ([
         ...accum,
         (compiler = null, cb = () => null) => {
-            if (typeof supported_script_prefixes[command] === 'undefined') {
+            if (typeof SUPPORTED_PREFIXES[command] === 'undefined') {
                 if (!compiler) {
                     cb(`${command}.* scripts are not supported. add them to the supported script prefixes.`);
                 }
                 return;
             }
             if (!compiler) {
-                recursive_sequential_scripts(scripts, () => cb());
-            }
-            else {
-                supported_script_prefixes[command](
-                    compiler, 
-                    (callback = () => null) => recursive_sequential_scripts(scripts, callback)
+                recursiveSequentialScripts(scripts);
+            } else {
+                SUPPORTED_PREFIXES[command](
+                    compiler,
+                    (callback = () => null) => {
+                        recursiveSequentialScripts(scripts);
+                        callback();
+                    },
                 );
             }
-        }
+        },
     ]), []);
 
 module.exports = {
     apply: (compiler) => {
-        commands.forEach(command => command(compiler));
-    }
+        commands.forEach((command) => command(compiler));
+    },
 };

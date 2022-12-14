@@ -5,39 +5,39 @@ module.exports = {
     required: [
         'selective_builds',
         'ui_ordering',
-        'manifest'
+        'manifest',
     ],
     properties: {
         manifest: {
             type: 'object',
             required: [
                 'name',
-                'version'
+                'version',
             ],
             properties: {
                 name: {
-                    type: 'string'
+                    type: 'string',
                 },
                 version: {
-                    type: 'string'
-                }
-            }
+                    type: 'string',
+                },
+            },
         },
         selective_builds: {
             type: 'object',
             required: [
-                'workspaces'
+                'workspaces',
             ],
             properties: {
                 workspaces: macros.some_workspaces,
                 name: {
-                    type: 'string'
+                    type: 'string',
                 },
                 version: {
-                    type: 'string'
-                }
-            }
+                    type: 'string',
+                },
+            },
         },
         ui_ordering: macros.all_workspaces,
-    }
+    },
 };
