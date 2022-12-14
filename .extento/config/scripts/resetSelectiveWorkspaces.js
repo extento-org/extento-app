@@ -19,4 +19,4 @@ const resetSelectiveWorkspaces = () => {
     sLog(`RESET WORKSPACES TO: ${constants.DEFAULT_SELECTIVE_BUILD}`);
 };
 
-module.exports = resetSelectiveWorkspaces;
+resetSelectiveWorkspaces();

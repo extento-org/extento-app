@@ -46,4 +46,4 @@ const buildWorkspaces = () => {
     sLog(`completed ${selectiveBuilds.length} builds`);
 };
 
-module.exports = buildWorkspaces;
+buildWorkspaces();
