@@ -1,0 +1,8 @@
+// DO NOT CHANGE THIS 
+// it ensures your code editor's built in TS linting works
+
+{ 
+    "extends": "../tsconfigs/webpack.json",
+    "include": ["../../**/*.ts", "../../**/*.tsx", "../../**/*.json"],
+    "exclude": ["../../tsconfig.dist"]
+}

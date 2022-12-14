@@ -1,52 +1,29 @@
 const fs = require('fs');
-const webpack_merge = require('webpack-merge');
-const terser_webpack_plugin = require('terser-webpack-plugin');
-const html_webpack_plugin = require('html-webpack-plugin');
-const webpack_watch_files_plugin = require('webpack-watch-files-plugin');
-const tsconfig_paths_webpack_plugin = require('tsconfig-paths-webpack-plugin');
-const webpack = require('webpack');
+const webpackMerge = require('webpack-merge');
+const TerserWebpackPlugin = require('terser-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { default: WebpackWatchFilesPlugin } = require('webpack-watch-files-plugin');
+const TsconfigPathsWebpackPlugin = require('tsconfig-paths-webpack-plugin');
+const Webpack = require('webpack');
 
-const { 
-    PATH_APP_WEBPACK,
-    PATH_APP_STYLES,
-    PATH_INTERNAL_ENTRIES_ONLOAD, 
-    PATH_INTERNAL_ENTRIES_BACKGROUND, 
-    PATH_INTERNAL_ENTRIES_CONTENT_SCRIPT, 
-    PATH_INTERNAL_CODEGEN, 
-    PATH_APP_WORKSPACES, 
-    PATH_INTERNAL_ENTRIES_PAGES_HTML, 
-    PATH_INTERNAL_ENTRIES_PAGES, 
-    PATH_INTERNAL_ENTRIES_UI, 
-    PATH_WEBPACK_TSCONFIG, 
-    DIST_ONLOAD, 
-    DIST_BACKGROUND, 
-    DIST_CONTENT_SCRIPT, 
-    DIST_PAGES_JS, 
-    DIST_PAGES_HTML, 
-    DIST_UI, 
-    PATH_APP_EXTENSION, 
-    PATH_MASTER_POSTCSS, 
-    PATH_INTERNAL_TYPES,
-    SELECTIVE_BUILD,
-    PATH_WEBPACK_SCRIPTS,
-} = require('./constants.js');
+const constants = require('./constants');
 
-const scripts_plugin = require(PATH_WEBPACK_SCRIPTS);
+const scriptsPlugin = require(constants.PATH_WEBPACK_SCRIPTS);
 
-if (!fs.readdirSync(PATH_APP_WORKSPACES).length) {
+if (!fs.readdirSync(constants.PATH_APP_WORKSPACES).length) {
     throw new Error(`You must first create a workspace using the cli!`);
 }
 
-process.env.EXTENTO_SELECTIVE_BUILD = SELECTIVE_BUILD;
+process.env.EXTENTO_SELECTIVE_BUILD = constants.SELECTIVE_BUILD;
 
-const build_webpack_common_config = (common, mode) => webpack_merge.merge({
-    mode: mode,
+const buildWebpackCommonConfig = (common, mode) => webpackMerge.merge({
+    mode,
     ...(mode === 'development' ? {
-        devtool: 'inline-source-map'
+        devtool: 'inline-source-map',
     } : {}),
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
-        plugins: [new tsconfig_paths_webpack_plugin()]
+        plugins: [new TsconfigPathsWebpackPlugin()],
     },
     module: {
         rules: [
@@ -56,16 +33,16 @@ const build_webpack_common_config = (common, mode) => webpack_merge.merge({
                 use: [
                     'to-string-loader',
                     {
-                        loader: 'css-loader'
+                        loader: 'css-loader',
                     },
                     {
                         loader: 'postcss-loader',
                         options: {
                             postcssOptions: {
-                                config: PATH_MASTER_POSTCSS,
+                                config: constants.PATH_MASTER_POSTCSS,
                             },
                         },
-                    }
+                    },
                 ],
             },
             {
@@ -76,7 +53,7 @@ const build_webpack_common_config = (common, mode) => webpack_merge.merge({
                         loader: 'html-loader',
                     },
                     {
-                        loader: 'markdown-loader'
+                        loader: 'markdown-loader',
                     },
                 ],
             },
@@ -85,100 +62,100 @@ const build_webpack_common_config = (common, mode) => webpack_merge.merge({
                 test: /\.(tsx|ts|js|jsx)$/,
                 exclude: /node_modules/,
                 use: [{
-                        loader: 'ts-loader',
-                        options: {
-                            configFile: PATH_WEBPACK_TSCONFIG,
-                            projectReferences: true
-                        }
-                    }],
+                    loader: 'ts-loader',
+                    options: {
+                        configFile: constants.PATH_WEBPACK_TSCONFIG,
+                        projectReferences: true,
+                    },
+                }],
             },
-        ]
+        ],
     },
     optimization: {
-        minimizer: [new terser_webpack_plugin({
-                extractComments: false,
-            })],
+        minimizer: [new TerserWebpackPlugin({
+            extractComments: false,
+        })],
     },
     ...(mode === 'development' ? {
         node: {
-            global: false
-        }
+            global: false,
+        },
     } : {}),
     plugins: [
-        new webpack_watch_files_plugin.default({
+        new WebpackWatchFilesPlugin({
             files: [
-                PATH_APP_STYLES + '/**/*.css',
-                PATH_APP_STYLES + '/**/*.js'
-            ]
+                `${constants.PATH_APP_STYLES}/**/*.css`,
+                `${constants.PATH_APP_STYLES}/**/*.js`,
+            ],
         }),
-        new webpack.WatchIgnorePlugin({
+        new Webpack.WatchIgnorePlugin({
             paths: [
-                PATH_INTERNAL_CODEGEN,
-                PATH_INTERNAL_TYPES
-            ]
+                constants.PATH_INTERNAL_CODEGEN,
+                constants.PATH_INTERNAL_TYPES,
+            ],
         }),
         ...(mode === 'development' ? [
-            new webpack.DefinePlugin({
-                global: 'window' // Placeholder for global used in any node_modules
-            })
+            new Webpack.DefinePlugin({
+                global: 'window',
+            }),
         ] : []),
-        scripts_plugin
-    ]
+        scriptsPlugin,
+    ],
 }, common);
 
-const add_dev_server_ports = (webpack_configs) => webpack_configs
-    .map((webpack_config, i) => webpack_merge.merge(webpack_config, {
+const addDevServerPorts = (webpackConfigs) => webpackConfigs
+    .map((webpackConfig, i) => webpackMerge.merge(webpackConfig, {
         devServer: {
-            port: 42001 + i
-        }
+            port: 42001 + i,
+        },
     }));
 
-const build_webpack_configs = (common, mode) => {
-    const webpack_common_config = build_webpack_common_config(common, mode);
+const buildWebpackConfigs = (common, mode) => {
+    const webpackCommonConfig = buildWebpackCommonConfig(common, mode);
 
-    return add_dev_server_ports([
-        webpack_merge.merge(webpack_common_config, {
-            entry: PATH_INTERNAL_ENTRIES_ONLOAD,
+    return addDevServerPorts([
+        webpackMerge.merge(webpackCommonConfig, {
+            entry: constants.PATH_INTERNAL_ENTRIES_ONLOAD,
             output: {
-                filename: DIST_ONLOAD
-            }
+                filename: constants.DIST_ONLOAD,
+            },
         }),
-        webpack_merge.merge(webpack_common_config, {
-            entry: PATH_INTERNAL_ENTRIES_BACKGROUND,
+        webpackMerge.merge(webpackCommonConfig, {
+            entry: constants.PATH_INTERNAL_ENTRIES_BACKGROUND,
             output: {
-                filename: DIST_BACKGROUND
-            }
+                filename: constants.DIST_BACKGROUND,
+            },
         }),
-        webpack_merge.merge(webpack_common_config, {
-            entry: PATH_INTERNAL_ENTRIES_CONTENT_SCRIPT,
+        webpackMerge.merge(webpackCommonConfig, {
+            entry: constants.PATH_INTERNAL_ENTRIES_CONTENT_SCRIPT,
             output: {
-                filename: DIST_CONTENT_SCRIPT
-            }
+                filename: constants.DIST_CONTENT_SCRIPT,
+            },
         }),
-        webpack_merge.merge(webpack_common_config, {
-            entry: PATH_INTERNAL_ENTRIES_PAGES,
+        webpackMerge.merge(webpackCommonConfig, {
+            entry: constants.PATH_INTERNAL_ENTRIES_PAGES,
             output: {
-                filename: DIST_PAGES_JS
+                filename: constants.DIST_PAGES_JS,
             },
             plugins: [
-                new html_webpack_plugin({
-                    template: PATH_INTERNAL_ENTRIES_PAGES_HTML,
-                    filename: DIST_PAGES_HTML
-                })
-            ]
+                new HtmlWebpackPlugin({
+                    template: constants.PATH_INTERNAL_ENTRIES_PAGES_HTML,
+                    filename: constants.DIST_PAGES_HTML,
+                }),
+            ],
         }),
-        webpack_merge.merge(webpack_common_config, {
-            entry: PATH_INTERNAL_ENTRIES_UI,
+        webpackMerge.merge(webpackCommonConfig, {
+            entry: constants.PATH_INTERNAL_ENTRIES_UI,
             output: {
-                filename: DIST_UI
-            }
-        })
+                filename: constants.DIST_UI,
+            },
+        }),
     ]);
 };
 
-module.exports = (mode) => build_webpack_configs({
-    ...require(PATH_APP_WEBPACK)(mode),
+module.exports = (mode) => buildWebpackConfigs({
+    ...require(constants.PATH_APP_WEBPACK)(mode),
     output: {
-        path: PATH_APP_EXTENSION
-    }
+        path: constants.PATH_APP_EXTENSION,
+    },
 }, mode);

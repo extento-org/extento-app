@@ -31,3 +31,5 @@ icons/*/*
 
 # only include RELEASE builds in VC
 builds/*.DEV*
+
+*.pem

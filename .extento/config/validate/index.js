@@ -1,25 +1,22 @@
-const ajv = require('ajv');
-const fs = require('fs');
-const path = require('path');
+const Ajv = require('ajv');
 const keywords = require('./keywords');
-const ajv_instance = new ajv();
+const schemaConfig = require('./schemas/config');
 
-keywords.forEach(params => ajv_instance.addKeyword(params));
+const ajvInstance = new Ajv();
 
-const throw_check = (schema, data) => {
-    const validate = ajv_instance.compile(schema);
+keywords.forEach((params) => ajvInstance.addKeyword(params));
+
+const throwCheck = (schema, data) => {
+    const validate = ajvInstance.compile(schema);
     if (!validate(data)) {
         return new Error(
-            `app manifest validation errors: ${JSON.stringify(validate.errors, null, 4)}`
+            `app manifest validation errors: ${JSON.stringify(validate.errors, null, 4)}`,
         );
     }
+
+    return true;
 };
 
-module.exports = fs.readdirSync(path.resolve(__dirname, 'schemas'))
-    .filter(name => name !== 'index.js')
-    .reduce((accum, file) => {
-        const export_name = file.split('.')[0];
-        accum[export_name] = data => throw_check(require(`./schemas/${file}`), data);
-        
-        return accum;
-    }, {});
+module.exports = {
+    config: (data) => throwCheck(schemaConfig, data),
+};
