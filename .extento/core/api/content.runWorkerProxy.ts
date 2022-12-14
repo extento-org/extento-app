@@ -1,4 +1,3 @@
-import config from '@_core/api/lib.useConfig';
 import chrome_wrapper from '@_core/lib.chrome';
 import constants from '@_core/constants';
 
@@ -8,19 +7,7 @@ const runWorkerProxy = () => {
         constants.EXTENT_BACKGROUND_API_INBOUND,
         (_event: CustomEvent) => {
             try {
-                config.getCb(
-                    ({ config: data, message, err }) => {
-                        if (err) {
-                            throw new Error(message);
-                        }
-                        chrome_wrapper.postWindowMessage({
-                            ..._event.detail,
-                            config: data,
-                            error: !!err,
-                            error_message: message,
-                        });
-                    },
-                );
+                chrome_wrapper.postWindowMessage(_event.detail);
             } catch (err) {
                 // logging for dev purposes but we never expect to hit this
                 console.error(err);

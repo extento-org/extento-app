@@ -46,7 +46,6 @@ const { extento: USER_CONFIG } = PACKAGE_JSON;
 // a list of files we want to aggregate in codegen
 const CODE_GEN_WORKSPACE_EXPORTS = [
     'backgroundApi.ts',
-    'config.ts',
     'contentScriptProcess.ts',
     'manifest.json',
     'onload.ts',
