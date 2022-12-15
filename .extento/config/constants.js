@@ -9,7 +9,7 @@ const PATH_APP_BUILDS = path.resolve(PATH_APP, 'builds');
 const PATH_APP_EXTENSION = path.resolve(PATH_APP, 'chrome-v3');
 const PATH_APP_STYLES = path.resolve(PATH_APP, 'styles');
 const PATH_APP_WEBPACK = path.resolve(PATH_APP, '.extento.webpack.js');
-const PATH_APP_WORKSPACES = path.resolve(PATH_APP, 'workspaces');
+const PATH_APP_LAYERS = path.resolve(PATH_APP, 'layers');
 const PATH_BASE_TSCONFIG = path.resolve(__dirname, 'tsconfigs', 'base.json');
 const PATH_INTERNAL = path.resolve(__dirname, '..');
 const PATH_INTERNAL_API = path.resolve(PATH_INTERNAL, 'api');
@@ -29,7 +29,7 @@ const PATH_WEBPACK_SCRIPTS = path.resolve(__dirname, 'webpack-scripts');
 const PATH_WEBPACK_SCRIPT_GEN_MANIFEST = path.resolve(PATH_WEBPACK_SCRIPTS, 'on_change.genManifest.js');
 const PATH_WEBPACK_SCRIPT_GEN_STYLESHEETS = path.resolve(PATH_WEBPACK_SCRIPTS, 'on_change.genStylesheets.js');
 const PATH_WEBPACK_SCRIPT_GEN_TYPES = path.resolve(PATH_WEBPACK_SCRIPTS, 'on_change.genTypes.js');
-const PATH_WEBPACK_SCRIPT_GEN_WORKSPACE_MODULES = path.resolve(PATH_WEBPACK_SCRIPTS, 'on_change.genWorkspaceModules.js');
+const PATH_WEBPACK_SCRIPT_GEN_LAYER_MODULES = path.resolve(PATH_WEBPACK_SCRIPTS, 'on_change.genLayerModules.js');
 const PATH_WEBPACK_SCRIPT_PREPARE_ASSETS = path.resolve(PATH_WEBPACK_SCRIPTS, 'on_change.prepareAssets.js');
 const PATH_WEBPACK_SCRIPT_SELECTIVE_BUILD_COMPILER_ADJUSTMENTS = path.resolve(PATH_WEBPACK_SCRIPTS, 'initialize.selectiveBuildCompilerAdjustments.js');
 const PATH_WEBPACK_TSCONFIG = path.resolve(__dirname, 'tsconfigs', 'webpack.json');
@@ -44,8 +44,8 @@ const PACKAGE_JSON = require('../../package.json');
 const { extento: USER_CONFIG } = PACKAGE_JSON;
 
 // a list of files we want to aggregate in codegen
-const CODE_GEN_WORKSPACE_EXPORTS = [
-    'backgroundApi.ts',
+const CODE_GEN_LAYER_EXPORTS = [
+    'worker.ts',
     'contentScriptProcess.ts',
     'manifest.json',
     'onload.ts',
@@ -53,7 +53,7 @@ const CODE_GEN_WORKSPACE_EXPORTS = [
     'state.ts',
 ];
 
-// permissions that each workspace needs to have
+// permissions that each layer needs to have
 const BASE_CHROME_PERMISSIONS = ['storage'];
 
 // never change to dot file
@@ -69,11 +69,11 @@ const DIST_PAGES_HTML = `${PREFIX_DIST}pages.html`;
 const DIST_PAGES_JS = `${PREFIX_DIST}pages.js`;
 const DIST_UI = `${PREFIX_DIST}ui.js`;
 
-// workspaces
-const WORKSPACES = fs
-    .readdirSync(PATH_APP_WORKSPACES)
+// layers
+const LAYERS = fs
+    .readdirSync(PATH_APP_LAYERS)
     .filter((name) => !name.startsWith('.'))
-    .filter((name) => fs.lstatSync(path.resolve(PATH_APP_WORKSPACES, name)).isDirectory());
+    .filter((name) => fs.lstatSync(path.resolve(PATH_APP_LAYERS, name)).isDirectory());
 
 // selective builds
 const PROVIDED_SELECTIVE_BUILD_CONFIG = USER_CONFIG.selective_builds;
@@ -84,12 +84,12 @@ const SELECTIVE_BUILD = process.env.SELECTIVE_BUILD
 
 const SELECTIVE_BUILDS_CONFIG = {
     [DEFAULT_SELECTIVE_BUILD]: {
-        workspaces: WORKSPACES,
+        layers: LAYERS,
     },
     ...PROVIDED_SELECTIVE_BUILD_CONFIG,
 };
 
-const SELECTIVE_BUILD_WORKSPACES = SELECTIVE_BUILDS_CONFIG[SELECTIVE_BUILD].workspaces;
+const SELECTIVE_BUILD_LAYERS = SELECTIVE_BUILDS_CONFIG[SELECTIVE_BUILD].layers;
 const SELECTIVE_BUILDS = _.union(
     Object.keys(PROVIDED_SELECTIVE_BUILD_CONFIG),
     [DEFAULT_SELECTIVE_BUILD],
@@ -114,7 +114,7 @@ const ICONS = fs
 module.exports = throwOnNonExistence({
     BASE_CHROME_PERMISSIONS,
     CLEARABLE_PREFIXES,
-    CODE_GEN_WORKSPACE_EXPORTS,
+    CODE_GEN_LAYER_EXPORTS,
     DEFAULT_SELECTIVE_BUILD,
     DIST_BACKGROUND,
     DIST_CONTENT_SCRIPT,
@@ -132,7 +132,7 @@ module.exports = throwOnNonExistence({
     PATH_APP_ICONS,
     PATH_APP_STYLES,
     PATH_APP_WEBPACK,
-    PATH_APP_WORKSPACES,
+    PATH_APP_LAYERS,
     PATH_APP,
     PATH_BASE_TSCONFIG,
     PATH_INTERNAL_API,
@@ -152,17 +152,17 @@ module.exports = throwOnNonExistence({
     PATH_WEBPACK_SCRIPT_GEN_MANIFEST,
     PATH_WEBPACK_SCRIPT_GEN_STYLESHEETS,
     PATH_WEBPACK_SCRIPT_GEN_TYPES,
-    PATH_WEBPACK_SCRIPT_GEN_WORKSPACE_MODULES,
+    PATH_WEBPACK_SCRIPT_GEN_LAYER_MODULES,
     PATH_WEBPACK_SCRIPT_PREPARE_ASSETS,
     PATH_WEBPACK_SCRIPT_SELECTIVE_BUILD_COMPILER_ADJUSTMENTS,
     PATH_WEBPACK_SCRIPTS,
     PATH_WEBPACK_TSCONFIG,
     PREFIX_DIST,
     PREFIX_ICON,
-    SELECTIVE_BUILD_WORKSPACES,
+    SELECTIVE_BUILD_LAYERS,
     SELECTIVE_BUILD,
     SELECTIVE_BUILDS_CONFIG,
     SELECTIVE_BUILDS,
     USER_CONFIG,
-    WORKSPACES,
+    LAYERS,
 });

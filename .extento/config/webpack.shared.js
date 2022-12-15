@@ -10,8 +10,8 @@ const constants = require('./constants');
 
 const scriptsPlugin = require(constants.PATH_WEBPACK_SCRIPTS);
 
-if (!fs.readdirSync(constants.PATH_APP_WORKSPACES).length) {
-    throw new Error(`You must first create a workspace using the cli!`);
+if (!fs.readdirSync(constants.PATH_APP_LAYERS).length) {
+    throw new Error(`You must first create a layer using the cli!`);
 }
 
 process.env.EXTENTO_SELECTIVE_BUILD = constants.SELECTIVE_BUILD;

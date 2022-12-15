@@ -8,9 +8,9 @@ const { vLog } = require('../utils/logging');
 
 const constants = require('../constants');
 
-const accumWorkspaceManifest = (accessorString, onAccum) => {
-    const dirPaths = constants.SELECTIVE_BUILD_WORKSPACES
-        .map((name) => path.resolve(constants.PATH_APP_WORKSPACES, name));
+const accumLayerManifest = (accessorString, onAccum) => {
+    const dirPaths = constants.SELECTIVE_BUILD_LAYERS
+        .map((name) => path.resolve(constants.PATH_APP_LAYERS, name));
 
     return dirPaths.reduce((accum, dirPath) => {
         let section;
@@ -19,7 +19,7 @@ const accumWorkspaceManifest = (accessorString, onAccum) => {
             manifest = require(path.resolve(dirPath, 'manifest.json'));
             section = _.get(manifest, accessorString, []);
         } catch (err) {
-            throw new Error(`manifest.json not found in ${dirPath.replace(constants.PATH_APP_WORKSPACES, '')}`);
+            throw new Error(`manifest.json not found in ${dirPath.replace(constants.PATH_APP_LAYERS, '')}`);
         }
         return onAccum(accum, section);
     }, undefined);
@@ -88,13 +88,13 @@ const genManifest = () => {
 
     const finalManifest = manifestTransform({
         ...constants.USER_CONFIG.manifest,
-        matches: accumWorkspaceManifest(
+        matches: accumLayerManifest(
             'matches.value',
             (accum = [], matchUrlSchemes = []) => _.union(accum, matchUrlSchemes),
         ),
-        optional_permissions: accumWorkspaceManifest(
+        optional_permissions: accumLayerManifest(
             'permissions.value',
-            (accum = [], workspacePermissions = []) => _.union(accum, workspacePermissions),
+            (accum = [], layerPermissions = []) => _.union(accum, layerPermissions),
         ),
     });
 

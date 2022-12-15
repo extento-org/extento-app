@@ -8,8 +8,8 @@ const toVar = (str) => str.split('-').join('_');
 
 const getStylesheets = () => {
     // remove leading slash if exists
-    const getPathToCss = (workspace) => path.resolve(constants.PATH_APP, `workspaces/${workspace}/styles/index.css`);
-    const getPathToScss = (workspace) => path.resolve(constants.PATH_APP, `workspaces/${workspace}/styles/index.scss`);
+    const getPathToCss = (layer) => path.resolve(constants.PATH_APP, `layers/${layer}/styles/index.css`);
+    const getPathToScss = (layer) => path.resolve(constants.PATH_APP, `layers/${layer}/styles/index.scss`);
 
     const printRequire = (_path) => {
         if (fs.existsSync(_path)) {
@@ -19,11 +19,11 @@ const getStylesheets = () => {
     };
 
     const exportContents = `// @ts-nocheck\n\n`
-        + `${constants.SELECTIVE_BUILD_WORKSPACES
-            .map((workspace) => `const ${toVar(workspace)} = { scss: ${printRequire(getPathToScss(workspace))}, css: ${printRequire(getPathToCss(workspace))} };`)
+        + `${constants.SELECTIVE_BUILD_LAYERS
+            .map((layer) => `const ${toVar(layer)} = { scss: ${printRequire(getPathToScss(layer))}, css: ${printRequire(getPathToCss(layer))} };`)
             .join('\n')}`
         + `\n\nexport default {\n`
-        + `${constants.SELECTIVE_BUILD_WORKSPACES.map((workspace) => `    ${toVar(workspace)},`).join('\n')}\n`
+        + `${constants.SELECTIVE_BUILD_LAYERS.map((layer) => `    ${toVar(layer)},`).join('\n')}\n`
         + `};\n`;
 
     fs.writeFileSync(path.resolve(constants.PATH_INTERNAL_CODEGEN, 'webpack.styles.ts'), exportContents);

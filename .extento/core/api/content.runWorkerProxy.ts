@@ -4,7 +4,7 @@ import constants from '@_core/constants';
 const runWorkerProxy = () => {
     // connects our browser/content script code to the background apis
     window.addEventListener(
-        constants.EXTENT_BACKGROUND_API_INBOUND,
+        constants.EXTENT_WORKER_INBOUND,
         (_event: CustomEvent) => {
             try {
                 chrome_wrapper.postWindowMessage(_event.detail);

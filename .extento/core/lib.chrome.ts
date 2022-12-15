@@ -1,4 +1,4 @@
-import { WorkspaceName } from '@extento.types';
+import { LayerName } from '@extento.types';
 
 const getActiveTabs: () => Promise<chrome.tabs.Tab[]> = () => new Promise(
     (resolve, reject) => {
@@ -13,7 +13,7 @@ const getActiveTabs: () => Promise<chrome.tabs.Tab[]> = () => new Promise(
 const publishToTab = (opts: {
     tab_id: number,
     data: any,
-    workspace: WorkspaceName,
+    layer: LayerName,
     channel: string,
 }) => chrome.tabs.sendMessage(
     opts.tab_id,

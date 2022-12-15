@@ -1,3 +1,3 @@
-import createWorkspaceRoots from '@extento.api/content.createWorkspaceRoots';
+import createLayerRoots from '@extento.internal-api/content.createLayerRoots';
 
-createWorkspaceRoots();
+createLayerRoots();

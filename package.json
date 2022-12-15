@@ -12,6 +12,7 @@
     ],
     "scripts": {
         "start": "npm run start --workspace=.extento",
+        "postinstall": "npm run init --workspace=.extento",
         "build:release": "npm run build:release --workspace=.extento",
         "build-all:release": "npm run build-all:release --workspace=.extento",
         "build:dev": "npm run build:dev --workspace=.extento",
@@ -47,13 +48,13 @@
             "qa": {
                 "version": "0.0.2",
                 "name": "coolqaguy",
-                "workspaces": [
+                "layers": [
                     "tester",
                     "candidate"
                 ]
             },
             "boss": {
-                "workspaces": [
+                "layers": [
                     "manager",
                     "admin"
                 ]
@@ -61,14 +62,14 @@
             "new_guy": {
                 "version": "0.0.1",
                 "name": "nooooob",
-                "workspaces": [
+                "layers": [
                     "devops",
                     "candidate"
                 ]
             },
             "ceo": {
                 "name": "suit",
-                "workspaces": [
+                "layers": [
                     "admin",
                     "candidate",
                     "manager",

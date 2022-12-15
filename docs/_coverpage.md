@@ -1,6 +1,6 @@
 <!-- _coverpage.md -->
 
-# Extento <small>0.0.1</small>
+# Extento <small>0.0.0</small>
 
 > Org-Focused Chrome Extension Framework
 

@@ -1,3 +1,3 @@
-import defineOnloads from '@extento.api/window.defineOnloads';
+import defineOnloads from '@extento.internal-api/window.defineOnloads';
 
 defineOnloads();
