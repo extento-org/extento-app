@@ -4,7 +4,7 @@
 
  ## *Two-Four Week Sprint Contract*
  
- We pair you with one of our Extento consultants to get your organization set up, train employees and developers, brainstorm internal use cases, and possibly build out your first workspace.
+ We pair you with one of our Extento consultants to get your organization set up, train employees and developers, brainstorm internal use cases, and possibly build out your first layer.
  
  ## *Ongoing Weekly Tech Support*
  

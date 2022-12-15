@@ -2,7 +2,7 @@
 
   - [Quick Start](docs/quickstart.md)
   - [CLI](docs/cli.md)
-  - [Workspace](docs/workspace.md)
+  - [Layer](docs/layer.md)
   - [Popup/Options Pages](docs/popupoptions.md)
   - [Configuration](docs/config.md)
   - [Styles](docs/styles.md)
@@ -14,7 +14,7 @@
   
   - [Overview](learn/overview.md)
   - [Tutorial](learn/tutorial.md)
-  - [Demo Videos](learn/workspaceadayseries.md)
+  - [Demo Videos](learn/layeradayseries.md)
   - [Common Problems](learn/commonproblems.md)
 
 - Enterprise

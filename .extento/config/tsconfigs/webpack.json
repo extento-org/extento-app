@@ -12,7 +12,7 @@
         { "path": "../../core" },
         { "path": "../../entries" },
         { "path": "../../types" },
-        { "path": "../../../workspaces" },
+        { "path": "../../../layers" },
         { "path": "../../../pages" },
         { "path": "../../../shared" }
     ]

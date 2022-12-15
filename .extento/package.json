@@ -8,12 +8,13 @@
     },
     "scripts": {
         "start": "trap 'exit 0' SIGINT; npx webpack --config ./config/webpack.development.js --watch",
-        "poststart": "node ./config/scripts/resetSelectiveWorkspaces.js",
-        "build:release": "node ./config/scripts/buildWorkspaces",
-        "build-all:release": "EXTENTO_BUILD_ALL=true node ./config/scripts/buildWorkspaces",
-        "build:dev": "EXTENTO_DEV=true node ./config/scripts/buildWorkspaces",
-        "build-all:dev": "EXTENTO_DEV=true EXTENTO_BUILD_ALL=true node ./config/scripts/buildWorkspaces",
-        "lint": "npx eslint ../workspaces ../shared ../pages"
+        "init": "node ./config/scripts/resetSelectiveLayers.js",
+        "poststart": "npm run init",
+        "build:release": "node ./config/scripts/buildLayers",
+        "build-all:release": "EXTENTO_BUILD_ALL=true node ./config/scripts/buildLayers",
+        "build:dev": "EXTENTO_DEV=true node ./config/scripts/buildLayers",
+        "build-all:dev": "EXTENTO_DEV=true EXTENTO_BUILD_ALL=true node ./config/scripts/buildLayers",
+        "lint": "npx eslint ../layers ../shared ../pages"
     },
     "devDependencies": {
         "@types/chrome": "^0.0.195",

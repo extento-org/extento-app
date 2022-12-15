@@ -2,9 +2,9 @@ const constants = require('../constants');
 
 module.exports = [
     {
-        keyword: 'workspace',
+        keyword: 'layer',
         validate: (...[, input]) => typeof input === 'string'
-            && constants.WORKSPACES.includes(input),
+            && constants.LAYERS.includes(input),
         error: {
             message: (cxt) => cxt.data,
         },

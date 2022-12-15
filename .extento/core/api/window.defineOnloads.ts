@@ -1,10 +1,10 @@
-import { WORKSPACE_NAMES } from '@extento.types';
+import { LAYER_NAMES } from '@extento.types';
 import { CodegenOnloads } from '@_core/common.types';
 
 export default (onloads: CodegenOnloads) => {
     window.onload = async () => {
-        WORKSPACE_NAMES.forEach((workspace) => {
-            const onload = onloads[workspace]?.default;
+        LAYER_NAMES.forEach((layer) => {
+            const onload = onloads[layer]?.default;
 
             if (typeof onload === 'function') {
                 onload();

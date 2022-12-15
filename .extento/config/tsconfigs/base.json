@@ -22,11 +22,11 @@
             "@_codegen/*": [
                 "../../codegen/*"
             ],
-            "@_workspaces": [
-                "../../../workspaces"
+            "@_layers": [
+                "../../../layers"
             ],
-            "@_workspace/*": [
-                "../../../workspaces/*"
+            "@_layer/*": [
+                "../../../layers/*"
             ],
             "@_styles/*": [
                 "../../../styles/*"
@@ -58,11 +58,29 @@
             "@extento.types": [
                 "../../types/index.ts"
             ],
-            "@extento.api": [
-                "../../api"
+            "@extento.internal-api": [
+                "../../api/internal"
             ],
-            "@extento.api/*": [
-                "../../api/*"
+            "@extento.internal-api/*": [
+                "../../api/internal/*"
+            ],
+            "@extento.react": [
+                "../../api/public/react"
+            ],
+            "@extento.react/*": [
+                "../../api/public/react/*"
+            ],
+            "@extento.browser": [
+                "../../api/public/browser"
+            ],
+            "@extento.browser/*": [
+                "../../api/public/browser/*"
+            ],
+            "@extento.worker": [
+                "../../api/public/worker"
+            ],
+            "@extento.worker/*": [
+                "../../api/public/worker/*"
             ]
         },
         "rootDir": "../../../"

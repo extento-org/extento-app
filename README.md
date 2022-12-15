@@ -5,8 +5,8 @@ For full documentation visit [https://beta.extento.org](https://beta.extento.org
 - [Quick Start](#quick-start)
 - [Extento CLI](#extento-cli)
   * [Create](#extento-cli-create)
-  * [Workspace](#extento-cli-workspace)
-- [Workspace](#workspace)
+  * [Layer](#extento-cli-workspace)
+- [Layer](#workspace)
   * [UI](#workspace-ui)
   * [Config Management](#workspace-config-management)
   * [Continuous Content Script Processes](#workspace-continuous-content-script-processes)
@@ -49,7 +49,7 @@ For full documentation visit [https://beta.extento.org](https://beta.extento.org
  > npm run start
  ```
  
- ## <h2 id="extento-cli-workspace">Workspace</h2>
+ ## <h2 id="extento-cli-workspace">Layer</h2>
  
  Must be run inside of an existing Extento project. It will download more code from the [extento-app](https://github.com/extento-org/extento-app) repo and prepare some files for you to write your application logic inside of.
  
@@ -60,16 +60,16 @@ For full documentation visit [https://beta.extento.org](https://beta.extento.org
  > npm run start
  ```
 
-# <h1 id="workspace">Workspace</h1>
+# <h1 id="workspace">Layer</h1>
 
 > Think of a workspace directory as a mini extension.
 
 After successfully running ```@extento/cli workspace <name>``` inside of your project repo, a new directory will appear: ```src/workspaces/<name>```. This is where you write your business logic.
 
 ```
-$EXTENTO_WORKSPACE_DIR_STRUCTURE
+$EXTENTO_LAYER_DIR_STRUCTURE
 ├── <workspace_name>
-│   ├── backgroundApi.ts
+│   ├── worker.ts
 │   ├── config.ts
 │   ├── contentScriptProcess.ts
 │   ├── manifest.json
@@ -80,7 +80,7 @@ $EXTENTO_WORKSPACE_DIR_STRUCTURE
 │   │   ├── context.tsx
 │   │   └── index.tsx
 │   └── ui_states.ts
-$EXTENTO_WORKSPACE_DIR_STRUCTURE
+$EXTENTO_LAYER_DIR_STRUCTURE
 ```
 
  ## <h2 id="workspace-ui">UI</h2>

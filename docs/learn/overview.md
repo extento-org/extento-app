@@ -8,7 +8,7 @@ Extento comes with [@extento/cli](/docs/cli.md) which scaffolds new projects (si
 
 > If you're planning to publish your extension on the Chrome Web Store **this isn't the tool for you.**
 
-For public extensions we recommend using [Plasmo](https://docs.plasmo.com/). Extento was built specifically for organizations that want to create a single internal extension and it's feature set reflects this. For example, Extento's [workspace](/docs/workspace.md) model makes it easy for different teams to own different slices of functionality within the codebase. Or its [selective builds](/docs/config?id=selective-builds) feature, which makes it trivial to create several distributions, each bundling different combinations of workspaces. All framework development is tightly focused on the local-first use-case.
+For public extensions we recommend using [Plasmo](https://docs.plasmo.com/). Extento was built specifically for organizations that want to create a single internal extension and it's feature set reflects this. For example, Extento's [layer](/docs/layer.md) model makes it easy for different teams to own different slices of functionality within the codebase. Or its [selective builds](/docs/config?id=selective-builds) feature, which makes it trivial to create several distributions, each bundling different combinations of layers. All framework development is tightly focused on the local-first use-case.
 
 ## Architecture
 

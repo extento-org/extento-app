@@ -8,14 +8,14 @@ const selectiveBuildCompilerAdjustments = () => {
     const tsconfig = require(constants.PATH_BASE_TSCONFIG);
 
     const resetExcludePaths = tsconfig.exclude
-        .filter((_path) => !_path.startsWith(constants.PATH_APP_WORKSPACES));
-    const includedWorkspaces = constants.WORKSPACES
-        .filter((name) => !constants.SELECTIVE_BUILD_WORKSPACES.includes(name));
+        .filter((_path) => !_path.startsWith(constants.PATH_APP_LAYERS));
+    const includedLayers = constants.LAYERS
+        .filter((name) => !constants.SELECTIVE_BUILD_LAYERS.includes(name));
 
     tsconfig.exclude = _.union(
         resetExcludePaths,
-        includedWorkspaces
-            .map((name) => `${constants.PATH_APP_WORKSPACES}/${name}/**/*`),
+        includedLayers
+            .map((name) => `${constants.PATH_APP_LAYERS}/${name}/**/*`),
     );
 
     fs.writeFileSync(
@@ -23,7 +23,7 @@ const selectiveBuildCompilerAdjustments = () => {
         JSON.stringify(tsconfig, null, 4),
     );
 
-    vLog(`modified tsconfig to include ${includedWorkspaces.length} workspaces`);
+    vLog(`modified tsconfig to include ${includedLayers.length} layers`);
 };
 
 module.exports = selectiveBuildCompilerAdjustments;

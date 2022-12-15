@@ -1,13 +1,13 @@
 import { v4 as uuid_v4 } from 'uuid';
 import { deserializeError as deserialize_error } from 'serialize-error';
 
-import { WorkspaceName } from '@extento.types';
+import { LayerName } from '@extento.types';
 import constants from '@_core/constants';
 
 const TIMEOUT_AT = 20000;
 
 const handler = (
-    workspace: WorkspaceName,
+    layer: LayerName,
     prop: any,
     inner_prop?: string,
 ) => (...args: any[]) => new Promise((resolve, reject) => {
@@ -45,10 +45,10 @@ const handler = (
         if (!resolved) {
             // provide a descriptive error that the application code can handle
             reject(new Error(
-                `The follow backend_api function: ${workspace}.${prop} timed out.`,
+                `The follow backend_api function: ${layer}.${prop} timed out.`,
                 {
                     cause: {
-                        name: constants.EXTENT_BACKGROUND_API_TIMEOUT,
+                        name: constants.EXTENT_WORKER_TIMEOUT,
                         message: `Timeout occurred after ${TIMEOUT_AT} milliseconds`,
                     },
                 },
@@ -57,13 +57,13 @@ const handler = (
     }, TIMEOUT_AT);
 
     // send the args off to our content script proxy, kicks off the correct background api method
-    const event = new CustomEvent(constants.EXTENT_BACKGROUND_API_INBOUND, {
+    const event = new CustomEvent(constants.EXTENT_WORKER_INBOUND, {
         detail: {
             channel: constants.EXTENT_BACKGROUND_TYPE_ACTION,
             requestId,
             prop,
             inner_prop,
-            workspace,
+            layer,
             args,
         },
     });
@@ -71,31 +71,31 @@ const handler = (
     window.dispatchEvent(event);
 });
 
-function buildProxy<BackgroundApis>(typed_backgroundApis: BackgroundApis): BackgroundApis {
+function buildProxy<BackgroundApis>(typed_workers: BackgroundApis): BackgroundApis {
     return new Proxy({}, {
-        get: (...[, workspace]: [any, WorkspaceName]) => new Proxy({}, {
+        get: (...[, layer]: [any, LayerName]) => new Proxy({}, {
             get: (...[, prop]: [any, any]) => {
-                const backgroundApis: any = typed_backgroundApis;
-                if (!backgroundApis[workspace][prop]) {
+                const workers: any = typed_workers;
+                if (!workers[layer][prop]) {
                     throw new Error(
-                        `The follow backend_api function: ${workspace}.${prop} does not exist`,
+                        `The follow backend_api function: ${layer}.${prop} does not exist`,
                     );
                 }
 
-                if (typeof backgroundApis[workspace][prop] === 'function') {
-                    return handler(workspace, prop);
+                if (typeof workers[layer][prop] === 'function') {
+                    return handler(layer, prop);
                 }
 
                 return new Proxy({}, {
                     get: (_: any, inner_prop: string) => {
-                        const mod: any = backgroundApis[workspace][prop];
+                        const mod: any = workers[layer][prop];
                         if (!mod[inner_prop]) {
                             throw new Error(
-                                `The follow backend_api function: ${workspace}.${inner_prop} does not exist`,
+                                `The follow backend_api function: ${layer}.${inner_prop} does not exist`,
                             );
                         }
 
-                        return handler(workspace, prop, inner_prop);
+                        return handler(layer, prop, inner_prop);
                     },
                 });
             },

@@ -1,9 +1,9 @@
 import { serializeError as serialize_error } from 'serialize-error';
-import { WorkspaceName } from '@extento.types';
+import { LayerName } from '@extento.types';
 
 type UnknownArgsFunction = (...args: any[]) => any;
 
-const execute = (backgroundApis: any) => (
+const execute = (workers: any) => (
     request: any,
     send_response: (response?: any) => void,
 ) => {
@@ -18,24 +18,24 @@ const execute = (backgroundApis: any) => (
     const args: any = request?.args;
 
     // cast request properties
-    const workspaceName: WorkspaceName = request.workspace;
+    const layerName: LayerName = request.layer;
     const propName = request.prop;
     const innerPropName: string = request.inner_prop;
 
     // the function we'll execute
-    let backgroundApiAction: any = backgroundApis[workspaceName][propName];
+    let workerAction: any = workers[layerName][propName];
 
     // some background api's are nested one level deeper
-    if (typeof backgroundApiAction[innerPropName] !== 'undefined') {
-        backgroundApiAction = backgroundApiAction[innerPropName];
+    if (typeof workerAction[innerPropName] !== 'undefined') {
+        workerAction = workerAction[innerPropName];
     }
 
-    if (typeof backgroundApiAction !== 'function') {
+    if (typeof workerAction !== 'function') {
         const innerPropString = innerPropName ? `.${innerPropName}` : '';
         send_response({
             error: serialize_error(
                 new Error(
-                    `backgroundApi: ${workspaceName}.${String(propName)}`
+                    `worker: ${layerName}.${String(propName)}`
                     + `${innerPropString} is not a function`,
                 ),
             ),
@@ -45,7 +45,7 @@ const execute = (backgroundApis: any) => (
     }
 
     try {
-        const func: UnknownArgsFunction = backgroundApiAction;
+        const func: UnknownArgsFunction = workerAction;
         const response = func(...args);
 
         // support sync and async background api functions

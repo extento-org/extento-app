@@ -1,6 +1,6 @@
-import mountOnloadScript from '@extento.api/content.mountOnloadScript';
-import mountReactScript from '@extento.api/content.mountReactScript';
-import runWorkerProxy from '@extento.api/content.runWorkerProxy';
+import mountOnloadScript from '@extento.internal-api/content.mountOnloadScript';
+import mountReactScript from '@extento.internal-api/content.mountReactScript';
+import runWorkerProxy from '@extento.internal-api/content.runWorkerProxy';
 
 import './polyfill';
 

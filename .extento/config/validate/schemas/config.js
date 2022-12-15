@@ -26,10 +26,10 @@ module.exports = {
         selective_builds: {
             type: 'object',
             required: [
-                'workspaces',
+                'layers',
             ],
             properties: {
-                workspaces: macros.some_workspaces,
+                layers: macros.some_layers,
                 name: {
                     type: 'string',
                 },
@@ -38,6 +38,6 @@ module.exports = {
                 },
             },
         },
-        ui_ordering: macros.all_workspaces,
+        ui_ordering: macros.all_layers,
     },
 };

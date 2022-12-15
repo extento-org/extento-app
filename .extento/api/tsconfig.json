@@ -1,10 +1,10 @@
 {
-    "extends": "../../workspaces/tsconfig.json",
+    "extends": "../../layers/tsconfig.json",
     "include": [
         ".",
         "../codegen",
-        "../../workspaces/**/*",
-        "../../workspaces/**/*.json"
+        "../../layers/**/*",
+        "../../layers/**/*.json"
     ],
     "references": [
         { "path": "../core" },
