@@ -1,0 +1,11 @@
+{
+    "extends": "../config/tsconfigs/project.json",
+    "include": [
+        "."
+    ],
+    "references": [
+        { "path": "../../pages" },
+        { "path": "../api" },
+        { "path": "../types" }
+    ]
+}

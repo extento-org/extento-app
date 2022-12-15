@@ -1,4 +1,35 @@
-node_modules 
+# packages
+node_modules
+
+# mac shit
 .DS_Store
-dist/*
+
+# misc
+pids
+logs
+tmp/
+
+# env/secrets
+.env
+.env.*
+
+# Standard practice for adding empty dirs to version control.
+# You can add a .gitignore to any empty directory and it gets 
+# included in the next commit.
 !.gitignore
+
+# generated
+.extento/codegen/*
+
+# compiled
+chrome-v3/*
+tsconfig.dist
+*.tsbuildinfo
+
+# assets
+icons/*/*
+
+# only include RELEASE builds in VC
+builds/*.DEV*
+
+*.pem

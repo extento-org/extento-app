@@ -1,0 +1,10 @@
+{
+    "extends": "../config/tsconfigs/project.json",
+    "include": [
+        ".",
+        "../../styles/**/*.css"
+    ],
+    "references": [
+        { "path": "../types" }
+    ]
+}
