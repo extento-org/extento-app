@@ -1,8 +1,10 @@
 import React from 'react';
+import states from '@extento.react/states';
 
-// TODO: Tab.Container
+// TODO: ui.Container
 function Container(props: { children: React.ReactElement }) {
     const { children } = props;
+
     return (
         <div>
             {children}
@@ -10,8 +12,8 @@ function Container(props: { children: React.ReactElement }) {
     );
 };
 
-// TODO: Tab.Controls
-function Controls() {
+// TODO: ui.CurrentTask
+function CurrentTask() {
     return (
         <div>
             
@@ -19,8 +21,8 @@ function Controls() {
     );
 };
 
-// TODO: Tab.ActiveTask
-function ActiveTask() {
+// TODO: ui.Instructions
+function Instructions() {
     return (
         <div>
             
@@ -28,8 +30,8 @@ function ActiveTask() {
     );
 };
 
-// TODO:
-function History() {
+// TODO: ui.Actions
+function Actions() {
     return (
         <div>
             
@@ -37,14 +39,17 @@ function History() {
     );
 };
 
-export default function Tab() {
-    return (
+// TODO: ui.Popup
+const Popup = () => {
+    return(
         <Container>
             <>
-                <Controls />
-                <ActiveTask />
-                <History />
+                <CurrentTask />
+                <Instructions />
+                <Actions />
             </>
         </Container>
     );
 };
+
+export default Popup;

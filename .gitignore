@@ -35,3 +35,6 @@ builds/*.DEV*
 # You can add a .gitignore to any empty directory and it gets 
 # included in the next commit.
 !.gitignore
+
+# Used for note taking, specific to dev
+reference.txt

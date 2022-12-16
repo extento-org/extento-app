@@ -1,7 +1,33 @@
 import React from 'react';
 
+// TODO: Popup.useWorkModeToggle
+const useWorkModeToggle = () => {
+    
+};
+
+// TODO: Popup.Container
+function Container(props: { children: React.ReactElement }) {
+    const { children } = props;
+    return (
+        <div>
+            {children}
+        </div>
+    );
+};
+
+// TODO: Popup.ToggleWorkMode
+function ToggleWorkMode() {
+    return (
+        <div>
+            
+        </div>
+    );
+};
+
 export default function Popup() {
     return (
-        <div className="w-20 h-20 bg-red-800 rounded-full">ADD POPUP UI</div>
+        <Container>
+            <ToggleWorkMode />
+        </Container>
     );
-}
+};
