@@ -14,7 +14,7 @@ const resetSelectiveLayers = () => {
     fs.readdirSync(constants.PATH_WEBPACK_SCRIPTS)
         .filter((name) => name !== 'index.js')
         .map((name) => path.resolve(constants.PATH_WEBPACK_SCRIPTS, name))
-        .forEach(require);
+        .forEach((_path) => require(_path)());
 
     sLog(`RESET LAYERS TO: ${constants.DEFAULT_SELECTIVE_BUILD}`);
 };
