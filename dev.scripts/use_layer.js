@@ -8,8 +8,10 @@ const ACTIVE_LAYER_DIR = path.resolve(PATH_APP, `layers`);
 const ACTIVE_LAYER_TSCONFIG = path.resolve(PATH_APP, `layers`, 'tsconfig.json');
 const ACTIVE_LAYER_ESLINT = path.resolve(PATH_APP, `layers`, 'eslintrc.js');
 const TEMPLATE_ROOT_DIR = path.resolve(PATH_APP, 'dev.layers', 'root');
-const TEMPLATE_TSCONFIG = path.resolve(TEMPLATE_ROOT_DIR, 'off.tsconfig.json');
-const TEMPLATE_ESLINT = path.resolve(TEMPLATE_ROOT_DIR, 'off.eslintrc.js');
+const OFF_TSCONFIG_FILENAME = 'off.tsconfig.json';
+const OFF_ESLINT_FILENAME = 'off.eslintrc.js';
+const TEMPLATE_TSCONFIG = path.resolve(TEMPLATE_ROOT_DIR, OFF_TSCONFIG_FILENAME);
+const TEMPLATE_ESLINT = path.resolve(TEMPLATE_ROOT_DIR, OFF_ESLINT_FILENAME);
 const SOURCE_PATH = path.resolve(ACTIVE_LAYER_DIR, '.source');
 
 if (
@@ -49,15 +51,6 @@ if (!fs.existsSync(SOURCE_LAYER_DIR)) {
     throw new Error(`.source file points to layers.${SOURCE} which does not exist`);
 }
 
-console.log({
-    TARGET_LAYER,
-    TARGET_LAYER_DIR,
-    ACTIVE_LAYER_DIR,
-    SOURCE_PATH,
-    SOURCE,
-    SOURCE_LAYER_DIR
-});
-
 const timestamp = String(Date.now());
 
 const TEMP_DIR = path.resolve(PATH_APP, timestamp);
@@ -65,9 +58,23 @@ const ARCHIVE_TEMP_DIR = path.resolve(PATH_APP, '.archive', `layers.${SOURCE}.${
 
 runRepoShell([], `mv ${SOURCE_LAYER_DIR} ${TEMP_DIR}`);  
 runRepoShell([], `mv ${ACTIVE_LAYER_DIR} ${SOURCE_LAYER_DIR}`);
-runRepoShell([], `mv ${TEMP_DIR} ${ARCHIVE_TEMP_DIR}`);  
-runRepoShell([], `mv ${TEMP_DIR} ${ARCHIVE_TEMP_DIR}`);  
+runRepoShell([], `mv ${TEMP_DIR} ${ARCHIVE_TEMP_DIR}`);   
 
 fs.mkdirSync(ACTIVE_LAYER_DIR);
 
 runRepoShell([], `cp -r ${TARGET_LAYER_DIR}/. ${ACTIVE_LAYER_DIR}`);  
+
+fs.readdirSync(SOURCE_LAYER_DIR)
+    .forEach(name => {
+        const filepath = path.resolve(SOURCE_LAYER_DIR, name);
+        if (fs.statSync(filepath).isFile()) {
+            fs.unlinkSync(filepath);
+        }
+    });
+
+fs.writeFileSync(SOURCE_PATH, TARGET_LAYER);
+
+fs.copyFileSync(TEMPLATE_TSCONFIG, ACTIVE_LAYER_TSCONFIG);
+fs.copyFileSync(TEMPLATE_ESLINT, ACTIVE_LAYER_ESLINT);
+
+sLog(`succesfully swapped to layer set: ${TARGET_LAYER}`);
