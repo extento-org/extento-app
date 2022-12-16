@@ -22,12 +22,12 @@ const _execAtRoot = (
         stdio = DEFAULT_EXEC_STDIO, 
         encoding = DEFAULT_EXEC_ENCODING, 
         cwd = DEFAULT_EXEC_CWD, 
-        ...opts 
+        ...remaining_opts 
     } = opts;
 
     return execSync(
         cmd,
-        { cwd, encoding, stdio, ...opts }
+        { cwd, encoding, stdio, ...remaining_opts }
     );
 };
 
@@ -52,7 +52,7 @@ const _throwPackageCheck = (packages) => {
 };
 
 const reset = (cmd, opts = {
-    exec_opts: DEFAULT_OPTS,
+    exec_opts: DEFAULT_EXEC_OPTS,
     packages: DEFAULT_PACKAGES,
     root: DEFAULT_RESET_ROOT,
 }) => {
@@ -60,7 +60,7 @@ const reset = (cmd, opts = {
         throw new Error('you did not supply a command');
     }
 
-    const { exec_opts = DEFAULT_OPTS, packages = DEFAULT_PACKAGES } = opts;
+    const { exec_opts = DEFAULT_EXEC_OPTS, packages = DEFAULT_PACKAGES } = opts;
 
     _throwPackageCheck(packages);
     log.info('deleting all node_modules...');
@@ -75,19 +75,37 @@ const reset = (cmd, opts = {
 };
 
 const quick = (cmd, opts = {
-    exec_opts: DEFAULT_OPTS,
+    exec_opts: DEFAULT_EXEC_OPTS,
     packages: DEFAULT_PACKAGES
 }) => {
     if (!cmd) {
         throw new Error('you did not supply a command');
     }
     
-    const { exec_opts = DEFAULT_OPTS, packages = DEFAULT_PACKAGES } = opts;
+    const { exec_opts = DEFAULT_EXEC_OPTS, packages = DEFAULT_PACKAGES } = opts;
     _throwPackageCheck(packages);
     _execAtRoot(cmd, exec_opts);
+};
+
+const dry = (cmd, opts = {
+    exec_opts: DEFAULT_EXEC_OPTS,
+    packages: DEFAULT_PACKAGES
+}) => {
+    if (!cmd) {
+        throw new Error('you did not supply a command');
+    }
+    
+    const { exec_opts = DEFAULT_EXEC_OPTS, packages = DEFAULT_PACKAGES } = opts;
+    _throwPackageCheck(packages);
+    console.log('------------------------------------------------------------------------------------------------------------');
+    console.log('------------------------------------------------------------------------------------------------------------');
+    log.info(`DRY: ${cmd}`);
+    console.log('------------------------------------------------------------------------------------------------------------');
+    console.log('------------------------------------------------------------------------------------------------------------');
 };
 
 module.exports = {
     quick,
     reset,
+    dry,
 };

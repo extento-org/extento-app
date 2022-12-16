@@ -1,3 +1,3 @@
-const { default: log } = require('signale');
+const log = require('signale');
  
 module.exports = log;

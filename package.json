@@ -18,9 +18,9 @@
         "build:dev": "npm run build:dev --workspace=.extento",
         "build-all:dev": "npm run build-all:dev --workspace=.extento",
         "lint": "npm run lint --workspace=.extento",
-        "dev:swap:dev": "LAYER=dev npm run swap_space --workspace=.dev/scripts",
-        "dev:swap:demo": "LAYER=demo npm run swap_space --workspace=.dev/scripts",
-        "dev:swap:template": "LAYER=template npm run swap_space --workspace=.dev/scripts",
+        "dev:swap:dev": "SPACE=dev npm run swap_space --workspace=.dev/scripts",
+        "dev:swap:demo": "SPACE=demo npm run swap_space --workspace=.dev/scripts",
+        "dev:swap:template": "SPACE=template npm run swap_space --workspace=.dev/scripts",
         "dev:docs": "npm run docs --workspace=.dev/scripts",
         "dev:sync_docs": "npm run sync_docs --workspace=.dev/scripts"
     },
