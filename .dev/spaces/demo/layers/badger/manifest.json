@@ -1,0 +1,16 @@
+{
+    "permissions": {
+        "inherit": false,
+        "value": [
+            "storage",
+            "alarms",
+            "notifications"
+        ]
+    },
+    "matches": {
+        "inherit": false,
+        "value": [
+            "<all_urls>"
+        ]
+    }
+}

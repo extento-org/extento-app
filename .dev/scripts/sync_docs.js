@@ -1,3 +1,7 @@
+/* -------------------------------------------------------------------------- */
+/*                     TRIGGER WARNING: THIS CODE IS SHIT!                    */
+/* -------------------------------------------------------------------------- */
+
 const path = require('path');
 const fs = require('fs');
 const markdown_toc = require('markdown-toc');
