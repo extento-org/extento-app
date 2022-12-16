@@ -1,13 +1,9 @@
-const path = require('path');
 const { execSync } = require('child_process');
 
-const PATH_APP = path.resolve(__dirname, '..', '..');
-const PATH_NPM = path.resolve(__dirname, '..', '..', '..', 'npm');
+const paths = require('./paths');
+const { log } = require('./logging');
 
-const cLog = (...args) => console.log('🔵 INFO', ...args);
-const sLog = (...args) => console.log('🟢 DONE', ...args);
-
-const execAtRoot = (cmd, opts = { stdio: 'inherit' }, cwd = PATH_APP) => execSync(
+const execAtRoot = (cmd, opts = { stdio: 'inherit' }, cwd = paths.REPO_APP) => execSync(
     cmd,
     { cwd, encoding: 'utf-8', ...opts }
 );
@@ -23,7 +19,7 @@ const commandExists = (cmd) => {
     }
 };
 
-const runRepoTask = (requiredPackages = [], cmd, cwd = PATH_APP) => {
+const runRepoTask = (requiredPackages = [], cmd, cwd = paths.REPO_APP) => {
     if (!cmd) {
         throw new Error('you did not supply a command');
     }
@@ -34,18 +30,18 @@ const runRepoTask = (requiredPackages = [], cmd, cwd = PATH_APP) => {
         }
     });
 
-    cLog('deleting all node_modules...');
+    log.info('deleting all node_modules...');
 
     execAtRoot(`find . -name node_modules -type d -prune -exec trash {} +`, undefined, cwd);
 
     execAtRoot(cmd, undefined, cwd)
 
-    cLog('reinstallings packages...');
+    log.info('reinstallings packages...');
 
     execAtRoot(`npm install`, undefined, cwd);
 };
 
-const runRepoShell = (requiredPackages = [], cmd, cwd = PATH_APP) => {
+const runRepoShell = (requiredPackages = [], cmd, cwd = paths.REPO_APP) => {
     if (!cmd) {
         throw new Error('you did not supply a command');
     }
@@ -60,12 +56,8 @@ const runRepoShell = (requiredPackages = [], cmd, cwd = PATH_APP) => {
 };
 
 module.exports = {
-    PATH_NPM,
-    PATH_APP,
     runRepoTask,
     runRepoShell,
-    cLog,
-    sLog,
     execAtRoot,
     commandExists,
 };

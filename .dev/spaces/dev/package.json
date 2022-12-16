@@ -40,7 +40,45 @@
             "version": "0.0.1",
             "allowed_extensions": []
         },
-        "ui_ordering": [],
-        "selective_builds": {}
+        "ui_ordering": [
+            "admin",
+            "tester",
+            "manager",
+            "candidate",
+            "devops"
+        ],
+        "selective_builds": {
+            "qa": {
+                "version": "0.0.2",
+                "name": "coolqaguy",
+                "layers": [
+                    "tester",
+                    "candidate"
+                ]
+            },
+            "boss": {
+                "layers": [
+                    "manager",
+                    "admin"
+                ]
+            },
+            "new_guy": {
+                "version": "0.0.1",
+                "name": "nooooob",
+                "layers": [
+                    "devops",
+                    "candidate"
+                ]
+            },
+            "ceo": {
+                "name": "suit",
+                "layers": [
+                    "admin",
+                    "candidate",
+                    "manager",
+                    "tester"
+                ]
+            }
+        }
     }
 }

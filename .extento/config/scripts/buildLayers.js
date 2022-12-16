@@ -6,11 +6,13 @@ const zip = require('../utils/zip');
 const constants = require('../constants');
 const commands = require('../commands');
 
+const isDev = () => process.env.EXTENTO_DEV === 'true';
+
 const packageDistribution = (buildName) => {
     // zip up everything in chrome-v3 and place in our builds folder under the correct name
     const { version } = getBuildDetails(buildName);
     const timestamp = Date.now();
-    const suffix = process.env.EXTENTO_DEV === 'true' ? '.DEV' : '.RELEASE';
+    const suffix = isDev() ? '.DEV' : '.RELEASE';
     const zipFilename = `${version}${suffix}-${timestamp}-${buildName}.zip`;
 
     zip(

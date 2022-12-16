@@ -1,0 +1,11 @@
+{
+    "extento": {
+        "manifest": {
+            "name": "fallbackname",
+            "version": "0.0.1",
+            "allowed_extensions": []
+        },
+        "ui_ordering": [],
+        "selective_builds": {}
+    }
+}

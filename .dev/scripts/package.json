@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "devDependencies": {
     "docsify-cli": "^4.4.4",
-    "markdown-toc": "^1.2.0"
+    "markdown-toc": "^1.2.0",
+    "signale": "^1.4.0"
   },
   "scripts": {
     "docs": "npx docsify serve --port 4001 ../../docs",
-    "sync_docs": "node sync_docs.js"
+    "sync_docs": "node ./sync_docs.js",
+    "swap_space": "node ./swap_space.js"
   }
 }
