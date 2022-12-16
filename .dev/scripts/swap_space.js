@@ -197,16 +197,16 @@ const _swapAndStashDir = (
         throw new Error(`${path_current_dir} does not exist`);
     }
     if (!fs.existsSync(PATH_STASH_DIR)) {
-        shell.dry(`mkdir ${PATH_STASH_DIR}`);
+        shell.quick(`mkdir ${PATH_STASH_DIR}`);
     }
 
     // move previous source into archive
-    shell.dry(`mv ${path_source_dir} ${PATH_STASH_DIR}`);
+    shell.quick(`mv ${path_source_dir} ${PATH_STASH_DIR}`);
     // replace previous source with current
-    shell.dry(`mv ${path_current_dir} ${path_source_root_dir}`);
+    shell.quick(`mv ${path_current_dir} ${path_source_root_dir}`);
     // create and copy next into app repo
-    shell.dry(`mkdir ${path_current_dir}`);
-    shell.dry(`cp -r ${path_next_dir}/. ${path_current_dir}`);
+    shell.quick(`mkdir ${path_current_dir}`);
+    shell.quick(`cp -r ${path_next_dir}/. ${path_current_dir}`);
 };
 
 const _swapAndStashFile = (
@@ -223,15 +223,15 @@ const _swapAndStashFile = (
         throw new Error(`${path_current_filepath} does not exist`);
     }
     if (!fs.existsSync(PATH_STASH_DIR)) {
-        shell.dry(`mkdir ${PATH_STASH_DIR}`);
+        shell.quick(`mkdir ${PATH_STASH_DIR}`);
     }
 
     // move previous source into archive
-    shell.dry(`mv ${path_source_filepath} ${PATH_STASH_DIR}`);
+    shell.quick(`mv ${path_source_filepath} ${PATH_STASH_DIR}`);
     // replace previous source with current
-    shell.dry(`mv ${path_current_filepath} ${path_source_root}`);
+    shell.quick(`mv ${path_current_filepath} ${path_source_root}`);
     // create and copy next into app repo
-    shell.dry(`cp ${path_next_filepath} ${paths.REPO_APP}`);
+    shell.quick(`cp ${path_next_filepath} ${paths.REPO_APP}`);
 };
 
 _swapAndStashFile(FILE_POSTCSS, PATH_SOURCE_SPACE, PATH_SOURCE_POSTCSS, PATH_NEXT_POSTCSS);
@@ -241,6 +241,8 @@ _swapAndStashDir(FOLDER_LAYERS, PATH_SOURCE_SPACE, PATH_SOURCE_LAYERS, PATH_NEXT
 _swapAndStashDir(FOLDER_PAGES, PATH_SOURCE_SPACE, PATH_SOURCE_PAGES, PATH_NEXT_PAGES);
 _swapAndStashDir(FOLDER_SHARED, PATH_SOURCE_SPACE, PATH_SOURCE_SHARED, PATH_NEXT_SHARED);
 _swapAndStashDir(FOLDER_STYLES, PATH_SOURCE_SPACE, PATH_SOURCE_STYLES, PATH_NEXT_STYLES);
+
+shell.reset();
 
 // next up handle package.json
 // save next source at .space

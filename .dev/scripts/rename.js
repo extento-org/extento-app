@@ -12,6 +12,4 @@ const shell = require('./shell');
 //     throw new Error('must specify process.env.TO');
 // }
 
-// shell(`find . -exec rename 's/WORKSPACE/\LAYER/' * {} +`, { packages: ['rename'] });
-// shell(`find . -exec rename 's/Workspace/\Layer/' * {} +`, { packages: ['rename'] });
-// shell(`find . -exec rename 's/workspace/\layer/' * {} +`, { packages: ['rename'] });
+// shell.reset(() => shell.quick(`find . -exec rename 's/WORKSPACE/\LAYER/' * {} +`, { packages: ['rename'] }));

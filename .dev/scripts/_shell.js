@@ -1,4 +1,5 @@
 const { execSync } = require('child_process');
+const _ = require('lodash');
 
 const paths = require('./_paths');
 const log = require('./_log');
@@ -51,7 +52,7 @@ const _throwPackageCheck = (packages) => {
     }
 };
 
-const reset = (cmd, opts = {
+const reset = (fn = _.noop, opts = {
     exec_opts: DEFAULT_EXEC_OPTS,
     packages: DEFAULT_PACKAGES,
     root: DEFAULT_RESET_ROOT,
@@ -60,14 +61,14 @@ const reset = (cmd, opts = {
         throw new Error('you did not supply a command');
     }
 
-    const { exec_opts = DEFAULT_EXEC_OPTS, packages = DEFAULT_PACKAGES } = opts;
+    const { packages = DEFAULT_PACKAGES } = opts;
 
     _throwPackageCheck(packages);
     log.info('deleting all node_modules...');
     _execAtRoot(`find . -name node_modules -type d -prune -exec trash {} +`, {
         cwd: DEFAULT_RESET_ROOT,
     });
-    _execAtRoot(cmd, exec_opts);
+    fn(opts);
     log.info('reinstalling npm packages...');
     _execAtRoot(`npm install`, {
         cwd: DEFAULT_RESET_ROOT,
