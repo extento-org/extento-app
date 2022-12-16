@@ -6,7 +6,7 @@
     "markdown-toc": "^1.2.0"
   },
   "scripts": {
-    "docs": "npx docsify serve --port 4001 ../docs",
+    "docs": "npx docsify serve --port 4001 ../../docs",
     "sync_docs": "node sync_docs.js"
   }
 }

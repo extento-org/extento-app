@@ -2,10 +2,12 @@ const path = require('path');
 const fs = require('fs');
 const markdown_toc = require('markdown-toc');
 
+const { PATH_APP } = require('./utils');
+
 const TERMINATION_STRING = 'EXTENTO_README_END';
 const STRIP_STRING = '[//]: # (EXTENTO_README_SITE_ONLY)';
-const PATH_TO_DOCS = path.resolve(__dirname, '../docs');
-const PATH_TO_APP_README = path.resolve(__dirname, '../README.md');
+const PATH_TO_DOCS = path.resolve(PATH_APP, 'docs');
+const PATH_TO_APP_README = path.resolve(PATH_APP, 'README.md');
 const EXTRA_README_FILENAME = '.repo.md';
 
 if (!fs.existsSync(PATH_TO_DOCS)) 
