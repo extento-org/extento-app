@@ -60,8 +60,11 @@ const reset = (fn = _.noop, opts = {
     const { packages = DEFAULT_PACKAGES } = opts;
 
     _throwPackageCheck(packages);
-    log.info('deleting all node_modules...');
+    log.info('deleting node_modules and stale TS build files...');
     _execAtRoot(`find . -name node_modules -type d -prune -exec trash {} +`, {
+        cwd: DEFAULT_RESET_ROOT,
+    });
+    _execAtRoot(`find . -name tsconfig.dist -type d -prune -exec trash {} +`, {
         cwd: DEFAULT_RESET_ROOT,
     });
     fn(opts);

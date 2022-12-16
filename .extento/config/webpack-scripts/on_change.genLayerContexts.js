@@ -6,7 +6,7 @@ const constants = require('../constants');
 
 const toVar = (str) => str.split('-').join('_');
 
-const getStylesheets = () => {
+const genLayerContexts = () => {
     const printFunctionCall = (layer) => `const ${layer} = setupLayerContexts<typeof states['${layer}']['default']>('${layer}', states.${layer}.default, uis.${layer}.default);`;
 
     const exportContents = `// @ts-nocheck\n\n`
@@ -20,9 +20,9 @@ const getStylesheets = () => {
         + `${constants.SELECTIVE_BUILD_LAYERS.map((layer) => `    ${toVar(layer)},`).join('\n')}\n`
         + `};\n`;
 
-    fs.writeFileSync(path.resolve(constants.PATH_INTERNAL_CODEGEN, 'webpack.states.ts'), exportContents);
+    fs.writeFileSync(path.resolve(constants.PATH_INTERNAL_CODEGEN, 'webpack.layerContexts.ts'), exportContents);
 
     vLog(`generated layer contexts`);
 };
 
-module.exports = getStylesheets;
+module.exports = genLayerContexts;

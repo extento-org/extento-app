@@ -36,11 +36,13 @@
     },
     "extento": {
         "manifest": {
-            "name": "fallbackname",
-            "version": "0.0.1",
+            "name": "__name__",
+            "version": "0.0.0",
             "allowed_extensions": []
         },
-        "ui_ordering": [],
+        "ui_ordering": [
+            "__template__"
+        ],
         "selective_builds": {}
     }
 }
