@@ -1,13 +1,7 @@
 {
-    "extends": "../.extento/config/tsconfigs/project.json",
-    "compilerOptions": {
-        "noImplicitAny": false
-    },
+    "extends": "../layers/tsconfig.json",
     "include": [
-        "."
-    ],
-    "references": [
-        { "path": "../.extento/api" },
-        { "path": "../.extento/types" }
+        "./**/*",
+        "./**/*.json"
     ]
 }

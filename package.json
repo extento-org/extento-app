@@ -36,12 +36,12 @@
     },
     "extento": {
         "manifest": {
-            "name": "Trusted Nursing Interview",
-            "version": "0.0.1",
+            "name": "__name__",
+            "version": "0.0.0",
             "allowed_extensions": []
         },
         "ui_ordering": [
-            "badger"
+            "__template__"
         ],
         "selective_builds": {}
     }
