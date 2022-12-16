@@ -45,10 +45,25 @@ const runRepoTask = (requiredPackages = [], cmd, cwd = PATH_APP) => {
     execAtRoot(`npm install`, undefined, cwd);
 };
 
+const runRepoShell = (requiredPackages = [], cmd, cwd = PATH_APP) => {
+    if (!cmd) {
+        throw new Error('you did not supply a command');
+    }
+
+    requiredPackages.concat(['trash']).forEach(requiredPackage => {
+        if (!commandExists(requiredPackage)) {
+            throw new Error(`cli dep missing: brew install ${requiredPackage}`);
+        }
+    });
+
+    execAtRoot(cmd, undefined, cwd);
+};
+
 module.exports = {
     PATH_NPM,
     PATH_APP,
     runRepoTask,
+    runRepoShell,
     cLog,
     sLog,
     execAtRoot,
