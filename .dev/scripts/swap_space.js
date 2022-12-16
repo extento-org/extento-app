@@ -42,20 +42,11 @@ const PATH_STASH_DIR = path.resolve(PATH_ARCHIVE_DIR, `${String(Date.now())}.${N
 const PATH_DEV_SPACES = path.resolve(PATH_DEV_DIR, 'spaces');
 const PATH_NEXT_SPACE = path.resolve(PATH_DEV_SPACES, NEXT_SPACE);
 const PATH_TEMPLATE_SPACE = path.resolve(PATH_DEV_SPACES, TEMPLATE_SPACE);
-
 const SOURCE_SPACE = fs.readFileSync(PATH_SOURCE, 'utf-8').trim();
 const PATH_SOURCE_SPACE = path.resolve(PATH_DEV_SPACES, SOURCE_SPACE);
 
 /* ---------------------------- User Space Paths ---------------------------- */
 const PATH_ROOT_PACKAGE_JSON = path.resolve(paths.REPO_APP, FILE_PACKAGE_JSON);
-const PATH_ROOT_POSTCSS = path.resolve(paths.REPO_APP, FILE_POSTCSS);
-const PATH_ROOT_ESLINT = path.resolve(paths.REPO_APP, FILE_ESLINT);
-const PATH_ROOT_ICONS = path.resolve(paths.REPO_APP, FOLDER_ICONS);
-const PATH_ROOT_LAYERS = path.resolve(paths.REPO_APP, FOLDER_LAYERS);
-const PATH_ROOT_PAGES = path.resolve(paths.REPO_APP, FOLDER_PAGES);
-const PATH_ROOT_SHARED = path.resolve(paths.REPO_APP, FOLDER_SHARED);
-const PATH_ROOT_STYLES = path.resolve(paths.REPO_APP, FOLDER_STYLES);
-
 const PATH_NEXT_PACKAGE_JSON = path.resolve(PATH_NEXT_SPACE, FILE_PACKAGE_JSON);
 const PATH_NEXT_POSTCSS = path.resolve(PATH_NEXT_SPACE, FILE_POSTCSS);
 const PATH_NEXT_ESLINT = path.resolve(PATH_NEXT_SPACE, FILE_ESLINT);
@@ -66,28 +57,18 @@ const PATH_NEXT_LAYERS_TSCONFIG = path.resolve(PATH_NEXT_SPACE, FOLDER_LAYERS, F
 const PATH_NEXT_PAGES = path.resolve(PATH_NEXT_SPACE, FOLDER_PAGES);
 const PATH_NEXT_SHARED = path.resolve(PATH_NEXT_SPACE, FOLDER_SHARED);
 const PATH_NEXT_STYLES = path.resolve(PATH_NEXT_SPACE, FOLDER_STYLES);
-
 const PATH_SOURCE_PACKAGE_JSON = path.resolve(PATH_SOURCE_SPACE, FILE_PACKAGE_JSON);
 const PATH_SOURCE_POSTCSS = path.resolve(PATH_SOURCE_SPACE, FILE_POSTCSS);
 const PATH_SOURCE_ESLINT = path.resolve(PATH_SOURCE_SPACE, FILE_ESLINT);
 const PATH_SOURCE_ICONS = path.resolve(PATH_SOURCE_SPACE, FOLDER_ICONS);
 const PATH_SOURCE_LAYERS = path.resolve(PATH_SOURCE_SPACE, FOLDER_LAYERS);
-const PATH_SOURCE_LAYERS_ESLINT = path.resolve(PATH_SOURCE_SPACE, FOLDER_LAYERS, FILE_ESLINT);
-const PATH_SOURCE_LAYERS_TSCONFIG = path.resolve(PATH_SOURCE_SPACE, FOLDER_LAYERS, FILE_TSCONFIG);
 const PATH_SOURCE_PAGES = path.resolve(PATH_SOURCE_SPACE, FOLDER_PAGES);
 const PATH_SOURCE_SHARED = path.resolve(PATH_SOURCE_SPACE, FOLDER_SHARED);
 const PATH_SOURCE_STYLES = path.resolve(PATH_SOURCE_SPACE, FOLDER_STYLES);
-
-const PATH_TEMPLATE_PACKAGE_JSON = path.resolve(PATH_TEMPLATE_SPACE, FILE_PACKAGE_JSON);
 const PATH_TEMPLATE_POSTCSS = path.resolve(PATH_TEMPLATE_SPACE, FILE_POSTCSS);
 const PATH_TEMPLATE_ESLINT = path.resolve(PATH_TEMPLATE_SPACE, FILE_ESLINT);
-const PATH_TEMPLATE_ICONS = path.resolve(PATH_TEMPLATE_SPACE, FOLDER_ICONS);
-const PATH_TEMPLATE_LAYERS = path.resolve(PATH_TEMPLATE_SPACE, FOLDER_LAYERS);
 const PATH_TEMPLATE_LAYERS_ESLINT = path.resolve(PATH_TEMPLATE_SPACE, FOLDER_LAYERS, FILE_ESLINT);
 const PATH_TEMPLATE_LAYERS_TSCONFIG = path.resolve(PATH_TEMPLATE_SPACE, FOLDER_LAYERS, FILE_TSCONFIG);
-const PATH_TEMPLATE_PAGES = path.resolve(PATH_TEMPLATE_SPACE, FOLDER_PAGES);
-const PATH_TEMPLATE_SHARED = path.resolve(PATH_TEMPLATE_SPACE, FOLDER_SHARED);
-const PATH_TEMPLATE_STYLES = path.resolve(PATH_TEMPLATE_SPACE, FOLDER_STYLES);
 
 /* ------------------------- Check Folder Existence ------------------------- */
 if (!fs.existsSync(PATH_DEV_DIR)) {
@@ -119,56 +100,6 @@ if (!_trimmedFilesMatch(PATH_NEXT_LAYERS_ESLINT, PATH_TEMPLATE_LAYERS_ESLINT)) {
 if (!_trimmedFilesMatch(PATH_NEXT_LAYERS_TSCONFIG, PATH_TEMPLATE_LAYERS_TSCONFIG)) {
     WARNINGS_INTEGRITY.push(`${FILE_TSCONFIG} files withing respective layers/* do not match`);
 }
-
-// console.log(JSON.stringify({
-//     WARNINGS_INTEGRITY,
-//     ERRORS_INTEGRITY,
-//     ERRORS_FS,
-//     NEXT_SPACE,
-//     TEMPLATE_SPACE,
-//     FOLDER_ICONS,
-//     FOLDER_LAYERS,
-//     FOLDER_PAGES,
-//     FOLDER_SHARED,
-//     FOLDER_STYLES,
-//     FILE_ESLINT,
-//     FILE_POSTCSS,
-//     FILE_PACKAGE_JSON,
-//     FILE_TSCONFIG,
-//     PATH_SOURCE,
-//     PATH_DEV_DIR,
-//     PATH_DEV_SPACES,
-//     PATH_NEXT_SPACE,
-//     PATH_TEMPLATE_SPACE,
-//     PATH_ROOT_PACKAGE_JSON,
-//     PATH_ROOT_POSTCSS,
-//     PATH_ROOT_ESLINT,
-//     PATH_ROOT_ICONS,
-//     PATH_ROOT_LAYERS,
-//     PATH_ROOT_PAGES,
-//     PATH_ROOT_SHARED,
-//     PATH_ROOT_STYLES,
-//     PATH_NEXT_PACKAGE_JSON,
-//     PATH_NEXT_POSTCSS,
-//     PATH_NEXT_ESLINT,
-//     PATH_NEXT_ICONS,
-//     PATH_NEXT_LAYERS,
-//     PATH_NEXT_LAYERS_ESLINT,
-//     PATH_NEXT_LAYERS_TSCONFIG,
-//     PATH_NEXT_PAGES,
-//     PATH_NEXT_SHARED,
-//     PATH_NEXT_STYLES,
-//     PATH_TEMPLATE_PACKAGE_JSON,
-//     PATH_TEMPLATE_POSTCSS,
-//     PATH_TEMPLATE_ESLINT,
-//     PATH_TEMPLATE_ICONS,
-//     PATH_TEMPLATE_LAYERS,
-//     PATH_TEMPLATE_LAYERS_ESLINT,
-//     PATH_TEMPLATE_LAYERS_TSCONFIG,
-//     PATH_TEMPLATE_PAGES,
-//     PATH_TEMPLATE_SHARED,
-//     PATH_TEMPLATE_STYLES
-// }, null, 2))
 
 /* ----------------------------- Error Handling ----------------------------- */
 if (ERRORS_FS.length) {
@@ -254,4 +185,4 @@ fs.writeFileSync(PATH_SOURCE, NEXT_SPACE);
 
 shell.reset();
 
-log.success(`you are now working with space:${SOURCE_SPACE}!!!`)
+log.success(`you are now working with space:${NEXT_SPACE}!!!`)
