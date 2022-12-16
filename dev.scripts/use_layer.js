@@ -72,6 +72,8 @@ fs.readdirSync(SOURCE_LAYER_DIR)
         }
     });
 
+fs.writeFileSync(path.resolve(SOURCE_LAYER_DIR, '.gitignore'), '');
+
 fs.writeFileSync(SOURCE_PATH, TARGET_LAYER);
 
 fs.copyFileSync(TEMPLATE_TSCONFIG, ACTIVE_LAYER_TSCONFIG);
