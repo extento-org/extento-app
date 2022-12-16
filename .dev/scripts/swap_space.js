@@ -38,7 +38,7 @@ const FILE_TSCONFIG = 'tsconfig.json';
 const PATH_SOURCE = path.resolve(paths.REPO_APP, '.space');
 const PATH_DEV_DIR = path.resolve(paths.REPO_APP, '.dev');
 const PATH_ARCHIVE_DIR = path.resolve(PATH_DEV_DIR, '.archive');
-const PATH_STASH_DIR = path.resolve(PATH_ARCHIVE_DIR, String(Date.now()));
+const PATH_STASH_DIR = path.resolve(PATH_ARCHIVE_DIR, `${String(Date.now())}.${NEXT_SPACE}`);
 const PATH_DEV_SPACES = path.resolve(PATH_DEV_DIR, 'spaces');
 const PATH_NEXT_SPACE = path.resolve(PATH_DEV_SPACES, NEXT_SPACE);
 const PATH_TEMPLATE_SPACE = path.resolve(PATH_DEV_SPACES, TEMPLATE_SPACE);
@@ -172,15 +172,15 @@ if (!_trimmedFilesMatch(PATH_NEXT_LAYERS_TSCONFIG, PATH_TEMPLATE_LAYERS_TSCONFIG
 
 /* ----------------------------- Error Handling ----------------------------- */
 if (ERRORS_FS.length) {
-    ERRORS_FS.forEach(log.error);
+    ERRORS_FS.forEach(msg => log.error(msg));
     return;
 }
 if (ERRORS_INTEGRITY.length) {
-    ERRORS_INTEGRITY.forEach(log.error);
+    ERRORS_INTEGRITY.forEach(msg => log.error(msg));
     return;
 }
 if (WARNINGS_INTEGRITY.length) {
-    WARNINGS_INTEGRITY.forEach(log.warn);
+    WARNINGS_INTEGRITY.forEach(msg => log.warn(msg));
 }
 
 /* ------------------------------- Swap Logic ------------------------------- */
@@ -242,9 +242,16 @@ _swapAndStashDir(FOLDER_PAGES, PATH_SOURCE_SPACE, PATH_SOURCE_PAGES, PATH_NEXT_P
 _swapAndStashDir(FOLDER_SHARED, PATH_SOURCE_SPACE, PATH_SOURCE_SHARED, PATH_NEXT_SHARED);
 _swapAndStashDir(FOLDER_STYLES, PATH_SOURCE_SPACE, PATH_SOURCE_STYLES, PATH_NEXT_STYLES);
 
+log.info(`updating package.json and saving changes to ${PATH_SOURCE_PACKAGE_JSON}`);
+const NEXT_PACKAGE_JSON = require(PATH_NEXT_PACKAGE_JSON);
+const ROOT_PACKAGE_JSON = require(PATH_ROOT_PACKAGE_JSON);
+fs.writeFileSync(PATH_SOURCE_PACKAGE_JSON, JSON.stringify(ROOT_PACKAGE_JSON, null, 4));
+fs.writeFileSync(PATH_ROOT_PACKAGE_JSON, JSON.stringify({ ...ROOT_PACKAGE_JSON, ...NEXT_PACKAGE_JSON }, null, 4));
+
+log.info(`updating ${PATH_SOURCE} to: ${NEXT_SPACE}`);
+fs.unlinkSync(PATH_SOURCE);
+fs.writeFileSync(PATH_SOURCE, NEXT_SPACE);
+
 shell.reset();
 
-// next up handle package.json
-// save next source at .space
-
-log.success(`something happened!`)
+log.success(`you are now working with space:${SOURCE_SPACE}!!!`)

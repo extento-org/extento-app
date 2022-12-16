@@ -1,49 +1,46 @@
 {
+    "name": "extento-app",
+    "version": "0.0.1",
+    "engineStrict": true,
+    "engines": {
+        "npm": "8.15.0",
+        "node": "18.7.0"
+    },
+    "workspaces": [
+        ".extento",
+        ".dev/scripts"
+    ],
+    "scripts": {
+        "start": "npm run start --workspace=.extento",
+        "postinstall": "npm run init --workspace=.extento",
+        "build:release": "npm run build:release --workspace=.extento",
+        "build-all:release": "npm run build-all:release --workspace=.extento",
+        "build:dev": "npm run build:dev --workspace=.extento",
+        "build-all:dev": "npm run build-all:dev --workspace=.extento",
+        "lint": "npm run lint --workspace=.extento",
+        "dev:swap:dev": "SPACE=dev npm run swap_space --workspace=.dev/scripts",
+        "dev:swap:demo": "SPACE=demo npm run swap_space --workspace=.dev/scripts",
+        "dev:swap:template": "SPACE=template npm run swap_space --workspace=.dev/scripts",
+        "dev:docs": "npm run docs --workspace=.dev/scripts",
+        "dev:sync_docs": "npm run sync_docs --workspace=.dev/scripts"
+    },
+    "devDependencies": {
+        "autoprefixer": "^10.4.8",
+        "@tailwindcss/aspect-ratio": "^0.4.2",
+        "@tailwindcss/container-queries": "^0.1.0",
+        "@tailwindcss/forms": "^0.5.3",
+        "@tailwindcss/line-clamp": "^0.4.2",
+        "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
+        "@tailwindcss/typography": "^0.5.8",
+        "tailwindcss": "^3.2.4"
+    },
     "extento": {
         "manifest": {
             "name": "fallbackname",
             "version": "0.0.1",
             "allowed_extensions": []
         },
-        "ui_ordering": [
-            "admin",
-            "tester",
-            "manager",
-            "candidate",
-            "devops"
-        ],
-        "selective_builds": {
-            "qa": {
-                "version": "0.0.2",
-                "name": "coolqaguy",
-                "layers": [
-                    "tester",
-                    "candidate"
-                ]
-            },
-            "boss": {
-                "layers": [
-                    "manager",
-                    "admin"
-                ]
-            },
-            "new_guy": {
-                "version": "0.0.1",
-                "name": "nooooob",
-                "layers": [
-                    "devops",
-                    "candidate"
-                ]
-            },
-            "ceo": {
-                "name": "suit",
-                "layers": [
-                    "admin",
-                    "candidate",
-                    "manager",
-                    "tester"
-                ]
-            }
-        }
+        "ui_ordering": [],
+        "selective_builds": {}
     }
 }

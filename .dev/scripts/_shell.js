@@ -57,10 +57,6 @@ const reset = (fn = _.noop, opts = {
     packages: DEFAULT_PACKAGES,
     root: DEFAULT_RESET_ROOT,
 }) => {
-    if (!cmd) {
-        throw new Error('you did not supply a command');
-    }
-
     const { packages = DEFAULT_PACKAGES } = opts;
 
     _throwPackageCheck(packages);
