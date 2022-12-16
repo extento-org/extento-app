@@ -2,7 +2,7 @@ const childProcess = require('child_process');
 const constants = require('../constants');
 
 const withExecSync = (obj) => Object.entries(obj)
-    .reduce(([key, func], accum) => {
+    .reduce((accum, [key, func]) => {
         accum[key] = (...args) => childProcess.execSync(
             func(...args),
             { stdio: 'inherit' },

@@ -3,7 +3,6 @@ const { iLog, sLog } = require('../utils/logging');
 const getBuildDetails = require('../utils/getBuildDetails');
 const resetRequireCache = require('../utils/resetRequireCache');
 const zip = require('../utils/zip');
-const resetSelectiveLayers = require('./resetSelectiveLayers');
 const constants = require('../constants');
 const commands = require('../commands');
 
@@ -41,7 +40,7 @@ const buildLayers = () => {
     }
     selectiveBuilds.forEach(build);
 
-    resetSelectiveLayers();
+    require('./resetSelectiveLayers');
 
     sLog(`completed ${selectiveBuilds.length} builds`);
 };
