@@ -8,7 +8,6 @@ const PATH_APP = path.resolve(__dirname, '..', '..');
 const PATH_APP_BUILDS = path.resolve(PATH_APP, 'builds');
 const PATH_APP_EXTENSION = path.resolve(PATH_APP, 'chrome-v3');
 const PATH_APP_STYLES = path.resolve(PATH_APP, 'styles');
-const PATH_APP_WEBPACK = path.resolve(PATH_APP, '.extento.webpack.js');
 const PATH_APP_LAYERS = path.resolve(PATH_APP, 'layers');
 const PATH_BASE_TSCONFIG = path.resolve(__dirname, 'tsconfigs', 'base.json');
 const PATH_INTERNAL = path.resolve(__dirname, '..');
@@ -131,7 +130,6 @@ module.exports = throwOnNonExistence({
     PATH_APP_EXTENSION,
     PATH_APP_ICONS,
     PATH_APP_STYLES,
-    PATH_APP_WEBPACK,
     PATH_APP_LAYERS,
     PATH_APP,
     PATH_BASE_TSCONFIG,

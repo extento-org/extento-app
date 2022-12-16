@@ -1,8 +1,8 @@
 const path = require('path');
 const { execSync } = require('child_process');
 
-const PATH_APP = path.resolve(__dirname, '..');
-const PATH_NPM = path.resolve(__dirname, '..', '..', 'npm');
+const PATH_APP = path.resolve(__dirname, '..', '..');
+const PATH_NPM = path.resolve(__dirname, '..', '..', '..', 'npm');
 
 const cLog = (...args) => console.log('🔵 INFO', ...args);
 const sLog = (...args) => console.log('🟢 DONE', ...args);
