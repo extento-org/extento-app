@@ -10,8 +10,8 @@
         "start": "trap 'exit 0' SIGINT; npx webpack --config ./config/webpack.development.js --watch",
         "init": "node ./config/scripts/resetSelectiveLayers.js",
         "poststart": "npm run init",
-        "build:release": "node ./config/scripts/buildLayers",
-        "build-all:release": "EXTENTO_BUILD_ALL=true node ./config/scripts/buildLayers",
+        "build:release": "EXTENTO_DEV=false node ./config/scripts/buildLayers",
+        "build-all:release": "EXTENTO_DEV=false EXTENTO_BUILD_ALL=true node ./config/scripts/buildLayers",
         "build:dev": "EXTENTO_DEV=true node ./config/scripts/buildLayers",
         "build-all:dev": "EXTENTO_DEV=true EXTENTO_BUILD_ALL=true node ./config/scripts/buildLayers",
         "lint": "npx eslint ../layers ../shared ../pages"
