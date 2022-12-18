@@ -1,9 +1,6 @@
 import React from 'react';
-
-// TODO: Popup.useWorkModeToggle
-const useWorkModeToggle = () => {
-    
-};
+import ReactQueryProvider from '@app.shared/ReactQueryProvider';
+import * as hooks from '@app.shared/hooks';
 
 // TODO: Popup.Container
 function Container(props: { children: React.ReactElement }) {
@@ -26,8 +23,10 @@ function ToggleWorkMode() {
 
 export default function Popup() {
     return (
-        <Container>
-            <ToggleWorkMode />
-        </Container>
+        <ReactQueryProvider>
+            <Container>
+                <ToggleWorkMode />
+            </Container>
+        </ReactQueryProvider>
     );
 };

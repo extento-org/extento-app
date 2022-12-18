@@ -1,5 +1,5 @@
-import * as notification from './shared/notification';
-import * as alarm from './shared/alarm';
+import * as notification from '@app.shared/notification';
+import * as alarm from '@app.shared/alarm';
 import * as workerApi from './workerApi';
 
 const ALARM_NAME: alarm.Alarm = 'badger.alarm.task';

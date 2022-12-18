@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactQueryProvider from '@app.shared/ReactQueryProvider';
+import * as hooks from '@app.shared/hooks';
 
 // TODO: Tab.Container
 function Container(props: { children: React.ReactElement }) {
@@ -12,6 +14,24 @@ function Container(props: { children: React.ReactElement }) {
 
 // TODO: Tab.Controls
 function Controls() {
+    return (
+        <div>
+            
+        </div>
+    );
+};
+
+// TODO: Tab.TaskForm
+function TaskForm() {
+    return (
+        <div>
+            
+        </div>
+    );
+};
+
+// TODO: Tab.BlacklistForm
+function BlacklistForm() {
     return (
         <div>
             
@@ -39,12 +59,16 @@ function History() {
 
 export default function Tab() {
     return (
-        <Container>
-            <>
-                <Controls />
-                <ActiveTask />
-                <History />
-            </>
-        </Container>
+        <ReactQueryProvider>
+            <Container>
+                <>
+                    <Controls />
+                    <TaskForm />
+                    <BlacklistForm />
+                    <ActiveTask />
+                    <History />
+                </>
+            </Container>
+        </ReactQueryProvider>
     );
 };

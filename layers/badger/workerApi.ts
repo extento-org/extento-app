@@ -1,6 +1,6 @@
-import * as alarm from './shared/alarm';
-import * as browseUrlsStore from './shared/browseUrlsStore';
-import * as tasks from './shared/tasks';
+import * as alarm from '@app.shared/alarm';
+import * as blacklist from '@app.shared/blacklist';
+import * as tasks from '@app.shared/tasks';
 
 /* ---------------------------------- TYPES --------------------------------- */
 type TaskStatus = 'FAILED' | 'GAVE_UP' | 'COMPLETE' | 'IN_PROGRESS';
@@ -22,24 +22,26 @@ const getActiveTask = async () => {
 }
 
 /* ----------------------------------- API ---------------------------------- */
-export const getBrowseUrls = async (): Promise<Array<string>> => {
-    return browseUrlsStore.get();
+export const getBlacklist = async (): Promise<Array<string>> => {
+    return blacklist.get();
 };
 
-export const overwriteBrowseUrls = async (urls: Array<string>): Promise<void> => {
-    return browseUrlsStore.overwrite(urls);
+export const overwriteBlacklist = async (urls: Array<string>): Promise<void> => {
+    return blacklist.overwrite(urls);
 };
 
-export const getInProgressTask = async (): Promise<TasksheetRecordSchema | null> => {
+export const getInProgressTask = async (): Promise<TasksheetRecordSchema & { due: number } | null> => {
     const activeTask = await getActiveTask();
     if (!activeTask) {
         return null;
     }
+    const due = await alarm.getDueTime();
     const { text, status, mode } = activeTask;
     return {
         text, 
         status, 
         mode,
+        due,
     };
 };
 
@@ -80,12 +82,15 @@ export const create = async (
 };
 
 export const edit = async (
-    id: string,
     text: string,
 ): Promise<void> => {
+    const activeTask = await getActiveTask();
+    if (!activeTask) {
+        throw new Error('no active task exists');
+    }
     await tasks.update<TasksheetRecordSchema>([{
-        id,
-        text
+        id: activeTask.id,
+        text,
     }]);
 };
 
@@ -135,7 +140,7 @@ export const giveUp = async (): Promise<void> => {
 
 export const getArchived = async (): Promise<Array<TasksheetRecordSchema>> => {
     const [archivedTasks] = await tasks.getWhere<TasksheetRecordSchema>([
-        (task) => task.mode === 'ARCHIVED' 
+        (task) => task.mode === 'ARCHIVED',
     ]);
     return archivedTasks;
 };

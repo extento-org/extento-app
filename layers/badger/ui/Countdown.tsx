@@ -1,4 +1,5 @@
 import React from 'react';
+import * as hooks from '@app.shared/hooks';
 
 // TODO: ui.Container
 function Container(props: { children: React.ReactElement }) {

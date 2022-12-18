@@ -1,5 +1,5 @@
 import React from 'react';
-import states from '@extento.react/states';
+import * as hooks from '@app.shared/hooks';
 
 // TODO: ui.Container
 function Container(props: { children: React.ReactElement }) {

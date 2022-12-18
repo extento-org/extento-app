@@ -23,6 +23,15 @@ async function storeDelete(): Promise<void> {
     await store.remove('badger.storage.alarm');
 };
 
+async function storePaused(paused: boolean): Promise<void> {
+    await store.setNumber('badger.storage.paused', paused ? 1 : 0);
+}
+
+async function storeGetPaused(): Promise<boolean> {
+    const num = await store.getNumber('badger.storage.paused');
+    return !!num;
+};
+
 async function alarmsClear(): Promise<void> {
     const alarm: Alarm = 'badger.alarm.task';
     await chrome.alarms.clear(String(alarm));
@@ -56,6 +65,7 @@ async function alarmsGetScheduledTime(): Promise<number> {
 export async function create(minutes: number): Promise<void> {
     await alarmsNew(minutes);
     await storeCreate(minutes);
+    await storePaused(false);
 };
 
 export async function remove(): Promise<void> {
@@ -65,6 +75,15 @@ export async function remove(): Promise<void> {
 };
 
 export async function extend(minutes: number): Promise<number> {
+    const paused = await storeGetPaused();
+    // if it's paused we should rely on the stored time
+    // the alarm won't exist in this case
+    if (paused) {
+        const storedRemainingDurationInMinutes = await storeGet();
+        const updatedStoredRemainingDurationInMinutes = storedRemainingDurationInMinutes + minutes;
+        await storeUpdate(updatedStoredRemainingDurationInMinutes);
+        return updatedStoredRemainingDurationInMinutes;
+    }
     const remainingDurationInMinutes = await alarmsGetRemainingMinutes();
     const updatedRemainingMinutes = remainingDurationInMinutes + minutes;
     await alarmsNew(updatedRemainingMinutes);
@@ -73,19 +92,38 @@ export async function extend(minutes: number): Promise<number> {
 };
 
 export async function pause(): Promise<void> {
+    const paused = await storeGetPaused();
+    // if it's paused no logic needed
+    if (paused) {
+        return;
+    }
+    // non-existent alarms are not paused 
+    // so we still need this check.
+    const storeRemainingDurationInMinutes = await storeGet();
+    // if it's zero, there is nothing to resume
+    if (storeRemainingDurationInMinutes === 0) {
+        return;
+    }
     const remainingDurationInMinutes = await alarmsGetRemainingMinutes();
     await alarmsClear();
     await storeUpdate(remainingDurationInMinutes);
+    await storePaused(true);
 };
 
 export async function resume(): Promise<void> {
-    const remainingDurationInMinutes = await storeGet();
-    // if it's zero, there is nothing to resume, return
-    if (remainingDurationInMinutes === 0) {
+    const paused = await storeGetPaused();
+    // if it's not paused, there's nothing to resume
+    if (!paused) {
         return;
+    }
+    const remainingDurationInMinutes = await storeGet();
+    // this should never be zero!
+    if (remainingDurationInMinutes === 0) {
+        throw new Error('no duration was stored for this alarm')
     }
     await alarmsNew(remainingDurationInMinutes);
     await storeCreate(remainingDurationInMinutes);
+    await storePaused(false);
 };
 
 export async function getDueTime(): Promise<number> {

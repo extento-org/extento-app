@@ -1,0 +1,18 @@
+{
+    "extends": "./.extento/config/tsconfigs/project.json",
+    "compilerOptions": {
+        "noImplicitAny": false
+    },
+    "include": [
+        "./layers/**/*",
+        "./layers/**/*.json",
+        "./shared/**/*",
+        "./shared/**/*.json",
+        "./pages/**/*",
+        "./pages/**/*.json",
+        "./.extento/api/**/*",
+        "./.extento/api/**/*.json",
+        "./.extento/codegen/**/*",
+        "./.extento/codegen/**/*.json"
+    ]
+}
