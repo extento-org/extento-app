@@ -23,7 +23,7 @@ export async function get<TaskSchema>(
     const nonDeletedTasks = tasks
         .filter((task) => typeof task.deleted_at !== 'number');
     
-    // if they supplied ids return tasks in the order in which the ids were supplied
+    // if ids exist we return tasks in the order in which they were supplied
     if (ids.length) {
         return ids.map((id) => {
             const taskIndex = nonDeletedTasks.map(t => t.id).indexOf(id);
@@ -34,7 +34,7 @@ export async function get<TaskSchema>(
         })
     }
 
-    // otherwise, just return all tasks in order
+    // otherwise return all tasks in order
     return nonDeletedTasks
         .sort((a, b) => b.created_at - a.created_at)
 };
@@ -48,8 +48,7 @@ export async function create<TaskSchema>(
         ...r,
         id: uuidv4(),
         // We reverse records and decrement created_at by 1
-        // to be sure we retrieve tasks in order created
-        // they were created exactly.
+        // to be sure we retrieve tasks in order created.
         // Don't think it matters for the scope of this demo
         created_at: time - i,
         updated_at: null,

@@ -89,17 +89,10 @@ export const edit = async (
     }]);
 };
 
-export const extend = async (
-    id: string,
-    minutes: number,
-): Promise<void> => {
+export const extend = async (minutes: number): Promise<void> => {
     const activeTask = await getActiveTask();
     if (!activeTask) {
         throw new Error('no active task exists');
-    }
-    // this should never happen so let's throw i guess
-    if (activeTask.id !== id) {
-        throw new Error('you can only extend the latest task');
     }
     alarm.extend(minutes);
 };
