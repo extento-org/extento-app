@@ -50,6 +50,8 @@ const CODE_GEN_LAYER_EXPORTS = [
     'onload.ts',
     'ui',
     'state.ts',
+    'workerApi.ts',
+    'worker.ts',
 ];
 
 // permissions that each layer needs to have

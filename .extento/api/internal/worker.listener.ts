@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import workers from '@_codegen/webpack.workers';
+import workerApis from '@_codegen/webpack.workerApis';
 import defineListener from '@_core/api/worker.defineListener';
 
-export default function(): void { defineListener<typeof workers>(workers); };
+export default function(): void { defineListener(workerApis); };

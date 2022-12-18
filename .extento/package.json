@@ -17,7 +17,7 @@
         "lint": "npx eslint ../layers ../shared ../pages"
     },
     "devDependencies": {
-        "@types/chrome": "^0.0.195",
+        "@types/chrome": "^0.0.204",
         "@types/lodash": "^4.14.190",
         "@types/node": "^18.6.5",
         "@types/react": "^18.0.25",

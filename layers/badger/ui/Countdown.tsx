@@ -1,13 +1,9 @@
 import React from 'react';
 
-// TODO: Popup.useWorkModeToggle
-const useWorkModeToggle = () => {
-    
-};
-
-// TODO: Popup.Container
+// TODO: ui.Container
 function Container(props: { children: React.ReactElement }) {
     const { children } = props;
+
     return (
         <div>
             {children}
@@ -15,8 +11,8 @@ function Container(props: { children: React.ReactElement }) {
     );
 };
 
-// TODO: Popup.ToggleWorkMode
-function ToggleWorkMode() {
+// TODO: ui.Timer
+function Timer() {
     return (
         <div>
             
@@ -24,10 +20,13 @@ function ToggleWorkMode() {
     );
 };
 
-export default function Popup() {
-    return (
+// TODO: ui.Countdown
+const Countdown = () => {
+    return(
         <Container>
-            <ToggleWorkMode />
+            <Timer />
         </Container>
     );
 };
+
+export default Countdown;

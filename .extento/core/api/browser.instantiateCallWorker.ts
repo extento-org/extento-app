@@ -71,7 +71,7 @@ const handler = (
     window.dispatchEvent(event);
 });
 
-function buildProxy<BackgroundApis>(typed_workers: BackgroundApis): BackgroundApis {
+function buildProxy<WorkerApis>(typed_workers: WorkerApis): WorkerApis {
     return new Proxy({}, {
         get: (...[, layer]: [any, LayerName]) => new Proxy({}, {
             get: (...[, prop]: [any, any]) => {
