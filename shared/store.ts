@@ -1,6 +1,7 @@
 export type StoreKeys = 'badger.storage.tasks' 
     | 'badger.storage.browse_urls' 
-    | 'badger.storage.alarm';
+    | 'badger.storage.alarm'
+    | 'badger.storage.paused';
 
 /* --------------------------------- HELPERS -------------------------------- */
 function serialize(data: any): string {

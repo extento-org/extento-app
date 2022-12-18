@@ -5,56 +5,53 @@ import {
     useMutation,
     UseMutationResult,
 } from 'react-query';
-import * as weather from '@app.shared/weather';
-import * as location from '@app.shared/location';
+import urlMatchPattern from '@app.shared/utils/urlMatchPattern';
 import worker from '@extento.browser/worker'
 
 /* ------------------------ WORKER API RESPONSE TYPES ----------------------- */
-type Blacklist = Awaited<ReturnType<typeof worker.badger.getBlacklist>>;
-type ArchivedTasks = Awaited<ReturnType<typeof worker.badger.getArchived>>;
-type InProgressTask = Awaited<ReturnType<typeof worker.badger.getInProgressTask>>;
+export type Blacklist = Awaited<ReturnType<typeof worker.badger.getBlacklist>>;
+export type ArchivedTasks = Awaited<ReturnType<typeof worker.badger.getArchived>>;
+export type InProgressTask = Awaited<ReturnType<typeof worker.badger.getInProgressTask>>;
 
 /* --------------------------------- HELPERS -------------------------------- */
 const pluralize = (count: number, noun: string, suffix = 's') =>
     `${count} ${noun}${count !== 1 ? suffix : ''}`;
 
 /* ---------------------------- REACT QUERY KEYS ---------------------------- */
-type QueryKeys = 'zip' 
-    | 'weather' 
-    | 'in_progress_task' 
+type QueryKeys = 'in_progress_task' 
     | 'archived_tasks' 
     | 'blacklist';
 
 const QUERY_KEYS: { [key in QueryKeys]: key } = {
-    zip: 'zip',
-    weather: 'weather',
     in_progress_task: 'in_progress_task',
     archived_tasks: 'archived_tasks',
     blacklist: 'blacklist',
 };
 
 /* ----------------------------- HELPER QUERIES ----------------------------- */
-const useInProgressTaskQuery = () => {
-    const query = useQuery<InProgressTask>(QUERY_KEYS.in_progress_task, () => worker.badger.getInProgressTask());
+const useInProgressTaskQuery = (enabled: boolean = true) => {
+    const query = useQuery<InProgressTask>(
+        QUERY_KEYS.in_progress_task, 
+        () => worker.badger.getInProgressTask(),
+        { enabled }
+    );
     return query;
 };
 
 /* ----------------------------------- API ---------------------------------- */
-export const useWeatherBackgroundQuery = (): weather.Colors => {
-    // for demo purpose we're not using browser location api 
-    // returns hardcoded charlotte zip after random settimeout
+export const useTask = (enabled: boolean = true): {
+    isLoading: boolean,
+    task?: InProgressTask
+} => {
     const {
-        data: zip,
-    } = useQuery<number>(QUERY_KEYS.zip, () => location.getZip());
-
-    const {
-        data: backgroundColor = weather.BACKGROUND_COLOR.LOADING
-    } = useQuery<weather.Colors>(QUERY_KEYS.weather, () => weather.getBackgroundColor(zip), {
-        enabled: !!zip
-    });
-
-    return backgroundColor;
-};
+        data: inProgressTask = null,
+        isLoading,
+    } = useInProgressTaskQuery(enabled);
+    return {
+        isLoading,
+        task: inProgressTask,
+    };
+}
 
 export const useCountdownQuery = (): string => {
     const formatCountdown = (time = null) => {
@@ -168,8 +165,8 @@ export const useOverwriteBlacklist = (): UseMutationResult<void, unknown, Array<
     return mutation;
 };
 
-export const useBlacklistQuery = (): {
-    blacklist: Blacklist,
+export const useBlacklistedQuery = (href: string): {
+    blacklisted: boolean,
     isLoading: boolean
 } => {
     const {
@@ -177,7 +174,7 @@ export const useBlacklistQuery = (): {
         isLoading
     } = useQuery<Blacklist>(QUERY_KEYS.blacklist, () => worker.badger.getBlacklist());
     return {
-        blacklist,
+        blacklisted: blacklist.some(urlPattern => urlMatchPattern(urlPattern, href)),
         isLoading
     };
 };

@@ -1,10 +1,8 @@
 import React from 'react';
 import * as hooks from '@app.shared/hooks';
 
-// TODO: ui.Container
 function Container(props: { children: React.ReactElement }) {
     const { children } = props;
-
     return (
         <div>
             {children}
@@ -12,16 +10,15 @@ function Container(props: { children: React.ReactElement }) {
     );
 };
 
-// TODO: ui.Timer
 function Timer() {
+    const countdown = hooks.useCountdownQuery();
     return (
         <div>
-            
+            {countdown}
         </div>
     );
 };
 
-// TODO: ui.Countdown
 const Countdown = () => {
     return(
         <Container>
