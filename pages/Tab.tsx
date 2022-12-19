@@ -12,16 +12,29 @@ function Container(props: { children: React.ReactElement }) {
 };
 
 function Controls(props: {
+    task: hooks.InProgressTask,
     onToggleBlacklistForm: () => void,
-    onToggleCreateForm: () => void
+    onToggleCreateForm: () => void,
+    onExtendTaskByFiveMinutes: () => void,
+    onGiveUpTask: () => void,
+    isLoadingGivingUp: boolean,
+    isLoadingExtendingTask: boolean,
 }) {
     const {
+        task,
         onToggleBlacklistForm,
         onToggleCreateForm,
+        onExtendTaskByFiveMinutes,
+        onGiveUpTask,
+        isLoadingExtendingTask,
+        isLoadingGivingUp,
     } = props;
     return (
         <div>
-            
+            <button onChange={onToggleBlacklistForm}>Edit Blacklist</button>
+            {!!task ? null : <button onChange={onToggleCreateForm}>Create Task</button>}
+            {!task ? null : <button disabled={isLoadingExtendingTask} onChange={onExtendTaskByFiveMinutes}>Take 5</button>}
+            {!task ? null : <button disabled={isLoadingGivingUp} onChange={onGiveUpTask}>Give Up</button>}
         </div>
     );
 };
@@ -35,7 +48,7 @@ function CreateTaskForm(props: {
 
     return (
         <div>
-            
+            CREATE TASK FOR HERE
         </div>
     );
 };
@@ -48,7 +61,7 @@ function BlacklistForm(props: {
 
     return (
         <div>
-            
+            EDIT BLACKLIST HERE
         </div>
     );
 };
@@ -63,7 +76,7 @@ function EditActiveTask(props: {
 
     return (
         <div>
-            
+            EDIT TASK HERE
         </div>
     );
 };
@@ -73,7 +86,7 @@ function ActiveTask(props: { task:  hooks.InProgressTask, onShowEditForm: () => 
 
     return (
         <div>
-            
+            {task.text}
         </div>
     );
 };
@@ -86,7 +99,7 @@ function ArchivedTasks() {
     }
     return (
         <div>
-            
+            {archivedTasks.length} archived tasks go here
         </div>
     );
 };
@@ -99,6 +112,8 @@ export default function Tab() {
 
     /* ------------------------------ REACT QUERIES ----------------------------- */
     const { isLoading: isLoadingActiveTask, task } = hooks.useTask();
+    const extendTaskMutation = hooks.useExtendTask();
+    const giveUpTaskMutation = hooks.useGiveUpTask();
 
     /* -------------------------------- HANDLERS -------------------------------- */
     const handleToggleCreateForm = () => {
@@ -130,6 +145,12 @@ export default function Tab() {
     const handleOnCancelBlacklist = () => {
         setShowBlacklistForm(false);
     };
+    const handleOnExtendTaskByFiveMinutes = () => {
+        extendTaskMutation.mutate(5);
+    };
+    const handleOnGiveUpTask = () => {
+        extendTaskMutation.mutate(5);
+    };
 
     /* --------------------------------- RENDER --------------------------------- */
     return (
@@ -138,6 +159,11 @@ export default function Tab() {
                 <Container>
                     <>
                         <Controls
+                            task={task}
+                            isLoadingGivingUp={giveUpTaskMutation.isLoading}
+                            isLoadingExtendingTask={extendTaskMutation.isLoading}
+                            onGiveUpTask={handleOnGiveUpTask}
+                            onExtendTaskByFiveMinutes={handleOnExtendTaskByFiveMinutes}
                             onToggleBlacklistForm={handleToggleBlacklistForm}
                             onToggleCreateForm={handleToggleCreateForm}/>
                         {showCreateForm ? (

@@ -11,33 +11,40 @@ function Container(props: { children: React.ReactElement }) {
 };
 
 function CurrentTask(props: { task: hooks.InProgressTask }) {
+    const { task } = props;
     const countdown = hooks.useCountdownQuery();
-    
+    const { text, mode } = task;
+
     return (
-        <div>
-            
+        <div className='flex flex-col border-spacing-2'>
+            <label>MODE</label>
+            <p>{mode}</p>
+            <label>REMAINING TIME</label>
+            <p>{countdown}</p>
+            <label>TEXT</label>
+            <p>{text}</p>
         </div>
     );
 };
 
-// TODO: ui.Instructions
 function Instructions() {
     return (
-        <div>
-            
+        <div className='flex flex-col border-spacing-2'>
+            <p>ADD SOME INSTRUCTIONS HERE</p>
         </div>
     );
 };
 
-function Actions() {
-    const editTaskMutation = hooks.useEditTask();
-    const extendTaskMutation = hooks.useExtendTask();
-    const giveUpTaskMutation = hooks.useGiveUpTask();
-    const pauseTaskMutation = hooks.usePause();
-    const resumeTaskMutation = hooks.useResume();
+function Actions(props: { task: hooks.InProgressTask }) {
+    const { task } = props;
+
+    const handleNavigateToTabPage = () => {
+        
+    };
+
     return (
         <div>
-            
+            <button onChange={handleNavigateToTabPage}>Manage Tab Page</button>
         </div>
     );
 };
@@ -61,7 +68,7 @@ const Popup = () => {
                 <>
                     <CurrentTask task={task} />
                     <Instructions />
-                    <Actions />
+                    <Actions task={task}/>
                 </>
             </Container>
         );
