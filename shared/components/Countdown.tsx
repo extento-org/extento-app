@@ -4,7 +4,7 @@ import * as hooks from '@app.shared/hooks';
 function Container(props: { children: React.ReactElement }) {
     const { children } = props;
     return (
-        <div className='fixed p-2 m-2 rounded-md bottom-1 left-1 bg-slate-500 opacity-60'>
+        <div className='fixed z-50 p-4 m-4 rounded-md bottom-1 left-1 bg-slate-500 opacity-60'>
             {children}
         </div>
     );

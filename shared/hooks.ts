@@ -29,24 +29,23 @@ const QUERY_KEYS: { [key in QueryKeys]: key } = {
 };
 
 /* ----------------------------- HELPER QUERIES ----------------------------- */
-const useInProgressTaskQuery = (enabled: boolean = true) => {
+const useInProgressTaskQuery = () => {
     const query = useQuery<InProgressTask>(
         QUERY_KEYS.in_progress_task, 
-        () => worker.badger.getInProgressTask(),
-        { enabled }
+        () => worker.badger.getInProgressTask()
     );
     return query;
 };
 
 /* ----------------------------------- API ---------------------------------- */
-export const useTask = (enabled: boolean = true): {
+export const useTask = (): {
     isLoading: boolean,
     task?: InProgressTask
 } => {
     const {
         data: inProgressTask = null,
         isLoading,
-    } = useInProgressTaskQuery(enabled);
+    } = useInProgressTaskQuery();
     return {
         isLoading,
         task: inProgressTask,
@@ -60,8 +59,8 @@ export const useCountdownQuery = (): string => {
         }
         const timeRemaining = time - Date.now();
         const minutes = Math.floor(timeRemaining / 60000);
-        const seconds = timeRemaining % 60000 / 1000;
-        return `${minutes} ${pluralize(minutes, 'minute')} and ${seconds} ${pluralize(seconds, 'second')} remaining`;
+        const seconds = Math.floor(timeRemaining % 60000 / 1000);
+        return `${pluralize(minutes, 'minute')} and ${pluralize(seconds, 'second')} remaining`;
     };
 
     const [countdown, setCountdown] = React.useState(formatCountdown());
@@ -69,15 +68,24 @@ export const useCountdownQuery = (): string => {
     const {
         data: inProgressTask = null
     } = useInProgressTaskQuery();
+    const queryClient = useQueryClient();
 
     React.useEffect(() => {
         if (inProgressTask?.mode === 'BROWSE') {
             setCountdown('Badger task paused');
+
         } else if (inProgressTask?.mode === 'WORK') {
+            let cleared = false;
             let interval = setInterval(() => {
+                if (inProgressTask?.due < Date.now()) {
+                    queryClient.invalidateQueries([QUERY_KEYS.archived_tasks]);
+                    window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '__blank');
+                    return clearInterval(interval);
+                }
                 setCountdown(formatCountdown(inProgressTask?.due));
             }, 1000);
-            return () => clearInterval(interval);
+            
+            return () => cleared ? null : clearInterval(interval);
         }
     }, [inProgressTask]);
 
@@ -105,6 +113,7 @@ export const useEditTask = (): UseMutationResult<void, unknown, string> => {
         await worker.badger.edit(edit);
         await queryClient.invalidateQueries([QUERY_KEYS.in_progress_task]);
     });
+
     return mutation;
 };
 
@@ -114,6 +123,7 @@ export const useExtendTask = (): UseMutationResult<void, unknown, number> => {
         await worker.badger.extend(minutes);
         await queryClient.invalidateQueries([QUERY_KEYS.in_progress_task]);
     });
+
     return mutation;
 };
 
@@ -126,6 +136,7 @@ export const useCreateTask = (): UseMutationResult<void, unknown, { text: string
         await worker.badger.create(text, minutes);
         await queryClient.invalidateQueries([QUERY_KEYS.in_progress_task]);
     });
+
     return mutation;
 };
 
@@ -133,8 +144,10 @@ export const useGiveUpTask = (): UseMutationResult<void, unknown, void> => {
     const queryClient = useQueryClient();
     const mutation = useMutation<void, unknown, void, unknown>(async () => {
         await worker.badger.giveUp();
-        await queryClient.invalidateQueries([QUERY_KEYS.in_progress_task, QUERY_KEYS.archived_tasks]);
+        await queryClient.invalidateQueries([QUERY_KEYS.in_progress_task]);
+        await queryClient.invalidateQueries([QUERY_KEYS.archived_tasks]);
     });
+
     return mutation;
 };
 
@@ -144,6 +157,18 @@ export const usePause = (): UseMutationResult<void, unknown, void, unknown> => {
         await worker.badger.pause();
         await queryClient.invalidateQueries([QUERY_KEYS.in_progress_task]);
     });
+
+    return mutation;
+};
+
+export const useComplete = (): UseMutationResult<void, unknown, void, unknown> => {
+    const queryClient = useQueryClient();
+    const mutation = useMutation<void, unknown, void, unknown>(async () => {
+        await worker.badger.complete();
+        await queryClient.invalidateQueries([QUERY_KEYS.in_progress_task]);
+        await queryClient.invalidateQueries([QUERY_KEYS.archived_tasks]);
+    });
+
     return mutation;
 };
 
@@ -153,6 +178,7 @@ export const useResume = (): UseMutationResult<void, unknown, void, unknown> => 
         await worker.badger.resume();
         await queryClient.invalidateQueries([QUERY_KEYS.in_progress_task]);
     });
+
     return mutation;
 };
 
@@ -162,19 +188,29 @@ export const useOverwriteBlacklist = (): UseMutationResult<void, unknown, Array<
         await worker.badger.overwriteBlacklist(urls);
         await queryClient.invalidateQueries([QUERY_KEYS.blacklist]);
     });
+
     return mutation;
 };
 
 export const useBlacklistedQuery = (href: string): {
     blacklisted: boolean,
+    blacklist: Array<string>,
     isLoading: boolean
 } => {
     const {
         data: blacklist = [],
         isLoading
     } = useQuery<Blacklist>(QUERY_KEYS.blacklist, () => worker.badger.getBlacklist());
+    
     return {
-        blacklisted: blacklist.some(urlPattern => urlMatchPattern(urlPattern, href)),
+        blacklist,
+        blacklisted: blacklist.some(urlPattern => {
+            try {
+                return urlMatchPattern(urlPattern, href);
+            } catch(err) {
+                return false;
+            }
+        }),
         isLoading
     };
 };

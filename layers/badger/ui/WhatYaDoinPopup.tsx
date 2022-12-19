@@ -1,50 +1,24 @@
 import React from 'react';
 import * as hooks from '@app.shared/hooks';
+import worker from '@extento.browser/worker'
 
 function Container(props: { children: React.ReactElement }) {
     const { children } = props;
     return (
-        <div>
+        <div className='fixed flex flex-col items-center justify-center w-full h-full'>
             {children}
         </div>
     );
 };
 
-function CurrentTask(props: { task: hooks.InProgressTask }) {
-    const { task } = props;
-    const countdown = hooks.useCountdownQuery();
-    const { text, mode } = task;
-
-    return (
-        <div className='flex flex-col border-spacing-2'>
-            <label>MODE</label>
-            <p>{mode}</p>
-            <label>REMAINING TIME</label>
-            <p>{countdown}</p>
-            <label>TEXT</label>
-            <p>{text}</p>
-        </div>
-    );
-};
-
-function Instructions() {
-    return (
-        <div className='flex flex-col border-spacing-2'>
-            <p>ADD SOME INSTRUCTIONS HERE</p>
-        </div>
-    );
-};
-
-function Actions(props: { task: hooks.InProgressTask }) {
-    const { task } = props;
-
-    const handleNavigateToTabPage = () => {
-        
+function ObnoxiousWarning() {
+    const handleNavigateToTabPage = async () => {
+        await worker.badger.newTab();
     };
 
     return (
-        <div>
-            <button onChange={handleNavigateToTabPage}>Manage Tab Page</button>
+        <div className="fixed top-0 left-0 flex items-center justify-center w-full h-full bg-white">
+            <button onClick={() => handleNavigateToTabPage()} className="btn btn-secondary">GET BACK TO WORK</button>
         </div>
     );
 };
@@ -53,26 +27,17 @@ const Popup = () => {
     const { 
         isLoading: isLoadingBlacklisted,
         blacklisted,
-    } = hooks.useBlacklistedQuery(
-        window.href,
-    );
-    const { isLoading: isLoadingTask, task } = hooks.useTask(
-        !isLoadingBlacklisted && !blacklisted
-    );
+    } = hooks.useBlacklistedQuery(window.location.href);
     const siteIsBlacklisted = !isLoadingBlacklisted && blacklisted;
-    const showTask = !isLoadingTask && !!task;
+    const { isLoading: isLoadingTask, task } = hooks.useTask();
+    const showTask = siteIsBlacklisted && !isLoadingTask && !!task;
 
-    if (siteIsBlacklisted && showTask) {
+    if (showTask) {
         return(
-            <Container>
-                <>
-                    <CurrentTask task={task} />
-                    <Instructions />
-                    <Actions task={task}/>
-                </>
-            </Container>
+            <ObnoxiousWarning />
         );
     }
+    
     return null;
 };
 

@@ -1,6 +1,7 @@
 const path = require('path');
 
 const PATH_APP = path.resolve(__dirname, '..', '..');
+const PATH_APP_SHARED = path.resolve(PATH_APP, 'shared');
 const PATH_APP_PAGES = path.resolve(PATH_APP, 'pages');
 const PATH_APP_LAYERS = path.resolve(PATH_APP, 'layers');
 const PATH_INTERNAL_CORE = path.resolve(PATH_APP, '.extento', 'core');
@@ -9,6 +10,7 @@ const PATH_INTERNAL_ENTRIES = path.resolve(PATH_APP, '.extento', 'entries');
 
 module.exports = {
     content: [
+        `${PATH_APP_SHARED}/**/*.{ts,tsx,js,jsx}`,
         `${PATH_APP_PAGES}/**/*.{ts,tsx,js,jsx}`,
         `${PATH_APP_LAYERS}/**/*.{ts,tsx,js,jsx}`,
         `${PATH_INTERNAL_CORE}/src/**/*.{ts,tsx,js,jsx}`,
@@ -20,7 +22,17 @@ module.exports = {
     },
     corePlugins: {
         aspectRatio: false,
-        preflight: false,
+        preflight: true,
     },
     plugins: require(`./tailwind.plugins.js`),
+    daisyui: {
+        styled: true,
+        themes: ['night'],
+        base: true,
+        utils: true,
+        logs: true,
+        rtl: false,
+        prefix: "",
+        darkTheme: "dark",
+    }
 };

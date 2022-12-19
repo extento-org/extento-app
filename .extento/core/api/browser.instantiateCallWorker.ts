@@ -1,5 +1,6 @@
 import { v4 as uuid_v4 } from 'uuid';
 import { deserializeError as deserialize_error } from 'serialize-error';
+import chromeWrapper from '@_core/lib.chrome';
 
 import { LayerName } from '@extento.types';
 import constants from '@_core/constants';
@@ -68,7 +69,12 @@ const handler = (
         },
     });
 
-    window.dispatchEvent(event);
+    // attempt to bypass content script if we can
+    try {
+        chromeWrapper.postWindowMessage(event.detail);
+    } catch (err) {
+        window.dispatchEvent(event);
+    }
 });
 
 function buildProxy<WorkerApis>(typed_workers: WorkerApis): WorkerApis {

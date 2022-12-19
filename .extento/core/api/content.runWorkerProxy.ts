@@ -1,4 +1,4 @@
-import chrome_wrapper from '@_core/lib.chrome';
+import chromeWrapper from '@_core/lib.chrome';
 import constants from '@_core/constants';
 
 const runWorkerProxy = () => {
@@ -7,7 +7,7 @@ const runWorkerProxy = () => {
         constants.EXTENT_WORKER_INBOUND,
         (_event: CustomEvent) => {
             try {
-                chrome_wrapper.postWindowMessage(_event.detail);
+                chromeWrapper.postWindowMessage(_event.detail);
             } catch (err) {
                 // logging for dev purposes but we never expect to hit this
                 console.error(err);
@@ -17,7 +17,7 @@ const runWorkerProxy = () => {
     );
 
     // used for one-way pub events fired from our background script
-    chrome_wrapper.contentScriptListen({
+    chromeWrapper.contentScriptListen({
         [constants.EXTENT_BACKGROUND_PUBLISHER]: (
             request: any,
             send_response: (response?: any) => void,

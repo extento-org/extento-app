@@ -9,10 +9,9 @@
         "./shared/**/*",
         "./shared/**/*.json",
         "./pages/**/*",
-        "./pages/**/*.json",
-        "./.extento/api/**/*",
-        "./.extento/api/**/*.json",
-        "./.extento/codegen/**/*",
-        "./.extento/codegen/**/*.json"
+        "./pages/**/*.json"
+    ],
+    "references": [
+        { "path": "./.extento/api" }
     ]
 }

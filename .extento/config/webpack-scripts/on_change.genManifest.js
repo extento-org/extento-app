@@ -52,8 +52,10 @@ const manifestTransform = (opts) => {
     return JSON.parse(JSON.stringify({
         version: buildDetails.version,
         name: buildDetails.name,
-        optional_permissions: opts.optionalPermissions,
-        permissions: constants.BASE_CHROME_PERMISSIONS,
+        permissions: accumLayerManifest(
+            'permissions.value',
+            (accum = [], layerPermissions = []) => _.union(accum, layerPermissions),
+        ),
         content_scripts: [{
             matches: opts.matches,
             js: [
@@ -91,10 +93,6 @@ const genManifest = () => {
         matches: accumLayerManifest(
             'matches.value',
             (accum = [], matchUrlSchemes = []) => _.union(accum, matchUrlSchemes),
-        ),
-        optional_permissions: accumLayerManifest(
-            'permissions.value',
-            (accum = [], layerPermissions = []) => _.union(accum, layerPermissions),
         ),
     });
 

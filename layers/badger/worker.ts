@@ -4,17 +4,18 @@ import * as workerApi from './workerApi';
 
 const ALARM_NAME: alarm.Alarm = 'badger.alarm.task';
 
+const handleAlarm = async () => {
+    await workerApi.failed();
+    // must run after failed()
+    // no need to notify if the above throws
+    // TODO: add a publish event to tell our browser to do something annoying
+};
+
 const worker = () => {
     chrome.alarms.onAlarm.addListener((chromeAlarm) => {
         try {
             if (chromeAlarm.name === ALARM_NAME) {
-                alarm.remove();
-                // this function might throw
-                // we could design around this but for now we just log it
-                workerApi.failed();
-                // must run after failed()
-                // no need to notify if the above throws
-                notification.create();
+                handleAlarm();
             }
         } catch(err) {
             console.error(err);

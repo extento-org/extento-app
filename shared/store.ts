@@ -31,6 +31,7 @@ export async function getList<ElementType>(key: StoreKeys): Promise<Array<Elemen
 
 export async function setList<ElementType>(key: StoreKeys, data: Array<ElementType>): Promise<void> {
     await chrome.storage.local.set({ [key]: serialize(data) });
+    return;
 }
 
 export async function getNumber(key: StoreKeys): Promise<number> {
@@ -44,8 +45,10 @@ export async function getNumber(key: StoreKeys): Promise<number> {
 
 export async function setNumber(key: StoreKeys, data: number): Promise<void> {
     await chrome.storage.local.set({ [key]: data });
+    return;
 }
 
 export async function remove(key: StoreKeys): Promise<void> {
     await chrome.storage.local.remove(key);
+    return;
 }

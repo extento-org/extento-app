@@ -20,22 +20,20 @@ export async function get<TaskSchema>(
     ids: Array<string> = [],
 ): Promise<Array<WithBaseFields<TaskSchema> | null>> {
     const tasks = await store.getList<WithBaseFields<TaskSchema>>('badger.storage.tasks');
-    const nonDeletedTasks = tasks
-        .filter((task) => typeof task.deleted_at !== 'number');
     
     // if ids exist we return tasks in the order in which they were supplied
     if (ids.length) {
         return ids.map((id) => {
-            const taskIndex = nonDeletedTasks.map(t => t.id).indexOf(id);
+            const taskIndex = tasks.map(t => t.id).indexOf(id);
             if (taskIndex === -1) {
                 return null;
             }
-            return nonDeletedTasks[taskIndex];
+            return tasks[taskIndex];
         })
     }
 
     // otherwise return all tasks in order
-    return nonDeletedTasks
+    return tasks
         .sort((a, b) => b.created_at - a.created_at)
 };
 
@@ -80,7 +78,6 @@ export async function update<TaskSchema>(
 
     // store the mutated tasks
     await store.setList<WithBaseFields<TaskSchema>>('badger.storage.tasks', tasks);
-
     // return the list of ids mutated
     return updatedTaskIds;
 };

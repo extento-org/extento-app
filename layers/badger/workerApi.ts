@@ -3,13 +3,14 @@ import * as blacklist from '@app.shared/blacklist';
 import * as tasks from '@app.shared/tasks';
 
 /* ---------------------------------- TYPES --------------------------------- */
-type TaskStatus = 'FAILED' | 'GAVE_UP' | 'COMPLETE' | 'IN_PROGRESS';
-type TaskMode = 'WORK' | 'BROWSE' | 'ARCHIVED';
+type TaskStatus = 'FAILED' | 'GAVE_UP' | 'COMPLETE' | 'IN_PROGRESS' | 'NOT_FOUND';
+type TaskMode = 'WORK' | 'BROWSE' | 'ARCHIVED' | 'NOT_FOUND';
 type TasksheetRecordSchema = {
     text: string,
     status: TaskStatus,
     mode: TaskMode,
 };
+type Task = TasksheetRecordSchema & { due: number };
 
 /* --------------------------------- HELPERS -------------------------------- */
 const getActiveTask = async () => {
@@ -18,19 +19,25 @@ const getActiveTask = async () => {
     ] = await tasks.getWhere<TasksheetRecordSchema>([
         (task) => task.status === 'IN_PROGRESS' && task.mode !== 'ARCHIVED'
     ]);
+    
     return activeTask;
 }
 
 /* ----------------------------------- API ---------------------------------- */
+export const newTab = async (): Promise<void> => {
+    await chrome.tabs.create({});
+};
+
 export const getBlacklist = async (): Promise<Array<string>> => {
-    return blacklist.get();
+    const urls = await blacklist.get();
+    return urls;
 };
 
 export const overwriteBlacklist = async (urls: Array<string>): Promise<void> => {
     return blacklist.overwrite(urls);
 };
 
-export const getInProgressTask = async (): Promise<TasksheetRecordSchema & { due: number } | null> => {
+export const getInProgressTask = async (): Promise<Task | null> => {
     const activeTask = await getActiveTask();
     if (!activeTask) {
         return null;
@@ -53,7 +60,7 @@ export const resume = async (): Promise<void> => {
     await alarm.resume();
     await tasks.update<TasksheetRecordSchema>([{
         id: activeTask.id,
-        mode: 'WORK'
+        mode: 'WORK',
     }]);
 };
 
@@ -76,7 +83,7 @@ export const create = async (
     await tasks.create<TasksheetRecordSchema>([{
         text,
         status: 'IN_PROGRESS',
-        mode: 'WORK'
+        mode: 'WORK',
     }]);
     await alarm.create(minutes);
 };
@@ -99,14 +106,15 @@ export const extend = async (minutes: number): Promise<void> => {
     if (!activeTask) {
         throw new Error('no active task exists');
     }
-    alarm.extend(minutes);
+    await alarm.extend(minutes);
 };
 
-export const failed = async () => {
+export const failed = async (): Promise<void> => {
     const activeTask = await getActiveTask();
     if (!activeTask) {
         throw new Error('no active task exists');
     }
+    await alarm.remove();
     await tasks.update<TasksheetRecordSchema>([{
         id: activeTask.id,
         status: 'FAILED',
@@ -114,16 +122,19 @@ export const failed = async () => {
     }]);
 };
 
-export const complete = async () => {
+export const complete = async (): Promise<void> => {
     const activeTask = await getActiveTask();
     if (!activeTask) {
         throw new Error('no active task exists');
     }
+    await alarm.remove();
     await tasks.update<TasksheetRecordSchema>([{
         id: activeTask.id,
         status: 'COMPLETE',
         mode: 'ARCHIVED',
     }]);
+    
+    return;
 };
 
 export const giveUp = async (): Promise<void> => {
@@ -131,6 +142,7 @@ export const giveUp = async (): Promise<void> => {
     if (!activeTask) {
         throw new Error('no active task exists');
     }
+    await alarm.remove();
     await tasks.update<TasksheetRecordSchema>([{
         id: activeTask.id,
         status: 'GAVE_UP',
@@ -138,7 +150,7 @@ export const giveUp = async (): Promise<void> => {
     }]);
 };
 
-export const getArchived = async (): Promise<Array<TasksheetRecordSchema>> => {
+export const getArchived = async () => {
     const [archivedTasks] = await tasks.getWhere<TasksheetRecordSchema>([
         (task) => task.mode === 'ARCHIVED',
     ]);

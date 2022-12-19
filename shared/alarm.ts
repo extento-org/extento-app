@@ -24,12 +24,12 @@ async function storeDelete(): Promise<void> {
 };
 
 async function storePaused(paused: boolean): Promise<void> {
-    await store.setNumber('badger.storage.paused', paused ? 1 : 0);
+    await store.setNumber('badger.storage.paused', paused ? 1 : 2);
 }
 
 async function storeGetPaused(): Promise<boolean> {
     const num = await store.getNumber('badger.storage.paused');
-    return !!num;
+    return num === 1;
 };
 
 async function alarmsClear(): Promise<void> {
@@ -69,26 +69,23 @@ export async function create(minutes: number): Promise<void> {
 };
 
 export async function remove(): Promise<void> {
-    // no need to clear alarms because it's called after the alarm fires!
-    // the browser does the clearing for us
     await storeDelete();
+    try {
+        await alarmsClear();
+    } catch (err) {
+        console.error(err);
+    }
 };
 
-export async function extend(minutes: number): Promise<number> {
+export async function extend(minutes: number): Promise<void> {
     const paused = await storeGetPaused();
-    // if it's paused we should rely on the stored time
-    // the alarm won't exist in this case
     if (paused) {
-        const storedRemainingDurationInMinutes = await storeGet();
-        const updatedStoredRemainingDurationInMinutes = storedRemainingDurationInMinutes + minutes;
-        await storeUpdate(updatedStoredRemainingDurationInMinutes);
-        return updatedStoredRemainingDurationInMinutes;
+        await resume();
     }
     const remainingDurationInMinutes = await alarmsGetRemainingMinutes();
     const updatedRemainingMinutes = remainingDurationInMinutes + minutes;
     await alarmsNew(updatedRemainingMinutes);
     await storeUpdate(updatedRemainingMinutes);
-    return updatedRemainingMinutes;
 };
 
 export async function pause(): Promise<void> {
@@ -129,4 +126,9 @@ export async function resume(): Promise<void> {
 export async function getDueTime(): Promise<number> {
     const time = await alarmsGetScheduledTime();
     return time;
-}
+};
+
+export async function getPaused(): Promise<boolean> {
+    const paused = await storeGetPaused();
+    return paused;
+};
