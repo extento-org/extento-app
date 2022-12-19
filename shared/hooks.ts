@@ -17,6 +17,16 @@ export type InProgressTask = Awaited<ReturnType<typeof worker.badger.getInProgre
 const pluralize = (count: number, noun: string, suffix = 's') =>
     `${count} ${noun}${count !== 1 ? suffix : ''}`;
 
+const formatCountdown = (time = null) => {
+    if (typeof time !== 'number') {
+        return '-- minutes and -- seconds remaining';
+    }
+    const timeRemaining = time - Date.now();
+    const minutes = Math.floor(timeRemaining / 60000);
+    const seconds = Math.floor(timeRemaining % 60000 / 1000);
+    return `${pluralize(minutes, 'minute')} and ${pluralize(seconds, 'second')} remaining`;
+};
+
 /* ---------------------------- REACT QUERY KEYS ---------------------------- */
 type QueryKeys = 'in_progress_task' 
     | 'archived_tasks' 
@@ -53,16 +63,6 @@ export const useTask = (): {
 }
 
 export const useCountdownQuery = (): string => {
-    const formatCountdown = (time = null) => {
-        if (typeof time !== 'number') {
-            return '-- minutes and -- seconds remaining';
-        }
-        const timeRemaining = time - Date.now();
-        const minutes = Math.floor(timeRemaining / 60000);
-        const seconds = Math.floor(timeRemaining % 60000 / 1000);
-        return `${pluralize(minutes, 'minute')} and ${pluralize(seconds, 'second')} remaining`;
-    };
-
     const [countdown, setCountdown] = React.useState(formatCountdown());
 
     const {
@@ -75,17 +75,17 @@ export const useCountdownQuery = (): string => {
             setCountdown('Badger task paused');
 
         } else if (inProgressTask?.mode === 'WORK') {
-            let cleared = false;
             let interval = setInterval(() => {
                 if (inProgressTask?.due < Date.now()) {
                     queryClient.invalidateQueries([QUERY_KEYS.archived_tasks]);
-                    window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '__blank');
+                    // always sunny scene
+                    window.open('https://www.youtube.com/watch?v=22O6Nmjt-mw', '__blank');
                     return clearInterval(interval);
                 }
                 setCountdown(formatCountdown(inProgressTask?.due));
             }, 1000);
             
-            return () => cleared ? null : clearInterval(interval);
+            return () => clearInterval(interval);
         }
     }, [inProgressTask]);
 

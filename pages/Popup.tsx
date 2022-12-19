@@ -1,7 +1,3 @@
-/* -------------------------------------------------------------------------- */
-/*                              REQUIRES TESTING                              */
-/* -------------------------------------------------------------------------- */
-
 import React from 'react';
 import { useDebounce } from 'usehooks-ts';
 import ReactQueryProvider from '@app.shared/ReactQueryProvider';
@@ -10,7 +6,7 @@ import * as hooks from '@app.shared/hooks';
 function Container(props: { children: React.ReactElement }) {
     const { children } = props;
     return (
-        <div className='overflow-hidden rounded-md p-7'>
+        <div className='rounded-md p-7'>
             {children}
         </div>
     );
@@ -20,24 +16,24 @@ function ToggleWorkMode(props: { task: hooks.InProgressTask }) {
     const { task } = props;
     const isWorkMode = task?.mode === 'WORK';
 
+    /* ---------------------------------- STATE --------------------------------- */
     const [toggled, setToggled] = React.useState(isWorkMode);
-
-    // After 3 seconds we assume isWorkMode has updated correctly.
-    // We could use onSuccess or onError handlers in mutations below
-    // but this method ensures correctness.
-    // If I had more time I'd figure out all the possible ways a call 
-    // to the worker API could fail or be delayed indefinitely.
-    // Under ideal conditions the setToggled in the below useEffect 
-    // changes nothing about this function component's state
+    // This could use more thought. 
+    // For now, I think it makes sense to revert the toggle 
+    // if it's found to not match after 3 seconds of no changes.
     const debouncedIsWorkMode = useDebounce(isWorkMode, 3000);
     React.useEffect(() => {
         setToggled(debouncedIsWorkMode);
     }, [debouncedIsWorkMode]);
 
+    /* ------------------------------ REACT QUERIES ----------------------------- */
     const pauseMutation = hooks.usePause();
     const resumeMutation = hooks.useResume();
+
+    /* --------------------------------- HELPERS -------------------------------- */
     const mutationLoading = pauseMutation.isLoading || resumeMutation.isLoading;
 
+    /* -------------------------------- HANDLERS -------------------------------- */
     const handleOnChange = React.useCallback(() => {
         if (mutationLoading) {
             return;
@@ -50,6 +46,7 @@ function ToggleWorkMode(props: { task: hooks.InProgressTask }) {
         }
     }, [toggled, mutationLoading]);
 
+    /* --------------------------------- RENDER --------------------------------- */
     if (toggled) {
         return (
             <button 
@@ -82,7 +79,10 @@ function NoTaskMessage() {
 };
 
 function PopupPage() {
+    /* ------------------------------ REACT QUERIES ----------------------------- */
     const { isLoading: isLoadingTask, task } = hooks.useTask();
+    
+    /* --------------------------------- RENDER --------------------------------- */
     return(
         <Container>
             {isLoadingTask ? null : (

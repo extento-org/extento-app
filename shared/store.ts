@@ -6,7 +6,7 @@ export type StoreKeys = 'badger.storage.tasks'
 /* --------------------------------- HELPERS -------------------------------- */
 function serialize(data: any): string {
     return JSON.stringify(data);
-}
+};
 
 function deserialize(data: any): any {
     try {
@@ -37,18 +37,18 @@ export async function setList<ElementType>(key: StoreKeys, data: Array<ElementTy
 export async function getNumber(key: StoreKeys): Promise<number> {
     const val = await chrome.storage.local.get(key);
     if (typeof val !== 'number') {
-        // this is how we denote non-existence, yeah, weird
+        // retain number type while telling caller nothing was found
         return -Infinity;
     }
     return val;
-}
+};
 
 export async function setNumber(key: StoreKeys, data: number): Promise<void> {
     await chrome.storage.local.set({ [key]: data });
     return;
-}
+};
 
 export async function remove(key: StoreKeys): Promise<void> {
     await chrome.storage.local.remove(key);
     return;
-}
+};

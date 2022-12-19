@@ -11,7 +11,10 @@ function Container(props: { children: React.ReactElement }) {
 };
 
 function Timer() {
+    /* ------------------------------ REACT QUERIES ----------------------------- */
     const countdown = hooks.useCountdownQuery();
+
+    /* --------------------------------- RENDER --------------------------------- */
     return (
         <p className="leading-none text-white">
             {countdown}
@@ -20,8 +23,12 @@ function Timer() {
 };
 
 const Countdown = () => {
+    /* ------------------------------ REACT QUERIES ----------------------------- */
     const { isLoading: isLoadingTask, task } = hooks.useTask();
+    
     const show = !isLoadingTask && !!task;
+
+    /* --------------------------------- RENDER --------------------------------- */
     if (!show) {
         return null;
     }

@@ -3,7 +3,6 @@ import dayjs from 'dayjs';
 import ReactQueryProvider from '@app.shared/ReactQueryProvider';
 import * as hooks from '@app.shared/hooks';
 import Countdown from '@app.shared/components/Countdown';
-import subscribe from '@extento.browser/subscribe';
 
 function Container(props: { children: React.ReactElement }) {
     const { children } = props;
@@ -19,22 +18,25 @@ function Controls(props: {
     onToggleBlacklistForm: () => void,
     onToggleCreateForm: () => void,
 }) {
-    const extendTaskMutation = hooks.useExtendTask();
-    const giveUpMutation = hooks.useGiveUpTask();
     const {
         task,
         onToggleBlacklistForm,
         onToggleCreateForm,
     } = props;
+    
+    /* ------------------------------ REACT QUERIES ----------------------------- */
+    const extendTaskMutation = hooks.useExtendTask();
+    const giveUpMutation = hooks.useGiveUpTask();
 
+    /* -------------------------------- HANDLERS -------------------------------- */
     const handleExtend = () => {
         extendTaskMutation.mutate(5);
     };
-
     const handleGiveUp = () => {
         giveUpMutation.mutate();
     };
 
+    /* --------------------------------- RENDER --------------------------------- */
     return (
         <div className='flex space-x-5'>
             <button 
@@ -69,12 +71,16 @@ function CreateTaskForm(props: {
     onCancel: () => void,
 }) {
     const { onCreate, onCancel } = props;
-    const mutation = hooks.useCreateTask();
+
+    /* ---------------------------------- STATE --------------------------------- */
     const [text, setText] = React.useState('');
     const [minutes, setMinutes] = React.useState('');
-    const [error, setError] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState('');
 
+    /* ------------------------------ REACT QUERIES ----------------------------- */
+    const mutation = hooks.useCreateTask();
+
+    /* -------------------------------- HANDLERS -------------------------------- */
     const handleSave = () => {
         const fixedText = text.trim();
         const fixedMinutes = Number(minutes)
@@ -95,13 +101,11 @@ function CreateTaskForm(props: {
             minutes: fixedMinutes,
         }, {
             onSuccess: onCreate,
-            onError: () => {
-                setErrorMessage('');
-                setError(true);
-            }
+            onError: () => setErrorMessage('Something went wrong')
         });
-    }
+    };
     
+    /* --------------------------------- RENDER --------------------------------- */
     return (
         <div className="flex flex-col flex-grow space-y-4">
             <textarea 
@@ -121,7 +125,6 @@ function CreateTaskForm(props: {
             </div>
             <div className="flex -mt-2">
                 {!!errorMessage ? <label className="text-error" htmlFor="p">{errorMessage}</label> : null}
-                {error ? <label className="text-error" htmlFor="p">Something went wrong</label> : null}
             </div>
         </div>
     );
@@ -133,10 +136,15 @@ function BlacklistForm(props: {
     onOverwrite: () => void,
 }) {
     const { onCancel, onOverwrite, blacklist } = props;
+
+    /* ---------------------------------- STATE --------------------------------- */
     const [error, setError] = React.useState(false);
     const [urls, setUrls] = React.useState(blacklist?.map(s => s.trim())?.join('\n') || '');
+
+    /* ------------------------------ REACT QUERIES ----------------------------- */
     const mutation = hooks.useOverwriteBlacklist();
 
+    /* -------------------------------- HANDLERS -------------------------------- */
     const handleOverwrite = async () => {
         mutation.mutate(
             urls.split('\n').map(s => s.trim()).filter(s => !!s),
@@ -147,6 +155,7 @@ function BlacklistForm(props: {
         );
     };
     
+    /* --------------------------------- RENDER --------------------------------- */
     return (
         <div className="flex flex-col flex-grow space-y-4">
             <textarea 
@@ -171,17 +180,23 @@ function EditActiveTask(props: {
     task: hooks.InProgressTask
 }) {
     const { onCancel, onSave, task } = props;
+
+    /* ---------------------------------- STATE --------------------------------- */
     const [text, setText] = React.useState(task.text);
     const [error, setError] = React.useState(false);
+
+    /* ------------------------------ REACT QUERIES ----------------------------- */
     const mutation = hooks.useEditTask();
 
+    /* -------------------------------- HANDLERS -------------------------------- */
     const handleSave = () => {
         mutation.mutate(text, {
             onSuccess: onSave,
             onError: () => setError(true)
         });
-    }
+    };
     
+    /* --------------------------------- RENDER --------------------------------- */
     return (
         <div className="flex flex-col flex-grow space-y-4">
             <textarea 
@@ -212,9 +227,16 @@ function CreateTaskInstructions() {
 
 function ActiveTask(props: { task: hooks.InProgressTask, onShowEditForm: () => void }) {
     const { onShowEditForm, task } = props;
+
+    /* ------------------------------ REACT QUERIES ----------------------------- */
     const mutation = hooks.useComplete();
+
+    /* -------------------------------- HANDLERS -------------------------------- */
     const handleComplete = () => {
         mutation.mutate();
+    };
+    const handleShowEditForm = () => {
+        onShowEditForm();
     };
 
     return (
@@ -224,20 +246,44 @@ function ActiveTask(props: { task: hooks.InProgressTask, onShowEditForm: () => v
                 <p className='text-lg'>{task.text}</p>
                 <div className="justify-end mt-5 space-x-2 card-actions">
                     <button disabled={mutation.isLoading} onClick={() => handleComplete()} className="btn btn-primary">Complete</button>
-                    <button disabled={mutation.isLoading} onClick={() => onShowEditForm()} className="btn">Edit</button>
+                    <button disabled={mutation.isLoading} onClick={() => handleShowEditForm()} className="btn">Edit</button>
                 </div>
             </div>
         </div>
     );
 };
 
+function StatusBadge(props: { status: hooks.InProgressTask['status'] }) {
+    const { status } = props;
+    if (status === 'COMPLETE') {
+        return(
+            <div className="badge badge-success">Completed</div>
+        );
+    }
+    if (status === 'FAILED') { 
+        return(
+            <div className="badge badge-error">Failed</div>
+        );
+    }
+    if (status === 'GAVE_UP') { 
+        return(
+            <div className="badge badge-warning">Gave Up</div>
+        );  
+    }
+    
+    return null;
+};
+
 function ArchivedTasks() {
+    /* ------------------------------ REACT QUERIES ----------------------------- */
     const { isLoading, archivedTasks } = hooks.useArchivedTasksQuery();
+
+    /* --------------------------------- RENDER --------------------------------- */
     if (isLoading || !archivedTasks?.length) {
         return null;
     }
     return (
-        <div className="flex-col pt-8">
+        <div className="flex-col pt-8 pb-36">
             <h2 className="text-base font-semibold text-gray-300">Archived Tasks</h2>
             <div className="mt-0 divider" />
             <div className="flex flex-col flex-grow space-y-5">
@@ -245,7 +291,10 @@ function ArchivedTasks() {
                     return(
                         <div key={task.id} className="flex flex-grow rounded-lg card bg-neutral-content text-primary-content">
                             <div className="card-body">
-                                <h2 className="card-title">{dayjs(task.created_at).format('MM/DD/YYYY')}</h2>
+                                <div className="flex justify-between w-full">
+                                    <h2 className="card-title">{dayjs(task.created_at).format('MM/DD/YYYY - HH:mm a')}</h2>
+                                    <StatusBadge status={task.status}/>
+                                </div>
                                 <p className='text-lg'>{task.text}</p>
                             </div>
                         </div>

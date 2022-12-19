@@ -3,7 +3,7 @@ import * as blacklist from '@app.shared/blacklist';
 import * as tasks from '@app.shared/tasks';
 
 /* ---------------------------------- TYPES --------------------------------- */
-type TaskStatus = 'FAILED' | 'GAVE_UP' | 'COMPLETE' | 'IN_PROGRESS' | 'NOT_FOUND';
+type TaskStatus = 'FAILED' | 'GAVE_UP' | 'COMPLETE' | 'IN_PROGRESS';
 type TaskMode = 'WORK' | 'BROWSE' | 'ARCHIVED' | 'NOT_FOUND';
 type TasksheetRecordSchema = {
     text: string,
@@ -21,23 +21,35 @@ const getActiveTask = async () => {
     ]);
     
     return activeTask;
-}
+};
+
+const useDelay = async (): Promise<void> => {
+    await new Promise(resolve => setTimeout(() => resolve(''), 300));
+};
 
 /* ----------------------------------- API ---------------------------------- */
 export const newTab = async (): Promise<void> => {
+    await useDelay();
+
     await chrome.tabs.create({});
 };
 
 export const getBlacklist = async (): Promise<Array<string>> => {
+    await useDelay();
+
     const urls = await blacklist.get();
     return urls;
 };
 
 export const overwriteBlacklist = async (urls: Array<string>): Promise<void> => {
+    await useDelay();
+
     return blacklist.overwrite(urls);
 };
 
 export const getInProgressTask = async (): Promise<Task | null> => {
+    await useDelay();
+
     const activeTask = await getActiveTask();
     if (!activeTask) {
         return null;
@@ -53,6 +65,8 @@ export const getInProgressTask = async (): Promise<Task | null> => {
 };
 
 export const resume = async (): Promise<void> => {
+    await useDelay();
+
     const activeTask = await getActiveTask();
     if (!activeTask) {
         throw new Error('no active task exists');
@@ -65,6 +79,8 @@ export const resume = async (): Promise<void> => {
 };
 
 export const pause = async (): Promise<void> => {
+    await useDelay();
+
     const activeTask = await getActiveTask();
     if (!activeTask) {
         throw new Error('no active task exists');
@@ -80,6 +96,8 @@ export const create = async (
     text: string,
     minutes: number,
 ): Promise<void> => {
+    await useDelay();
+
     await tasks.create<TasksheetRecordSchema>([{
         text,
         status: 'IN_PROGRESS',
@@ -91,6 +109,8 @@ export const create = async (
 export const edit = async (
     text: string,
 ): Promise<void> => {
+    await useDelay();
+
     const activeTask = await getActiveTask();
     if (!activeTask) {
         throw new Error('no active task exists');
@@ -102,6 +122,8 @@ export const edit = async (
 };
 
 export const extend = async (minutes: number): Promise<void> => {
+    await useDelay();
+
     const activeTask = await getActiveTask();
     if (!activeTask) {
         throw new Error('no active task exists');
@@ -110,6 +132,8 @@ export const extend = async (minutes: number): Promise<void> => {
 };
 
 export const failed = async (): Promise<void> => {
+    await useDelay();
+
     const activeTask = await getActiveTask();
     if (!activeTask) {
         throw new Error('no active task exists');
@@ -123,6 +147,8 @@ export const failed = async (): Promise<void> => {
 };
 
 export const complete = async (): Promise<void> => {
+    await useDelay();
+
     const activeTask = await getActiveTask();
     if (!activeTask) {
         throw new Error('no active task exists');
@@ -133,11 +159,11 @@ export const complete = async (): Promise<void> => {
         status: 'COMPLETE',
         mode: 'ARCHIVED',
     }]);
-    
-    return;
 };
 
 export const giveUp = async (): Promise<void> => {
+    await useDelay();
+
     const activeTask = await getActiveTask();
     if (!activeTask) {
         throw new Error('no active task exists');
@@ -151,6 +177,8 @@ export const giveUp = async (): Promise<void> => {
 };
 
 export const getArchived = async () => {
+    await useDelay();
+
     const [archivedTasks] = await tasks.getWhere<TasksheetRecordSchema>([
         (task) => task.mode === 'ARCHIVED',
     ]);
