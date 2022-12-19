@@ -13,7 +13,12 @@ Taking the idea further, each "layer" comes with some built in abstractions to m
 
 ## About **Badger** (Interview Specific Demo)
 
-Badger is a single layer that doesn't benefit from anything I talked about in the section above. I figured it would be a good way to test some of my assumptions with a single extension and display my React skills. You'll see a handful of empty meaningless files, which is because Extento doesn't yet support optionality in the interfaces it expects a layer to contain. I'll describe the relevant files/features below:
+Badger is a single layer that doesn't benefit from anything I talked about in the section above. I figured it would be a good way to test some of my assumptions with a single extension and display my React skills. You'll see a handful of empty meaningless files, which is because Extento doesn't yet support optionality in the interfaces it expects a layer to contain. 
+
+### **Features:** 
+Create tasks and define urls schemes that you cannot visit while the task in progress. Use the popup UI to start/stop work and pay the consequences of a shitty youtube video popup if you don't finish in time. All previously worked on tasks are visually available in a list of archived tasks with the time worked on and their status. Tasks can be extended or given up on as well.
+
+### **Files/Folders**:
 * This layer makes use of TailwindCSS and DaisyUI for it's visual interface
 * **./shared/tasks.ts**: contains logic for task storage and retrieval
 * **./shared/store.ts**: chrome storage api wrapper
