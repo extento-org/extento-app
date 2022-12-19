@@ -13,18 +13,18 @@ Taking the idea further, each "layer" comes with some built in abstractions to m
 
 ## About **Badger** (Interview Specific Demo)
 
-Badger is a single layer, that doesn't benefit from anything I talked about in the section above. I figured it would be a good way to test some of my assumptions with a single extension and display my React skills. You'll see a handful of empty meaningless files, which is because Extento doesn't yet support optionality in the interfaces it expects a layer to contain. I'll describe the relevant files/features below:
+Badger is a single layer that doesn't benefit from anything I talked about in the section above. I figured it would be a good way to test some of my assumptions with a single extension and display my React skills. You'll see a handful of empty meaningless files, which is because Extento doesn't yet support optionality in the interfaces it expects a layer to contain. I'll describe the relevant files/features below:
 * This layer makes use of TailwindCSS and DaisyUI for it's visual interface
-* ./shared/tasks.ts: contains logic for task storage and retrieval
-* ./shared/store.ts: chrome storage api wrapper
-* ./shared/ReachQueryProvider.tsx: ensures react-query cache is shared across components
-* ./shared/hooks.ts: mostly houses react-query hooks that make calls to our service worker
-* ./shared/blacklist.ts: logic for storing/retrieving lists of sites we shouldn't be allowed to view while a task is in progress
-* ./shared/alarm.ts: logic for managing the chrome alarm that causes our task to "fail" if it times out
-* ./shared/components/Countdown.tsx: a small widget that renders in different contexts to display time remaining on active task
-* ./pages/Tab.tsx: React page that renders whenever we open a new tab. Where most task management occurs
-* ./pages/Popup.tsx: React widget that displays when we click out icon button. Allows pausing/resuming work
-* ./layers/badger: Contains our service worker and injected UI. The service worker is defined at worker.ts and workerApi.ts.
-* ./layers/badger/worker: A single function that can define event handlers for badger. In our case it defines the event that fires when our alarm reaches it's "due date"
-* ./layers/badger/workerApi: Contains exported functions that can be called from any script context via @extent.browser/worker (this is part of the Extento abstractions I was referring to). Useful because the service worker has no permission restrictions in regards to the chrome extension api. Without it, we couldn't do anything useful with the injected UI
-* ./layers/ui: Contains the popup that displays when you travel to a blacklisted URL and the countdown timer widget which renders on all pages
+* **./shared/tasks.ts**: contains logic for task storage and retrieval
+* **./shared/store.ts**: chrome storage api wrapper
+* **./shared/ReachQueryProvider.tsx**: ensures react-query cache is shared across components
+* **./shared/hooks.ts**: mostly houses react-query hooks that make calls to our service worker
+* **./shared/blacklist.ts**: logic for storing/retrieving lists of sites we shouldn't be allowed to view while a task is in progress
+* **./shared/alarm.ts**: logic for managing the chrome alarm that causes our task to "fail" if it times out
+* **./shared/components/Countdown.tsx**: a small widget that renders in different contexts to display time remaining on active task
+* **./pages/Tab.tsx**: React page that renders whenever we open a new tab. Where most task management occurs
+* **./pages/Popup.tsx**: React widget that displays when we click out icon button. Allows pausing/resuming work
+* **./layers/badger**: Contains our service worker and injected UI. The service worker is defined at worker.ts and workerApi.ts.
+* **./layers/badger/worker**: A single function that can define event handlers for badger. In our case it defines the event that fires when our alarm reaches it's "due date"
+* **./layers/badger/workerApi**: Contains exported functions that can be called from any script context via @extent.browser/worker (this is part of the Extento abstractions I was referring to). Useful because the service worker has no permission restrictions in regards to the chrome extension api. Without it, we couldn't do anything useful with the injected UI
+* **./layers/ui**: Contains the popup that displays when you travel to a blacklisted URL and the countdown timer widget which renders on all pages
