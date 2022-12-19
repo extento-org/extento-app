@@ -1,264 +1,30 @@
-# Documentation 
+# Interview Notes
 
-For full documentation visit [https://beta.extento.org](https://beta.extento.org)
+## About **Extento**
 
-- [Quick Start](#quick-start)
-- [Extento CLI](#extento-cli)
-  * [Create](#extento-cli-create)
-  * [Layer](#extento-cli-workspace)
-- [Layer](#workspace)
-  * [UI](#workspace-ui)
-  * [Config Management](#workspace-config-management)
-  * [Continuous Content Script Processes](#workspace-continuous-content-script-processes)
-  * [Onload](#workspace-onload)
-  * [Manifest](#workspace-manifest)
-  * [Background API](#workspace-background-api)
-- [Testing](#testing)
-- [Popup and Options Pages](#popup-and-options-pages)
-- [Application Configuration](#application-configuration)
-  * [Selective Builds](#application-configuration-selective-builds)
-  * [UI Ordering](#application-configuration-ui-ordering)
-  * [Manifest V3](#application-configuration-manifest-v3)
-  * [TypeScript](#application-configuration-typescript)
-  * [Webpack](#application-configuration-webpack)
-- [Styles](#styles)
-  * [TailwindCSS](#styles-tailwindcss)
-  * [Assets](#styles-assets)
-- [Run, Build, and Deploy](#run-build-and-deploy)
-  * [Development](#run-build-and-deploy-development)
-  * [Release](#run-build-and-deploy-release)
-  * [Distribution](#run-build-and-deploy-distribution)
+At a high level it's a personal experiment to allow organizations that want to logically maintain a single browser extension but distribute subsets of the extension's features to different members of their organization. Quick example: Imagine you have have the following feature sets that could each be their own extension and we call these extensions: QA Scripts, QA Helper, AWS Resource Manager, AWS Log Helper, Onboarding Helper, QA Feedback, Dev Productivity, etc, etc. Under a simple model we can release each of these extension seperately and distribute to your members according to their roles. However, with Extento we code each of these as a "layer" (see layers/ folder) under a single extension. At build time we then specify which layers we want to combine based on roles, rather than features. So for the above extensions we might have 4 roles: Product Manager, QA Engineer, Junior Dev, Devops Manager. We would then configure each role to make use of some subset of our above layers likeso:
 
-# <h1 id="quick-start">Quick Start</h1>
+ * Product Manager: [AWS Log Helper, QA Helper, QA Feedback]
+ * QA Engineer: [Dev Productivity, AWS Log Helper, QA Scripts, QA Helper, QA Feedback]
+ * Junior Dev: [Dev Productivity, AWS Log Helper, Onboarding Helper]
+ * DevOps Manager: [Dev Productivity, AWS Log Helper, AWS Resource Manager]
 
+Taking the idea further, each "layer" comes with some built in abstractions to make developing extension a little easier. The code in ./.extento houses a lot of the experimental logic to make the above stuff possible but it is messy and unproven right now. A lot of stuff happens with webpack to make some of the abstractions and build model possible.
 
-# <h1 id="extento-cli">Extento CLI</h1>
+## About **Badger** (Interview Specific Demo)
 
-> Scaffolds new Extento projects and workspaces.
-
-:warning: *use **npx** unless you really know what you're doing.*
-
- ## <h2 id="extento-cli-create">Create</h2>
-
- This command will download and modify the [extento-app](https://github.com/extento-org/extento-app) repo under the hood to set up your new project. 
-
- ```bash
- > npx @extento/cli create my_app
- > cd my_app
- > npm i
- > npm run start
- ```
- 
- ## <h2 id="extento-cli-workspace">Layer</h2>
- 
- Must be run inside of an existing Extento project. It will download more code from the [extento-app](https://github.com/extento-org/extento-app) repo and prepare some files for you to write your application logic inside of.
- 
- :warning: *If you're getting strange compile errors after using this command, try restarting webpack*
- 
- ```bash
- > npx @extento/cli workspace my_workspace
- > npm run start
- ```
-
-# <h1 id="workspace">Layer</h1>
-
-> Think of a workspace directory as a mini extension.
-
-After successfully running ```@extento/cli workspace <name>``` inside of your project repo, a new directory will appear: ```src/workspaces/<name>```. This is where you write your business logic.
-
-```
-$EXTENTO_LAYER_DIR_STRUCTURE
-├── <workspace_name>
-│   ├── worker.ts
-│   ├── config.ts
-│   ├── contentScriptProcess.ts
-│   ├── manifest.json
-│   ├── onload.ts
-│   ├── readme.md
-│   ├── ui
-│   │   ├── Example.tsx
-│   │   ├── context.tsx
-│   │   └── index.tsx
-│   └── ui_states.ts
-$EXTENTO_LAYER_DIR_STRUCTURE
-```
-
- ## <h2 id="workspace-ui">UI</h2>
- 
- - **TODO**: explain
- - **TODO**: add code examples
- 
- ```
-  
- 
- 
- ```
- 
- ## <h2 id="workspace-config-management">Config Management</h2>
- 
- - **TODO**: explain
- - **TODO**: add code examples
- 
- ```
-  
- 
- 
- ```
- 
- ## <h2 id="workspace-continuous-content-script-processes">Continuous Content Script Processes</h2>
- 
- - **TODO**: explain
- - **TODO**: add code examples
- 
- ```
-  
- 
- 
- ```
- 
- ## <h2 id="workspace-onload">Onload</h2>
- 
- - **TODO**: explain
- - **TODO**: add code examples
- 
- ```
-  
- 
- 
- ```
- 
- ## <h2 id="workspace-manifest">Manifest</h2>
- 
- - **TODO**: explain
- - **TODO**: add code examples
- 
- ```
-  
- 
- 
- ```
- 
- ## <h2 id="workspace-background-api">Background API</h2>
- 
- - **TODO**: explain
- - **TODO**: add code examples
- 
- ```
-  
- 
- 
- ```
- 
- # Testing
- 
- - **TODO**: explain
- - **TODO**: add code examples
- 
- ```
-  
- 
- 
- ```
-
-# <h1 id="popup-and-options-pages">Popup and Options Pages</h1>
-
-> Customize your extension's popup and options UI.
-
-Within your project there is a folder: **src/pages** with two files: **Popup.tsx**, **Options.tsx**. Use React and TailwindCSS to customize these however you would like. 
-
-```
-$EXTENTO_PAGES_DIR_STRUCTURE
-├── pages
-│   ├── options.tsx
-│   └── popup.tsx
-$EXTENTO_PAGES_DIR_STRUCTURE
-```
-
-These files will have access to certain portions of the [Chrome Extension API](https://developer.chrome.com/docs/extensions/reference/) not available in regular content scripts. For more information on what these files will compile down to see Chrome's official documentation: 
-
-- Options: https://developer.chrome.com/docs/extensions/mv3/options/
-- Popup: https://developer.chrome.com/docs/extensions/reference/action/
-
-# <h1 id="application-configuration">Application Configuration</h1>
-
- ## <h2 id="application-configuration-selective-builds">Selective Builds</h2>
-
- > Allow developers to specify a subset of workspaces they want to include in a given webpack build. 
-
- One problem with Extento's workspace model is that it encourages over-priviledged extensions if the developer is not careful. Each workspace requires it's [own set of permissions and site access rules](#workspace-manifest), which means adding workspaces will cause the entire set of required permissions and access rules in our final manifest to build up. In conclusion: **too many workspaces = not enough security**. By giving developers the ability to release only a subset of workspaces to different users, this is no longer a problem.
-
- ## <h2 id="application-configuration-ui-ordering">UI Ordering</h2>
- 
- **TODO**
- 
- ## <h2 id="application-configuration-manifest-v3">Manifest V3</h2>
- 
- **TODO**
- 
- ## <h2 id="application-configuration-typescript">TypeScript</h2>
- 
- **TODO**
- 
- ## <h2 id="application-configuration-webpack">Webpack</h2>
- 
- **TODO**
-
-# <h1 id="styles">Styles</h1>
-
- ## <h2 id="styles-tailwindcss">TailwindCSS</h2>
- 
- Extento uses TailwindCSS out of the box. Wherever you are able to write React code you will be able to use tailwind's built-in utility classes. For further customization there are 3 files available inside of src/styles: **plugins.js**, **theme-extension.js**, **theme.css**. These files make it possible to manage tailwind plugins, theme extensions, and custom stylesheets for a more custom look. 
- 
- Don't want to use tailwind? Just avoid those utility classes and don't modify any files in src/styles.
- 
- :warning: Support for other styling libraries will not be a part of Extento V1. Extento is run by a single developer at the moment.
- 
- ```
- $EXTENTO_STYLES_DIR_STRUCTURE
- ├── styles
- │   ├── plugins.js
- │   ├── theme-extension.js
- │   └── theme.css
- $EXTENTO_STYLES_DIR_STRUCTURE
- ```
- 
- [Tailwind's (very awesome and thorough) documentation](https://tailwindcss.com/docs/installation)
- 
- ## <h2 id="styles-assets">Assets</h2>
- 
- **TODO**
-
-# <h1 id="run,-build,-and-deploy">Run, Build, and Deploy</h1>
-
- ## <h2 id="run,-build,-and-deploy-development">Development</h2>
- 
- - **TODO**: explain
- - **TODO**: add code examples
- 
- ```
-  
- 
- 
- ```
- 
- ## <h2 id="run,-build,-and-deploy-release">Release</h2>
- 
- - **TODO**: explain
- - **TODO**: add code examples
- 
- ```
-  
- 
- 
- ```
- 
- ## <h2 id="run,-build,-and-deploy-distribution">Distribution</h2>
- 
- - **TODO**: explain
- - **TODO**: add code examples
- 
- ```
-  
- 
- 
- ```
+Badger is a single layer, that doesn't benefit from anything I talked about in the section above. I figured it would be a good way to test some of my assumptions with a single extension and display my React skills. You'll see a handful of empty meaningless files, which is because Extento doesn't yet support optionality in the interfaces it expects a layer to contain. I'll describe the relevant files/features below:
+* This layer makes use of TailwindCSS and DaisyUI for it's visual interface
+* ./shared/tasks.ts: contains logic for task storage and retrieval
+* ./shared/store.ts: chrome storage api wrapper
+* ./shared/ReachQueryProvider.tsx: ensures react-query cache is shared across components
+* ./shared/hooks.ts: mostly houses react-query hooks that make calls to our service worker
+* ./shared/blacklist.ts: logic for storing/retrieving lists of sites we shouldn't be allowed to view while a task is in progress
+* ./shared/alarm.ts: logic for managing the chrome alarm that causes our task to "fail" if it times out
+* ./shared/components/Countdown.tsx: a small widget that renders in different contexts to display time remaining on active task
+* ./pages/Tab.tsx: React page that renders whenever we open a new tab. Where most task management occurs
+* ./pages/Popup.tsx: React widget that displays when we click out icon button. Allows pausing/resuming work
+* ./layers/badger: Contains our service worker and injected UI. The service worker is defined at worker.ts and workerApi.ts.
+* ./layers/badger/worker: A single function that can define event handlers for badger. In our case it defines the event that fires when our alarm reaches it's "due date"
+* ./layers/badger/workerApi: Contains exported functions that can be called from any script context via @extent.browser/worker (this is part of the Extento abstractions I was referring to). Useful because the service worker has no permission restrictions in regards to the chrome extension api. Without it, we couldn't do anything useful with the injected UI
+* ./layers/ui: Contains the popup that displays when you travel to a blacklisted URL and the countdown timer widget which renders on all pages
