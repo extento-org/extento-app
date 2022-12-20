@@ -84,7 +84,7 @@ const quick = (cmd, opts = {
     
     const { exec_opts = DEFAULT_EXEC_OPTS, packages = DEFAULT_PACKAGES } = opts;
     _throwPackageCheck(packages);
-    _execAtRoot(cmd, exec_opts);
+    return _execAtRoot(cmd, exec_opts);
 };
 
 const dry = (cmd, opts = {

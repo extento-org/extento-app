@@ -7,9 +7,6 @@ function LayerUiOverlay(props: { children: JSX.Element, offset: number }) {
             style={{
                 zIndex: 2147483647 - offset,
                 position: 'relative',
-                width: 'inherit',
-                height: 'inherit',
-                display: 'flex',
             }}
         >
             {children}

@@ -12,8 +12,6 @@
         { "path": "../../core" },
         { "path": "../../entries" },
         { "path": "../../types" },
-        { "path": "../../../layers" },
-        { "path": "../../../pages" },
-        { "path": "../../../shared" }
+        { "path": "../../../tsconfig.json" }
     ]
 }

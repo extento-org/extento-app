@@ -1,3 +1,5 @@
-export const example = async () => {
-    return 'api response';
+const worker = () => {
+    // declare event handlers here
 };
+
+export default worker;

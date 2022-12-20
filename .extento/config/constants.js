@@ -50,10 +50,9 @@ const CODE_GEN_LAYER_EXPORTS = [
     'onload.ts',
     'ui',
     'state.ts',
+    'workerApi.ts',
+    'worker.ts',
 ];
-
-// permissions that each layer needs to have
-const BASE_CHROME_PERMISSIONS = ['storage'];
 
 // never change to dot file
 const PREFIX_DIST = 'EXT_DIST.built.';
@@ -111,7 +110,6 @@ const ICONS = fs
     }));
 
 module.exports = throwOnNonExistence({
-    BASE_CHROME_PERMISSIONS,
     CLEARABLE_PREFIXES,
     CODE_GEN_LAYER_EXPORTS,
     DEFAULT_SELECTIVE_BUILD,

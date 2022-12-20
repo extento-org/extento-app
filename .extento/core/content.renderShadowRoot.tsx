@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 
 export type ShadowRootProps = {
     children: JSX.Element,
@@ -16,27 +16,24 @@ const renderShadowRoot = (props: ShadowRootProps) => {
     };
     const shadowContainer = document.createElement('div');
     shadowContainer.setAttribute('id', props.id);
+    const reactRootId = `${props.id}-react-root`;
 
     // attach a shadow root to it
-    const shadowRoot = shadowContainer.attachShadow(shadowOptions);
-
-    // optionally apply styles if provided
-    if (typeof props.css === 'string') {
-        const styleTag = document.createElement('style');
-        styleTag.innerHTML = props.css;
-        shadowRoot.appendChild(styleTag);
-    }
-
-    // create a react root with the new shadow root
-    const root = ReactDOM.createRoot(shadowRoot);
+    shadowContainer.attachShadow(shadowOptions)
+        .innerHTML = `
+            <style>${props.css || ''}</style>
+            <div id='${reactRootId}' />
+        `;
+    const { shadowRoot } = shadowContainer;
 
     // attach it to the page!
-    document.body.prepend(shadowContainer);
+    document.body.append(shadowContainer);
 
-    root.render(
+    ReactDOM.render(
         <React.StrictMode>
             {props.children}
         </React.StrictMode>,
+        shadowRoot.querySelector(`#${reactRootId}`),
     );
 };
 

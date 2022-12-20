@@ -3,7 +3,7 @@ import { LayerName } from '@extento.types';
 
 type UnknownArgsFunction = (...args: any[]) => any;
 
-const execute = (workers: any) => (
+const execute = (workerApis: any) => (
     request: any,
     send_response: (response?: any) => void,
 ) => {
@@ -23,7 +23,7 @@ const execute = (workers: any) => (
     const innerPropName: string = request.inner_prop;
 
     // the function we'll execute
-    let workerAction: any = workers[layerName][propName];
+    let workerAction: any = workerApis[layerName][propName];
 
     // some background api's are nested one level deeper
     if (typeof workerAction[innerPropName] !== 'undefined') {

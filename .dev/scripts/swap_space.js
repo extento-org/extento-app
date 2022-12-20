@@ -29,37 +29,35 @@ const FOLDER_LAYERS = 'layers';
 const FOLDER_PAGES = 'pages';
 const FOLDER_SHARED = 'shared';
 const FOLDER_STYLES = 'styles';
-const FILE_ESLINT = 'eslintrc.js';
+const FILE_ESLINT = '.eslintrc.js';
 const FILE_POSTCSS = 'postcss.js';
 const FILE_PACKAGE_JSON = 'package.json';
 const FILE_TSCONFIG = 'tsconfig.json';
 
 /* ------------------------------- Base Paths ------------------------------- */
-const PATH_SOURCE = path.resolve(paths.REPO_APP, '.space');
-const PATH_DEV_DIR = path.resolve(paths.REPO_APP, '.dev');
-const PATH_ARCHIVE_DIR = path.resolve(PATH_DEV_DIR, '.archive');
-const PATH_STASH_DIR = path.resolve(PATH_ARCHIVE_DIR, `${String(Date.now())}.${NEXT_SPACE}`);
-const PATH_DEV_SPACES = path.resolve(PATH_DEV_DIR, 'spaces');
+const PATH_ARCHIVE_DIR = path.resolve(paths.DEV_DIR, '.archive');
+const PATH_DEV_SPACES = path.resolve(paths.DEV_DIR, 'spaces');
 const PATH_NEXT_SPACE = path.resolve(PATH_DEV_SPACES, NEXT_SPACE);
 const PATH_TEMPLATE_SPACE = path.resolve(PATH_DEV_SPACES, TEMPLATE_SPACE);
-const SOURCE_SPACE = fs.readFileSync(PATH_SOURCE, 'utf-8').trim();
+const SOURCE_SPACE = fs.readFileSync(paths.SPACES_SOURCE_FILE, 'utf-8').trim();
 const PATH_SOURCE_SPACE = path.resolve(PATH_DEV_SPACES, SOURCE_SPACE);
+const PATH_STASH_DIR = path.resolve(PATH_ARCHIVE_DIR, `${String(Date.now())}.${SOURCE_SPACE}`);
 
 /* ---------------------------- User Space Paths ---------------------------- */
 const PATH_ROOT_PACKAGE_JSON = path.resolve(paths.REPO_APP, FILE_PACKAGE_JSON);
 const PATH_NEXT_PACKAGE_JSON = path.resolve(PATH_NEXT_SPACE, FILE_PACKAGE_JSON);
 const PATH_NEXT_POSTCSS = path.resolve(PATH_NEXT_SPACE, FILE_POSTCSS);
 const PATH_NEXT_ESLINT = path.resolve(PATH_NEXT_SPACE, FILE_ESLINT);
+const PATH_NEXT_TSCONFIG = path.resolve(PATH_NEXT_SPACE, FILE_TSCONFIG);
 const PATH_NEXT_ICONS = path.resolve(PATH_NEXT_SPACE, FOLDER_ICONS);
 const PATH_NEXT_LAYERS = path.resolve(PATH_NEXT_SPACE, FOLDER_LAYERS);
-const PATH_NEXT_LAYERS_ESLINT = path.resolve(PATH_NEXT_SPACE, FOLDER_LAYERS, FILE_ESLINT);
-const PATH_NEXT_LAYERS_TSCONFIG = path.resolve(PATH_NEXT_SPACE, FOLDER_LAYERS, FILE_TSCONFIG);
 const PATH_NEXT_PAGES = path.resolve(PATH_NEXT_SPACE, FOLDER_PAGES);
 const PATH_NEXT_SHARED = path.resolve(PATH_NEXT_SPACE, FOLDER_SHARED);
 const PATH_NEXT_STYLES = path.resolve(PATH_NEXT_SPACE, FOLDER_STYLES);
 const PATH_SOURCE_PACKAGE_JSON = path.resolve(PATH_SOURCE_SPACE, FILE_PACKAGE_JSON);
 const PATH_SOURCE_POSTCSS = path.resolve(PATH_SOURCE_SPACE, FILE_POSTCSS);
 const PATH_SOURCE_ESLINT = path.resolve(PATH_SOURCE_SPACE, FILE_ESLINT);
+const PATH_SOURCE_TSCONFIG = path.resolve(PATH_SOURCE_SPACE, FILE_TSCONFIG);
 const PATH_SOURCE_ICONS = path.resolve(PATH_SOURCE_SPACE, FOLDER_ICONS);
 const PATH_SOURCE_LAYERS = path.resolve(PATH_SOURCE_SPACE, FOLDER_LAYERS);
 const PATH_SOURCE_PAGES = path.resolve(PATH_SOURCE_SPACE, FOLDER_PAGES);
@@ -67,18 +65,12 @@ const PATH_SOURCE_SHARED = path.resolve(PATH_SOURCE_SPACE, FOLDER_SHARED);
 const PATH_SOURCE_STYLES = path.resolve(PATH_SOURCE_SPACE, FOLDER_STYLES);
 const PATH_TEMPLATE_POSTCSS = path.resolve(PATH_TEMPLATE_SPACE, FILE_POSTCSS);
 const PATH_TEMPLATE_ESLINT = path.resolve(PATH_TEMPLATE_SPACE, FILE_ESLINT);
-const PATH_TEMPLATE_LAYERS_ESLINT = path.resolve(PATH_TEMPLATE_SPACE, FOLDER_LAYERS, FILE_ESLINT);
-const PATH_TEMPLATE_LAYERS_TSCONFIG = path.resolve(PATH_TEMPLATE_SPACE, FOLDER_LAYERS, FILE_TSCONFIG);
+const PATH_TEMPLATE_TSCONFIG = path.resolve(PATH_TEMPLATE_SPACE, FILE_TSCONFIG);
 
 /* ------------------------- Check Folder Existence ------------------------- */
-if (!fs.existsSync(PATH_DEV_DIR)) {
-    ERRORS_FS.push(`${PATH_DEV_DIR} doesn't exist`);
-}
+
 if (!fs.existsSync(PATH_DEV_SPACES)) {
     ERRORS_FS.push(`${PATH_DEV_SPACES} doesn't exist`);
-}
-if (!fs.existsSync(PATH_SOURCE)) {
-    ERRORS_FS.push(`${PATH_SOURCE} doesn't exist`);
 }
 if (NEXT_SPACE === SOURCE_SPACE) {
     ERRORS_FS.push(`next swap space must not equal current source: ${SOURCE_SPACE}`)
@@ -91,14 +83,11 @@ if (!fs.existsSync(PATH_SOURCE_SPACE)) {
 if (!_trimmedFilesMatch(PATH_TEMPLATE_ESLINT, PATH_NEXT_ESLINT)) {
     WARNINGS_INTEGRITY.push(`${FILE_ESLINT} files do not match`);
 }
+if (!_trimmedFilesMatch(PATH_TEMPLATE_TSCONFIG, PATH_NEXT_TSCONFIG)) {
+    WARNINGS_INTEGRITY.push(`${FILE_ESLINT} files do not match`);
+}
 if (!_trimmedFilesMatch(PATH_TEMPLATE_POSTCSS, PATH_NEXT_POSTCSS)) {
     WARNINGS_INTEGRITY.push(`${FILE_POSTCSS} files do not match`);
-}
-if (!_trimmedFilesMatch(PATH_NEXT_LAYERS_ESLINT, PATH_TEMPLATE_LAYERS_ESLINT)) {
-    WARNINGS_INTEGRITY.push(`${FILE_ESLINT} files withing respective layers/* do not match`);
-}
-if (!_trimmedFilesMatch(PATH_NEXT_LAYERS_TSCONFIG, PATH_TEMPLATE_LAYERS_TSCONFIG)) {
-    WARNINGS_INTEGRITY.push(`${FILE_TSCONFIG} files withing respective layers/* do not match`);
 }
 
 /* ----------------------------- Error Handling ----------------------------- */
@@ -167,6 +156,7 @@ const _swapAndStashFile = (
 
 _swapAndStashFile(FILE_POSTCSS, PATH_SOURCE_SPACE, PATH_SOURCE_POSTCSS, PATH_NEXT_POSTCSS);
 _swapAndStashFile(FILE_ESLINT, PATH_SOURCE_SPACE, PATH_SOURCE_ESLINT, PATH_NEXT_ESLINT);
+_swapAndStashFile(FILE_TSCONFIG, PATH_SOURCE_SPACE, PATH_SOURCE_TSCONFIG, PATH_NEXT_TSCONFIG);
 _swapAndStashDir(FOLDER_ICONS, PATH_SOURCE_SPACE, PATH_SOURCE_ICONS, PATH_NEXT_ICONS);
 _swapAndStashDir(FOLDER_LAYERS, PATH_SOURCE_SPACE, PATH_SOURCE_LAYERS, PATH_NEXT_LAYERS);
 _swapAndStashDir(FOLDER_PAGES, PATH_SOURCE_SPACE, PATH_SOURCE_PAGES, PATH_NEXT_PAGES);
@@ -179,9 +169,9 @@ const ROOT_PACKAGE_JSON = require(PATH_ROOT_PACKAGE_JSON);
 fs.writeFileSync(PATH_SOURCE_PACKAGE_JSON, JSON.stringify(ROOT_PACKAGE_JSON, null, 4));
 fs.writeFileSync(PATH_ROOT_PACKAGE_JSON, JSON.stringify({ ...ROOT_PACKAGE_JSON, ...NEXT_PACKAGE_JSON }, null, 4));
 
-log.info(`updating ${PATH_SOURCE} to: ${NEXT_SPACE}`);
-fs.unlinkSync(PATH_SOURCE);
-fs.writeFileSync(PATH_SOURCE, NEXT_SPACE);
+log.info(`updating ${paths.SPACES_SOURCE_FILE} to: ${NEXT_SPACE}`);
+fs.unlinkSync(paths.SPACES_SOURCE_FILE);
+fs.writeFileSync(paths.SPACES_SOURCE_FILE, NEXT_SPACE);
 
 shell.reset();
 

@@ -1,15 +1,16 @@
 {
-    "extends": "../../layers/tsconfig.json",
+    "extends": "../../tsconfig.json",
     "include": [
-        "./internal/**/*",
-        "./internal/**/*.json",
-        "./public/**/*",
-        "./public/**/*.json",
-        "../codegen",
         "../../layers/**/*",
         "../../layers/**/*.json",
+        "../../pages/**/*",
+        "../../pages/**/*.json",
         "../../shared/**/*",
-        "../../shared/**/*.json"
+        "../../shared/**/*.json",
+        "../codegen/**/*",
+        "../codegen/**/*.json",
+        "./public/**/*",
+        "./internal/**/*"
     ],
     "references": [
         { "path": "../core" },
