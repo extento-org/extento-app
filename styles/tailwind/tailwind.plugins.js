@@ -5,6 +5,5 @@ module.exports = [
     }),
     require('@tailwindcss/line-clamp'),
     require('@tailwindcss/container-queries'),
-    require('@tailwindcss/aspect-ratio'),
-    require("daisyui")
+    require('@tailwindcss/aspect-ratio')
 ];

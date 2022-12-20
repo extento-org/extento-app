@@ -9,6 +9,7 @@
   "scripts": {
     "docs": "npx docsify serve --port 4001 ../../docs",
     "sync_docs": "node ./sync_docs.js",
-    "swap_space": "node ./swap_space.js"
+    "swap_space": "node ./swap_space.js",
+    "pre_commit": "node ./pre_commit.js"
   }
 }

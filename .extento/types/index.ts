@@ -1,21 +1,21 @@
-export type AllLayerName = 'badger'
+export type AllLayerName = '__template__'
 
-export type LayerName = 'badger'
+export type LayerName = '__template__'
 
 export const LAYER_NAMES: Array<LayerName> = [
-    'badger'
+    '__template__'
 ];
 
 export const ALL_LAYER_NAMES: Array<AllLayerName> = [
-    'badger'
+    '__template__'
 ];
 
 export type SelectiveBuild = 'master'
 
 export const SELECTIVE_BUILDS: { [key in SelectiveBuild]: Array<AllLayerName> } = {
-    master: ['badger']
+    master: ['__template__']
 };
 
 export const SELECTIVE_BUILD: SelectiveBuild = 'master';
 
-export const UI_ORDERING: Array<LayerName> = ['badger'];
+export const UI_ORDERING: Array<LayerName> = ['__template__'];

@@ -24,15 +24,5 @@ module.exports = {
         aspectRatio: false,
         preflight: true,
     },
-    plugins: require(`./tailwind.plugins.js`),
-    daisyui: {
-        styled: true,
-        themes: ['night'],
-        base: true,
-        utils: true,
-        logs: true,
-        rtl: false,
-        prefix: "",
-        darkTheme: "dark",
-    }
+    plugins: require(`./tailwind.plugins.js`)
 };
