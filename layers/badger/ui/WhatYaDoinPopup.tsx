@@ -26,13 +26,13 @@ const Popup = () => {
 
     /* --------------------------------- HELPERS -------------------------------- */
     const siteIsBlacklisted = !isLoadingBlacklisted && blacklisted;
-    const showTask = siteIsBlacklisted 
+    const showOverlay = siteIsBlacklisted 
         && !isLoadingTask 
         && !!task
         && task.mode === 'WORK';
 
     /* --------------------------------- RENDER --------------------------------- */
-    if (showTask) {
+    if (showOverlay) {
         return(
             <ObnoxiousWarning />
         );
