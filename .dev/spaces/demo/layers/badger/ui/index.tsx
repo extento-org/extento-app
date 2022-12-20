@@ -1,7 +1,19 @@
-import Popup from './Popup';
+import React from 'react';
+import ReactQueryProvider from '@app.shared/ReactQueryProvider';
+import Countdown from '@app.shared/components/Countdown';
+import WhatYaDoinPopup from './WhatYaDoinPopup';
 
-const UI = [
-    Popup
+function Uis() {
+    return(
+        <ReactQueryProvider>
+            <>
+                <Countdown />
+                <WhatYaDoinPopup />
+            </>
+        </ReactQueryProvider>
+    );
+}
+
+export default [
+    Uis,
 ];
-
-export default UI;

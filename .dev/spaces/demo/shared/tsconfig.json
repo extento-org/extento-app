@@ -1,7 +1,0 @@
-{
-    "extends": "../layers/tsconfig.json",
-    "include": [
-        "./**/*",
-        "./**/*.json"
-    ]
-}

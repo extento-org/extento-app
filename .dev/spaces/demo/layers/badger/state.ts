@@ -1,10 +1,6 @@
-export type State = {
-    field: string
-};
+export type State = {};
 
-const initial: State = {
-    field: 'add possible ui states in this file'
-};
+const initial: State = {};
 
 export default {
     initial,
