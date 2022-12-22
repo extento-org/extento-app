@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { eLog, sLog } = require('../utils/logging');
+const log = require('../utils/log');
 
 // UPDATE ME to add new script.<lifecycle> scripts
 const SUPPORTED_PREFIXES = {
@@ -25,10 +25,10 @@ const recursiveSequentialScripts = (lastScripts, results = []) => {
     let err;
     try {
         result = scriptFunction();
-        sLog(`ran ${scriptName}`);
+        log.success(`ran ${scriptName}`);
     } catch (_err) {
         err = _err;
-        eLog(`failed ${scriptName} with message: ${_err.message}`, err);
+        log.error(`failed ${scriptName} with message: ${_err.message}`, err);
     }
 
     results.push({ [scriptName]: { result, err } });

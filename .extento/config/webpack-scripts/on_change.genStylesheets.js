@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { vLog } = require('../utils/logging');
+const log = require('../utils/log');
 
 const constants = require('../constants');
 
@@ -28,7 +28,7 @@ const getStylesheets = () => {
 
     fs.writeFileSync(path.resolve(constants.PATH_INTERNAL_CODEGEN, 'webpack.styles.ts'), exportContents);
 
-    vLog(`generated stylesheets`);
+    log.info(`generated stylesheets`);
 };
 
 module.exports = getStylesheets;

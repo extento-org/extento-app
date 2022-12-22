@@ -1,7 +1,7 @@
 const fs = require('fs');
 const _ = require('lodash');
 const os = require('os');
-const { eLog } = require('./logging');
+const log = require('./log');
 
 const PATH_PREFIX = 'PATH_';
 
@@ -23,7 +23,7 @@ module.exports = (filePathsMap) => {
         });
 
     if (!_.isEmpty(invalidPaths)) {
-        eLog(JSON.stringify({ invalidPaths }, null, 4));
+        log.error(JSON.stringify({ invalidPaths }, null, 4));
         throw new Error('some of the paths specified in the constants file do not exist');
     }
 

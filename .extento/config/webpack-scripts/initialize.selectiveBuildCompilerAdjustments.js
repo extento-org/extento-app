@@ -1,6 +1,6 @@
 const fs = require('fs');
 const _ = require('lodash');
-const { vLog } = require('../utils/logging');
+const log = require('../utils/log');
 
 const constants = require('../constants');
 
@@ -23,7 +23,7 @@ const selectiveBuildCompilerAdjustments = () => {
         JSON.stringify(tsconfig, null, 4),
     );
 
-    vLog(`modified tsconfig to include ${includedLayers.length} layers`);
+    log.info(`modified tsconfig to include ${includedLayers.length} layers`);
 };
 
 module.exports = selectiveBuildCompilerAdjustments;

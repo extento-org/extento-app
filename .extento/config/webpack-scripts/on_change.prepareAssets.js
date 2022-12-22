@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { vLog } = require('../utils/logging');
+const log = require('../utils/log');
 
 const constants = require('../constants');
 
@@ -10,11 +10,11 @@ const prepareAssets = () => {
 
         if (!fs.existsSync(pathToExtensionIcon)) {
             fs.copyFileSync(filepath, pathToExtensionIcon);
-            vLog(`copied ${name} into output dir`);
+            log.info(`copied ${name} into output dir`);
         }
     });
 
-    vLog(`prepared extension assets`);
+    log.info(`prepared extension assets`);
 };
 
 module.exports = prepareAssets;

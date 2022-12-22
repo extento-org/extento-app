@@ -8,9 +8,8 @@
         "../typings.d.ts"
     ],
     "references": [
-        { "path": "../../api" },
+        { "path": "../../bridge" },
         { "path": "../../core" },
-        { "path": "../../entries" },
         { "path": "../../types" },
         { "path": "../../../tsconfig.json" }
     ]

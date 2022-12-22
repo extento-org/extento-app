@@ -1,13 +1,13 @@
 const fs = require('fs');
 const path = require('path');
-const { vLog } = require('../utils/logging');
+const log = require('../utils/log');
 
 const constants = require('../constants');
 
 const cleanExtensionDir = () => {
     if (fs.existsSync(constants.OUTPUT_PATH_APP_EXTENSION_MANIFEST)) {
         fs.unlinkSync(constants.OUTPUT_PATH_APP_EXTENSION_MANIFEST);
-        vLog(`deleted old manifest`);
+        log.info(`deleted old manifest`);
     }
 
     fs.readdirSync(constants.PATH_APP_EXTENSION)
@@ -18,11 +18,11 @@ const cleanExtensionDir = () => {
 
             if (isClearable) {
                 fs.unlinkSync(filepath);
-                vLog(`deleted output/${filename}`);
+                log.info(`deleted output/${filename}`);
             }
         });
 
-    vLog(`cleaned extension output dir`);
+    log.info(`cleaned extension output dir`);
 };
 
 module.exports = cleanExtensionDir;

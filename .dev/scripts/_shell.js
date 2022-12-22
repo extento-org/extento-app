@@ -7,12 +7,10 @@ const log = require('./_log');
 const DEFAULT_PACKAGES = ['npm', 'npx', 'find', 'trash'];
 const DEFAULT_EXEC_STDIO = 'inherit';
 const DEFAULT_EXEC_ENCODING = 'utf-8';
-const DEFAULT_EXEC_CWD = paths.REPO_APP;
-const DEFAULT_RESET_ROOT = paths.REPO_APP;
 const DEFAULT_EXEC_OPTS = { 
     stdio: DEFAULT_EXEC_STDIO, 
     encoding: DEFAULT_EXEC_ENCODING, 
-    cwd: DEFAULT_EXEC_CWD 
+    cwd: paths.REPO_APP 
 };
 
 const _execAtRoot = (
@@ -22,7 +20,7 @@ const _execAtRoot = (
     const { 
         stdio = DEFAULT_EXEC_STDIO, 
         encoding = DEFAULT_EXEC_ENCODING, 
-        cwd = DEFAULT_EXEC_CWD, 
+        cwd = paths.REPO_APP, 
         ...remaining_opts 
     } = opts;
 
@@ -52,25 +50,30 @@ const _throwPackageCheck = (packages) => {
     }
 };
 
+const _prune_deps = () => {
+    _throwPackageCheck(DEFAULT_PACKAGES);
+    log.info('deleting node_modules and stale TS build files...');
+    _execAtRoot(`find . -name node_modules -type d -prune -exec trash {} +`, {
+        cwd: paths.REPO_APP,
+    });
+    _execAtRoot(`find . -name tsconfig.dist -type d -prune -exec trash {} +`, {
+        cwd: paths.REPO_APP,
+    });
+};
+
 const reset = (fn = _.noop, opts = {
     exec_opts: DEFAULT_EXEC_OPTS,
     packages: DEFAULT_PACKAGES,
-    root: DEFAULT_RESET_ROOT,
+    root: paths.REPO_APP,
 }) => {
-    const { packages = DEFAULT_PACKAGES } = opts;
+    const { packages = DEFAULT_PACKAGES, root = paths.REPO_APP } = opts;
 
     _throwPackageCheck(packages);
-    log.info('deleting node_modules and stale TS build files...');
-    _execAtRoot(`find . -name node_modules -type d -prune -exec trash {} +`, {
-        cwd: DEFAULT_RESET_ROOT,
-    });
-    _execAtRoot(`find . -name tsconfig.dist -type d -prune -exec trash {} +`, {
-        cwd: DEFAULT_RESET_ROOT,
-    });
+    _prune_deps();
     fn(opts);
     log.info('reinstalling npm packages...');
-    _execAtRoot(`npm install`, {
-        cwd: DEFAULT_RESET_ROOT,
+    return _execAtRoot(`npm install`, {
+        cwd: root,
     });
 };
 
@@ -95,7 +98,7 @@ const dry = (cmd, opts = {
         throw new Error('you did not supply a command');
     }
     
-    const { exec_opts = DEFAULT_EXEC_OPTS, packages = DEFAULT_PACKAGES } = opts;
+    const { packages = DEFAULT_PACKAGES } = opts;
     _throwPackageCheck(packages);
     console.log('------------------------------------------------------------------------------------------------------------');
     console.log('------------------------------------------------------------------------------------------------------------');

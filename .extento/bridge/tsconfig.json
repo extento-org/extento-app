@@ -1,0 +1,19 @@
+{
+    "extends": "../../tsconfig.json",
+    "include": [
+        "../../layers/**/*",
+        "../../layers/**/*.json",
+        "../../pages/**/*",
+        "../../pages/**/*.json",
+        "../../shared/**/*",
+        "../../shared/**/*.json",
+        "../codegen/**/*",
+        "../codegen/**/*.json",
+        "./**/*",
+        "./**/*.json"
+    ],
+    "references": [
+        { "path": "../core" },
+        { "path": "../types" },
+    ]
+}
