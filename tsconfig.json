@@ -1,8 +1,5 @@
 {
     "extends": "./.extento/config/tsconfigs/project.json",
-    "compilerOptions": {
-        "noImplicitAny": false
-    },
     "include": [
         "./layers/**/*",
         "./layers/**/*.json",
@@ -12,6 +9,6 @@
         "./pages/**/*.json"
     ],
     "references": [
-        { "path": "./.extento/api" }
+        { "path": "./.extento/bridge" }
     ]
 }

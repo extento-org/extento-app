@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const resetRequireCache = require('../utils/resetRequireCache');
-const { sLog } = require('../utils/logging');
+const log = require('../utils/log');
 const constants = require('../constants');
 
 const resetSelectiveLayers = () => {
@@ -16,7 +16,7 @@ const resetSelectiveLayers = () => {
         .map((name) => path.resolve(constants.PATH_WEBPACK_SCRIPTS, name))
         .forEach((_path) => require(_path)());
 
-    sLog(`RESET LAYERS TO: ${constants.DEFAULT_SELECTIVE_BUILD}`);
+    log.success(`RESET LAYERS TO: ${constants.DEFAULT_SELECTIVE_BUILD}`);
 };
 
 resetSelectiveLayers();

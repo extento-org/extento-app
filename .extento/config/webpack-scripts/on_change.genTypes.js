@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { vLog } = require('../utils/logging');
+const log = require('../utils/log');
 
 const constants = require('../constants');
 
@@ -32,7 +32,7 @@ const genTypes = () => {
 
     fs.writeFileSync(constants.PATH_INTERNAL_TYPES, contents);
 
-    vLog(`generated extento types`);
+    log.info(`generated extento types`);
 };
 
 module.exports = genTypes;

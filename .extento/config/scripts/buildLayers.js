@@ -1,5 +1,5 @@
 const path = require('path');
-const { iLog, sLog } = require('../utils/logging');
+const log = require('../utils/log');
 const getBuildDetails = require('../utils/getBuildDetails');
 const resetRequireCache = require('../utils/resetRequireCache');
 const zip = require('../utils/zip');
@@ -27,10 +27,10 @@ const build = async (buildName) => {
     resetRequireCache();
 
     commands.compile_prod();
-    iLog(`compiled with webpack: ${buildName}`);
+    log.info(`compiled with webpack: ${buildName}`);
 
     packageDistribution(buildName);
-    iLog(`packaged: ${buildName}`);
+    log.info(`packaged: ${buildName}`);
 };
 
 const buildLayers = () => {
@@ -44,7 +44,7 @@ const buildLayers = () => {
 
     require('./resetSelectiveLayers');
 
-    sLog(`completed ${selectiveBuilds.length} builds`);
+    log.success(`completed ${selectiveBuilds.length} builds`);
 };
 
 buildLayers();

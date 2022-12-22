@@ -10,6 +10,7 @@
     "docs": "npx docsify serve --port 4001 ../../docs",
     "sync_docs": "node ./sync_docs.js",
     "swap_space": "node ./swap_space.js",
-    "pre_commit": "node ./pre_commit.js"
+    "pre_commit": "node ./pre_commit.js",
+    "stash_repo": "node ./stash_repo.js"
   }
 }

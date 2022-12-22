@@ -4,7 +4,7 @@ const fsExtra = require('fs-extra');
 const _ = require('lodash');
 const getBuildDetails = require('../utils/getBuildDetails');
 const validate = require('../validate');
-const { vLog } = require('../utils/logging');
+const log = require('../utils/log');
 
 const constants = require('../constants');
 
@@ -86,7 +86,7 @@ const manifestTransform = (opts) => {
 const genManifest = () => {
     validate.config(constants.USER_CONFIG);
 
-    vLog(`validated user config structure`);
+    log.info(`validated user config structure`);
 
     const finalManifest = manifestTransform({
         ...constants.USER_CONFIG.manifest,
@@ -101,7 +101,7 @@ const genManifest = () => {
         JSON.stringify(finalManifest, null, 4),
     );
 
-    vLog(`created final manifest`);
+    log.info(`created final manifest`);
 };
 
 module.exports = genManifest;

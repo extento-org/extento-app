@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { vLog } = require('../utils/logging');
+const log = require('../utils/log');
 
 const constants = require('../constants');
 
@@ -12,7 +12,7 @@ const genLayerContexts = () => {
     const exportContents = `// @ts-nocheck\n\n`
         + `import states from '@_codegen/webpack.states';\n`
         + `import uis from '@_codegen/webpack.uis';\n`
-        + `import setupLayerContexts from '@extento.internal-api/react.setupLayerContexts';\n\n`
+        + `import setupLayerContexts from '@bridge.codegen/react.setupLayerContexts';\n\n`
         + `${constants.SELECTIVE_BUILD_LAYERS
             .map(printFunctionCall)
             .join('\n')}`
@@ -22,7 +22,7 @@ const genLayerContexts = () => {
 
     fs.writeFileSync(path.resolve(constants.PATH_INTERNAL_CODEGEN, 'webpack.layerContexts.ts'), exportContents);
 
-    vLog(`generated layer contexts`);
+    log.info(`generated layer contexts`);
 };
 
 module.exports = genLayerContexts;

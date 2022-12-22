@@ -1,7 +1,6 @@
-// This script does the following things: 
-// 1) checks that certain paths and folders exist
-// 2) ensures consistency between to/from spaces & template space 
-// 3) move files/folders around and initializes next user space
+/* -------------------------------------------------------------------------- */
+/*                         Swaps out "user space" code                        */
+/* -------------------------------------------------------------------------- */
 
 const fs = require('fs');
 const path = require('path');
@@ -29,25 +28,22 @@ const FOLDER_LAYERS = 'layers';
 const FOLDER_PAGES = 'pages';
 const FOLDER_SHARED = 'shared';
 const FOLDER_STYLES = 'styles';
-const FILE_ESLINT = '.eslintrc.js';
 const FILE_POSTCSS = 'postcss.js';
 const FILE_PACKAGE_JSON = 'package.json';
 const FILE_TSCONFIG = 'tsconfig.json';
 
 /* ------------------------------- Base Paths ------------------------------- */
-const PATH_ARCHIVE_DIR = path.resolve(paths.DEV_DIR, '.archive');
 const PATH_DEV_SPACES = path.resolve(paths.DEV_DIR, 'spaces');
 const PATH_NEXT_SPACE = path.resolve(PATH_DEV_SPACES, NEXT_SPACE);
 const PATH_TEMPLATE_SPACE = path.resolve(PATH_DEV_SPACES, TEMPLATE_SPACE);
 const SOURCE_SPACE = fs.readFileSync(paths.SPACES_SOURCE_FILE, 'utf-8').trim();
 const PATH_SOURCE_SPACE = path.resolve(PATH_DEV_SPACES, SOURCE_SPACE);
-const PATH_STASH_DIR = path.resolve(PATH_ARCHIVE_DIR, `${String(Date.now())}.${SOURCE_SPACE}`);
+const PATH_STASH_DIR = path.resolve(paths.ARCHIVE_DIR, `${String(Date.now())}.${SOURCE_SPACE}`);
 
 /* ---------------------------- User Space Paths ---------------------------- */
 const PATH_ROOT_PACKAGE_JSON = path.resolve(paths.REPO_APP, FILE_PACKAGE_JSON);
 const PATH_NEXT_PACKAGE_JSON = path.resolve(PATH_NEXT_SPACE, FILE_PACKAGE_JSON);
 const PATH_NEXT_POSTCSS = path.resolve(PATH_NEXT_SPACE, FILE_POSTCSS);
-const PATH_NEXT_ESLINT = path.resolve(PATH_NEXT_SPACE, FILE_ESLINT);
 const PATH_NEXT_TSCONFIG = path.resolve(PATH_NEXT_SPACE, FILE_TSCONFIG);
 const PATH_NEXT_ICONS = path.resolve(PATH_NEXT_SPACE, FOLDER_ICONS);
 const PATH_NEXT_LAYERS = path.resolve(PATH_NEXT_SPACE, FOLDER_LAYERS);
@@ -56,7 +52,6 @@ const PATH_NEXT_SHARED = path.resolve(PATH_NEXT_SPACE, FOLDER_SHARED);
 const PATH_NEXT_STYLES = path.resolve(PATH_NEXT_SPACE, FOLDER_STYLES);
 const PATH_SOURCE_PACKAGE_JSON = path.resolve(PATH_SOURCE_SPACE, FILE_PACKAGE_JSON);
 const PATH_SOURCE_POSTCSS = path.resolve(PATH_SOURCE_SPACE, FILE_POSTCSS);
-const PATH_SOURCE_ESLINT = path.resolve(PATH_SOURCE_SPACE, FILE_ESLINT);
 const PATH_SOURCE_TSCONFIG = path.resolve(PATH_SOURCE_SPACE, FILE_TSCONFIG);
 const PATH_SOURCE_ICONS = path.resolve(PATH_SOURCE_SPACE, FOLDER_ICONS);
 const PATH_SOURCE_LAYERS = path.resolve(PATH_SOURCE_SPACE, FOLDER_LAYERS);
@@ -64,7 +59,6 @@ const PATH_SOURCE_PAGES = path.resolve(PATH_SOURCE_SPACE, FOLDER_PAGES);
 const PATH_SOURCE_SHARED = path.resolve(PATH_SOURCE_SPACE, FOLDER_SHARED);
 const PATH_SOURCE_STYLES = path.resolve(PATH_SOURCE_SPACE, FOLDER_STYLES);
 const PATH_TEMPLATE_POSTCSS = path.resolve(PATH_TEMPLATE_SPACE, FILE_POSTCSS);
-const PATH_TEMPLATE_ESLINT = path.resolve(PATH_TEMPLATE_SPACE, FILE_ESLINT);
 const PATH_TEMPLATE_TSCONFIG = path.resolve(PATH_TEMPLATE_SPACE, FILE_TSCONFIG);
 
 /* ------------------------- Check Folder Existence ------------------------- */
@@ -80,12 +74,6 @@ if (!fs.existsSync(PATH_SOURCE_SPACE)) {
 }
 
 /* -------------------------- Integrity Check Logic ------------------------- */
-if (!_trimmedFilesMatch(PATH_TEMPLATE_ESLINT, PATH_NEXT_ESLINT)) {
-    WARNINGS_INTEGRITY.push(`${FILE_ESLINT} files do not match`);
-}
-if (!_trimmedFilesMatch(PATH_TEMPLATE_TSCONFIG, PATH_NEXT_TSCONFIG)) {
-    WARNINGS_INTEGRITY.push(`${FILE_ESLINT} files do not match`);
-}
 if (!_trimmedFilesMatch(PATH_TEMPLATE_POSTCSS, PATH_NEXT_POSTCSS)) {
     WARNINGS_INTEGRITY.push(`${FILE_POSTCSS} files do not match`);
 }
@@ -155,7 +143,6 @@ const _swapAndStashFile = (
 };
 
 _swapAndStashFile(FILE_POSTCSS, PATH_SOURCE_SPACE, PATH_SOURCE_POSTCSS, PATH_NEXT_POSTCSS);
-_swapAndStashFile(FILE_ESLINT, PATH_SOURCE_SPACE, PATH_SOURCE_ESLINT, PATH_NEXT_ESLINT);
 _swapAndStashFile(FILE_TSCONFIG, PATH_SOURCE_SPACE, PATH_SOURCE_TSCONFIG, PATH_NEXT_TSCONFIG);
 _swapAndStashDir(FOLDER_ICONS, PATH_SOURCE_SPACE, PATH_SOURCE_ICONS, PATH_NEXT_ICONS);
 _swapAndStashDir(FOLDER_LAYERS, PATH_SOURCE_SPACE, PATH_SOURCE_LAYERS, PATH_NEXT_LAYERS);

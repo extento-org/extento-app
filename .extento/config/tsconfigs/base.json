@@ -49,6 +49,12 @@
             "@_core/*": [
                 "../../core/*"
             ],
+            "@app.layers/*": [
+                "../../../layers/*"
+            ],
+            "@app.pages/*": [
+                "../../../pages/*"
+            ],
             "@app.shared": [
                 "../../../shared/index.ts"
             ],
@@ -58,34 +64,33 @@
             "@extento.types": [
                 "../../types/index.ts"
             ],
-            "@extento.internal-api": [
-                "../../api/internal"
-            ],
-            "@extento.internal-api/*": [
-                "../../api/internal/*"
+            "@bridge.codegen/*": [
+                "../../bridge/codegen/*"
             ],
             "@extento.react": [
-                "../../api/public/react"
+                "../../bridge/public/react"
             ],
             "@extento.react/*": [
-                "../../api/public/react/*"
+                "../../bridge/public/react/*"
             ],
             "@extento.browser": [
-                "../../api/public/browser"
+                "../../bridge/public/browser"
             ],
             "@extento.browser/*": [
-                "../../api/public/browser/*"
+                "../../bridge/public/browser/*"
             ],
             "@extento.worker": [
-                "../../api/public/worker"
+                "../../bridge/public/worker"
             ],
             "@extento.worker/*": [
-                "../../api/public/worker/*"
+                "../../bridge/public/worker/*"
             ]
         },
         "rootDir": "../../../"
     },
     "exclude": [
+        "node/**/*",
+        "node/**/*.json",
         ".eslintrc.js",
         "tsconfig.dist",
         "node_modules"

@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { vLog } = require('../utils/logging');
+const log = require('../utils/log');
 
 const constants = require('../constants');
 
@@ -36,10 +36,10 @@ const genLayerModules = () => {
             path.resolve(constants.PATH_INTERNAL_CODEGEN, `webpack.${printPluralize(name)}.ts`),
             exportContents,
         );
-        vLog(`generated ${printPluralize(name)} layer code`);
+        log.info(`generated ${printPluralize(name)} layer code`);
     });
 
-    vLog(`generated all layer code`);
+    log.info(`generated all layer code`);
 };
 
 module.exports = genLayerModules;

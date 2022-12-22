@@ -115,37 +115,37 @@ const buildWebpackConfigs = (common, mode) => {
 
     return addDevServerPorts([
         webpackMerge.merge(webpackCommonConfig, {
-            entry: constants.PATH_INTERNAL_ENTRIES_ONLOAD,
+            entry: constants.PATH_INTERNAL_BRIDGE_ENTRIES_ONLOAD,
             output: {
                 filename: constants.DIST_ONLOAD,
             },
         }),
         webpackMerge.merge(webpackCommonConfig, {
-            entry: constants.PATH_INTERNAL_ENTRIES_BACKGROUND,
+            entry: constants.PATH_INTERNAL_BRIDGE_ENTRIES_BACKGROUND,
             output: {
                 filename: constants.DIST_BACKGROUND,
             },
         }),
         webpackMerge.merge(webpackCommonConfig, {
-            entry: constants.PATH_INTERNAL_ENTRIES_CONTENT_SCRIPT,
+            entry: constants.PATH_INTERNAL_BRIDGE_ENTRIES_CONTENT_SCRIPT,
             output: {
                 filename: constants.DIST_CONTENT_SCRIPT,
             },
         }),
         webpackMerge.merge(webpackCommonConfig, {
-            entry: constants.PATH_INTERNAL_ENTRIES_PAGES,
+            entry: constants.PATH_INTERNAL_BRIDGE_ENTRIES_PAGES,
             output: {
                 filename: constants.DIST_PAGES_JS,
             },
             plugins: [
                 new HtmlWebpackPlugin({
-                    template: constants.PATH_INTERNAL_ENTRIES_PAGES_HTML,
+                    template: constants.PATH_INTERNAL_BRIDGE_ENTRIES_PAGES_HTML,
                     filename: constants.DIST_PAGES_HTML,
                 }),
             ],
         }),
         webpackMerge.merge(webpackCommonConfig, {
-            entry: constants.PATH_INTERNAL_ENTRIES_UI,
+            entry: constants.PATH_INTERNAL_BRIDGE_ENTRIES_UI,
             output: {
                 filename: constants.DIST_UI,
             },

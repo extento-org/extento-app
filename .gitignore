@@ -27,14 +27,11 @@ icons/*/*
 # only include RELEASE builds in VC
 builds/*.DEV*
 
-.dev/.archive/*
-
 *.pem
+
+.archive/*
 
 # Standard practice for adding empty dirs to version control.
 # You can add a .gitignore to any empty directory and it gets 
 # included in the next commit.
 !.gitignore
-
-# Used for note taking, specific to dev
-reference.txt

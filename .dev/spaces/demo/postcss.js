@@ -1,16 +1,7 @@
-const path = require('path');
+const postcssPlugins = require('@extento/node/postcssPlugins');
 
 module.exports = {
-    plugins: [
-        [
-            'tailwindcss',
-            {
-                config: path.resolve(__dirname, 'styles', 'tailwind', 'tailwind.config.js')
-            }
-        ],
-        [
-            'autoprefixer',
-            {}
-        ]
-    ]
+    plugins: {
+        ...postcssPlugins
+    }
 };
