@@ -7,7 +7,7 @@
         "node": "18.7.0"
     },
     "scripts": {
-        "start": "trap 'exit 0' SIGINT; COMMAND=compileDev node ./node/commands/bin.js --watch",
+        "start": "trap 'exit 0' SIGINT; COMMAND=compileDev node ./node/commands/bin.js",
         "init": "node ./node/scripts/resetSelectiveLayers.js",
         "poststart": "npm run init",
         "postinstall": "npx link-module-alias",

@@ -3,6 +3,7 @@ const fs = require('fs');
 const _ = require('lodash');
 
 const throwOnNonExistence = require('~/node/utils/throwOnNonExistence');
+const formatDomSelector = require('~/node/utils/formatDomSelector');
 
 const PATH_APP = path.resolve(__dirname, '..', '..');
 const PATH_APP_BUILDS = path.resolve(PATH_APP, 'builds');
@@ -74,6 +75,23 @@ const DIST_UI = `${PREFIX_DIST}ui.js`;
 const LAYERS = fs.readdirSync(PATH_APP_LAYERS)
     .filter((name) => !name.startsWith('.'))
     .filter((name) => fs.lstatSync(path.resolve(PATH_APP_LAYERS, name)).isDirectory());
+
+// shadow dom ids/classes
+const SELECTORS_LAYERS = LAYERS.reduce((accum, layer) => {
+    accum[layer] = {
+        shadow_ui: formatDomSelector(`extento-layer-${layer}-shadow-ui`),
+    };
+
+    return accum;
+}, {});
+
+const SELECTORS_PAGES = {
+    options: formatDomSelector('app-page-options-extento-shadow-node'),
+    popup: formatDomSelector('app-page-popup-extento-shadow-node'),
+    tab: formatDomSelector('app-page-tab-extento-shadow-node'),
+};
+
+const SELECTOR_DOM_CLASSNAME = formatDomSelector('extento-shadow-dom');
 
 // selective builds
 const PROVIDED_SELECTIVE_BUILD_CONFIG = USER_CONFIG.selective_builds;
@@ -162,4 +180,7 @@ module.exports = throwOnNonExistence({
     OUTPUT_PATH_INTERNAL_COMPILED_PUBLIC_INDEX,
     OUTPUT_PATH_INTERNAL_COMPILED_PUBLIC_MANIFEST,
     OUTPUT_PATH_INTERNAL_COMPILED_PUBLIC_PAGES,
+    SELECTORS_LAYERS,
+    SELECTORS_PAGES,
+    SELECTOR_DOM_CLASSNAME,
 });

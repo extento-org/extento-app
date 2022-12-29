@@ -1,43 +1,7 @@
 import React from 'react';
 import GlobalContext from '@_core/react.contextGlobal';
 import renderShadowRoot from '@_core/content.renderShadowRoot';
-import constants from '@_core/constants';
-
-function App(props: {
-    Tab?: React.FunctionComponent,
-    Options?: React.FunctionComponent,
-    Popup?: React.FunctionComponent,
-}) {
-    const { Tab, Options, Popup } = props;
-
-    const params = React.useMemo(
-        () => new URLSearchParams(window.location.search),
-        [window.location.search],
-    );
-
-    if (
-        typeof Options !== 'undefined'
-            && params.get('options') === 'true'
-    ) {
-        return <Options />;
-    }
-
-    if (
-        typeof Tab !== 'undefined'
-            && params.get('tab') === 'true'
-    ) {
-        return <Tab />;
-    }
-
-    if (
-        typeof Popup !== 'undefined'
-            && params.get('popup') === 'true'
-    ) {
-        return <Popup />;
-    }
-
-    return <div />;
-}
+import constants from '@ex.compiled/constants';
 
 function TabPage(props: {
     Tab: React.FunctionComponent,
@@ -99,12 +63,6 @@ function PopupPage(props: {
     return <div />;
 }
 
-App.defaultProps = {
-    Options: null,
-    Popup: null,
-    Tab: null,
-};
-
 const renderPages = (opts: {
     Popup?: React.FunctionComponent,
     Options?: React.FunctionComponent,
@@ -112,8 +70,8 @@ const renderPages = (opts: {
 }) => {
     if (opts.Tab) {
         renderShadowRoot({
-            id: `app-page-tab-${constants.DOM_ID_SHADOW_ROOT}`,
-            class: constants.DOM_ID_SHADOW_ROOT,
+            id: constants.SELECTORS_PAGES.tab,
+            class: constants.SELECTOR_DOM_CLASSNAME,
             children: (
                 <React.StrictMode>
                     <GlobalContext>
@@ -126,8 +84,8 @@ const renderPages = (opts: {
 
     if (opts.Options) {
         renderShadowRoot({
-            id: `app-page-options-${constants.DOM_ID_SHADOW_ROOT}`,
-            class: constants.DOM_ID_SHADOW_ROOT,
+            id: constants.SELECTORS_PAGES.options,
+            class: constants.SELECTOR_DOM_CLASSNAME,
             children: (
                 <React.StrictMode>
                     <GlobalContext>
@@ -140,8 +98,8 @@ const renderPages = (opts: {
 
     if (opts.Popup) {
         renderShadowRoot({
-            id: `app-page-popup-${constants.DOM_ID_SHADOW_ROOT}`,
-            class: constants.DOM_ID_SHADOW_ROOT,
+            id: constants.SELECTORS_PAGES.popup,
+            class: constants.SELECTOR_DOM_CLASSNAME,
             children: (
                 <React.StrictMode>
                     <GlobalContext>
