@@ -1,22 +1,25 @@
 const fs = require('fs');
 const path = require('path');
 const _ = require('lodash');
+const log = require('~/node/log');
 
-const constants = require('../config/constants');
+const constants = require('~/node/constants');
 
 const plugins = [];
 
-const PATH_TO_TAILWIND_CONFIG = path.resolve(constants.PATH_APP_STYLES, 'tailwind', 'tailwind.config.js');
+const PATH_TO_TAILWIND_CONFIG = path.resolve(
+    constants.PATH_APP_STYLES, 
+    'tailwind', 
+    'tailwind.config.js',
+);
 
 if (fs.existsSync(PATH_TO_TAILWIND_CONFIG)) {
-    plugins.push({ 
-        tailwindcss: { config: PATH_TO_TAILWIND_CONFIG } 
-    });
+    plugins.push({ tailwindcss: { config: PATH_TO_TAILWIND_CONFIG } });
+} else {
+    log.warn('no tailwind config found');
 }
 
-plugins.push({
-    autoprefixer: {}
-});
+plugins.push({ autoprefixer: {} });
 
 const withPostcss = (userConfig = {}) => {
     let finalPlugins;

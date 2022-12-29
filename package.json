@@ -27,14 +27,13 @@
         "prepare": "husky install"
     },
     "devDependencies": {
-        "@extento/node": "file:./.extento/node/",
+        "@ex/node": "file:./.extento/node",
         "@tailwindcss/aspect-ratio": "^0.4.2",
         "@tailwindcss/container-queries": "^0.1.0",
         "@tailwindcss/forms": "^0.5.3",
         "@tailwindcss/line-clamp": "^0.4.2",
         "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
-        "@tailwindcss/typography": "^0.5.8",
-        "husky": "^8.0.2"
+        "@tailwindcss/typography": "^0.5.8"
     },
     "extento": {
         "manifest": {
@@ -45,6 +44,18 @@
         "ui_ordering": [
             "__template__"
         ],
-        "selective_builds": {}
+        "selective_builds": {
+            "main": {
+                "name": "SomeName",
+                "version": "0.0.1",
+                "pages": {
+                    "Popup": "__template__",
+                    "Tab": "__template__"
+                },
+                "layers": [
+                    "__template__"
+                ]
+            }
+        }
     }
 }

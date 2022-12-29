@@ -1,10 +1,10 @@
 {
-    "extends": "../config/tsconfigs/project.json",
+    "extends": "../node/tsconfigs/project.json",
     "include": [
         ".",
         "../../styles/**/*.css"
     ],
     "references": [
-        { "path": "../types" }
+        { "path": "../.compiled/public" }
     ]
 }

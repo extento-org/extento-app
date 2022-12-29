@@ -7,14 +7,18 @@
         "node": "18.7.0"
     },
     "scripts": {
-        "start": "trap 'exit 0' SIGINT; npx webpack --config ./config/webpack.development.js --watch",
-        "init": "node ./config/scripts/resetSelectiveLayers.js",
+        "start": "trap 'exit 0' SIGINT; COMMAND=compileDev node ./node/commands/bin.js --watch",
+        "init": "node ./node/scripts/resetSelectiveLayers.js",
         "poststart": "npm run init",
-        "build:release": "EXTENTO_DEV=false node ./config/scripts/buildLayers",
-        "build-all:release": "EXTENTO_DEV=false EXTENTO_BUILD_ALL=true node ./config/scripts/buildLayers",
-        "build:dev": "EXTENTO_DEV=true node ./config/scripts/buildLayers",
-        "build-all:dev": "EXTENTO_DEV=true EXTENTO_BUILD_ALL=true node ./config/scripts/buildLayers",
+        "postinstall": "npx link-module-alias",
+        "build:release": "EXTENTO_DEV=false node ./node/scripts/buildLayers",
+        "build-all:release": "EXTENTO_DEV=false EXTENTO_BUILD_ALL=true node ./node/scripts/buildLayers",
+        "build:dev": "EXTENTO_DEV=true node ./node/scripts/buildLayers",
+        "build-all:dev": "EXTENTO_DEV=true EXTENTO_BUILD_ALL=true node ./node/scripts/buildLayers",
         "lint": "npx eslint ../layers ../shared ../pages"
+    },
+    "_moduleAliases": {
+        "~": "."
     },
     "devDependencies": {
         "@types/chrome": "^0.0.204",
@@ -38,10 +42,12 @@
         "fs-extra": "^10.1.0",
         "html-loader": "^4.2.0",
         "html-webpack-plugin": "^5.5.0",
+        "link-module-alias": "^1.2.0",
         "lodash": "^4.17.21",
         "markdown-loader": "^8.0.0",
         "postcss": "^8.4.19",
         "postcss-loader": "^7.0.1",
+        "prettier": "^2.8.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "serialize-error": "^11.0.0",
@@ -56,8 +62,10 @@
         "uuid": "^9.0.0",
         "webpack": "^5.75.0",
         "webpack-cli": "^4.10.0",
+        "webpack-dev-server": "^4.11.1",
         "webpack-merge": "^5.8.0",
         "webpack-watch-files-plugin": "^1.2.1",
-        "zip-local": "^0.3.5"
+        "zip-local": "^0.3.5",
+        "husky": "^8.0.2"
     }
 }

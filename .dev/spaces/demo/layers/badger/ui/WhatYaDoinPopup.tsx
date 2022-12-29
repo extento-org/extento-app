@@ -1,6 +1,6 @@
 import React from 'react';
 import * as hooks from '@app.shared/hooks';
-import worker from '@extento.browser/worker'
+import worker from '@ex.browser/worker'
 
 function ObnoxiousWarning() {
     /* -------------------------------- HANDLERS -------------------------------- */

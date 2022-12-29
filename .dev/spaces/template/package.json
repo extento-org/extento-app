@@ -27,7 +27,7 @@
         "prepare": "husky install"
     },
     "devDependencies": {
-        "@extento/node": "file:./.extento/node/",
+        "~/node": "file:./.extento/node/",
         "@tailwindcss/aspect-ratio": "^0.4.2",
         "@tailwindcss/container-queries": "^0.1.0",
         "@tailwindcss/forms": "^0.5.3",

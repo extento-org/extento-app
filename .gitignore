@@ -14,7 +14,13 @@ tmp/
 .env.*
 
 # generated
-.extento/codegen/*
+*/.compiled/**/*.ts
+*/.compiled/**/*.tsx
+*/.compiled/**/*.js
+*/.compiled/**/*.jsx
+*/.compiled/**/*.json
+
+!tsconfig.json
 
 # compiled
 chrome-v3/*

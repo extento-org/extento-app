@@ -1,12 +1,14 @@
 {
-    "extends": "./.extento/config/tsconfigs/project.json",
+    "extends": "./.extento/node/tsconfigs/project.json",
     "include": [
         "./layers/**/*",
         "./layers/**/*.json",
         "./shared/**/*",
         "./shared/**/*.json",
-        "./pages/**/*",
-        "./pages/**/*.json"
+        "../.extento/.compiled/bridge/**/*",
+        "../.extento/.compiled/bridge/**/*.json",
+        "../.extento/.compiled/public/**/*",
+        "../.extento/.compiled/public/**/*.json",
     ],
     "references": [
         { "path": "./.extento/bridge" }

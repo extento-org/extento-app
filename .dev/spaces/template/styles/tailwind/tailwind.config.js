@@ -1,5 +1,5 @@
 const path = require('path');
-const tailwindThemeReset = require('@extento/node/tailwindThemeReset');
+const tailwindThemeReset = require('~/node/tailwindThemeReset');
 
 const PATH_APP = path.resolve(__dirname, '..', '..');
 const PATH_APP_SHARED = path.resolve(PATH_APP, 'shared');

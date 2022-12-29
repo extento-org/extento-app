@@ -1,4 +1,4 @@
-const postcssPlugins = require('@extento/node/postcssPlugins');
+const postcssPlugins = require('~/node/postcssPlugins');
 
 module.exports = {
     plugins: {

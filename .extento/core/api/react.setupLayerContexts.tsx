@@ -1,6 +1,6 @@
 import { noop } from 'lodash';
 import React from 'react';
-import { LayerName } from '@extento.types';
+import { LayerName } from '@ex.compiled';
 
 type UIState<LayerUIStates> = LayerUIStates[keyof LayerUIStates];
 

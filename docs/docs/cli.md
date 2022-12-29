@@ -9,7 +9,7 @@
  This command will download and modify the [extento-app](https://github.com/extento-org/extento-app) repo under the hood to set up your new project. 
 
  ```bash
- > npx @extento/cli create my_app
+ > npx @ex/cli create my_app
  > cd my_app
  > npm i
  > npm run start
@@ -22,6 +22,6 @@
  :warning: *If you're getting strange compile errors after using this command, try restarting webpack*
  
  ```bash
- > npx @extento/cli layer my_layer
+ > npx @ex/cli layer my_layer
  > npm run start
  ```

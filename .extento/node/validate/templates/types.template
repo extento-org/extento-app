@@ -1,0 +1,65 @@
+export type AllLayerName = <% _.forEach(ALL_LAYERS, function(_layer, i) { %><% if (i !== 0) { %> | <% } %>'<%- _layer %>'<% }); %>
+
+export type LayerName = <% _.forEach(SELECTIVE_BUILDS[SELECTIVE_BUILD].layers, function(_layer, i) { %><% if (i !== 0) { %> | <% } %>'<%- _layer %>'<% }); %>
+
+export const LAYER_NAMES: Array<LayerName> = [
+<% 
+    _.forEach(SELECTIVE_BUILDS[SELECTIVE_BUILD].layers, function(_layer) { 
+        %>'<%- _layer %>',<% 
+    }) 
+%>
+];
+
+export const ALL_LAYER_NAMES: Array<AllLayerName> = [
+<% 
+    _.forEach(ALL_LAYERS, function(_layer) { 
+        %>'<%- _layer %>',<% 
+    }) 
+%>
+];
+
+export type SelectiveBuild = <% _.forEach(_.keys(SELECTIVE_BUILDS), function(_build, i) { %><% if (i !== 0) { %> | <% } %>'<%- _build %>'<% }); %>
+
+export const SELECTIVE_BUILDS: { [key in SelectiveBuild]: Array<AllLayerName> } = {
+<% _.forEach(_.keys(SELECTIVE_BUILDS), function(_build) {
+
+    %><%- _build %>: [<%
+        _.forEach(SELECTIVE_BUILDS[_build].layers, function(_layer, i) {
+
+            %><% if (i !== 0) { %>, <% } %>'<%- _layer %>'<%
+        
+        })
+    %>],<%
+
+})%>
+};
+
+export const SELECTIVE_BUILD: SelectiveBuild = '<%- SELECTIVE_BUILD %>';
+
+export const UI_ORDERING: Array<AllLayerName> = [
+<% 
+    _.forEach(UI_ORDERING, function(_layer) { 
+        %>'<%- _layer %>',<% 
+    }) 
+%>
+];
+<% if (MANIFEST_V3.permissions.length) { %>
+export type ManifestPermission = <% _.forEach(MANIFEST_V3.permissions, function(_permission, i) { %><% if (i !== 0) { %> | <% } %>'<%- _permission %>'<% }); %>
+<% } else { %>
+export type ManifestPermission = void
+<% } %>
+
+export const MANIFEST_VERSION = '<%- MANIFEST_V3.version %>';
+
+export const MANIFEST_NAME = '<%- MANIFEST_V3.name %>';
+<% if (MANIFEST_V3.permissions.length) { %>
+export const MANIFEST_PERMISSIONS: Array<ManifestPermission> = [
+<% 
+    _.forEach(MANIFEST_V3.permissions, function(_permission) { 
+        %>'<%- _permission %>',<% 
+    }) 
+%>
+];
+<% } else { %>
+export const MANIFEST_PERMISSIONS: Array<ManifestPermission> = [];
+<% } %>

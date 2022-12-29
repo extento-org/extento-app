@@ -1,4 +1,4 @@
-const withPostcss = require('@extento/node/withPostcss');
+const withPostcss = require('@ex/node/withPostcss');
 
 module.exports = withPostcss({
     

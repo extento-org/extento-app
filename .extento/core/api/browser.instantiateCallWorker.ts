@@ -2,7 +2,7 @@ import { v4 as uuid_v4 } from 'uuid';
 import { deserializeError as deserialize_error } from 'serialize-error';
 import chromeWrapper from '@_core/lib.chrome';
 
-import { LayerName } from '@extento.types';
+import { LayerName } from '@ex.compiled';
 import constants from '@_core/constants';
 
 const TIMEOUT_AT = 20000;
