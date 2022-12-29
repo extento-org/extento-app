@@ -21,7 +21,7 @@ function compileProd(build) {
 
 function compileDev(build) {
     const _build = build || process.env.EXTENTO_SELECTIVE_BUILD || DEFAULT_BUILD;
-    return `SELECTIVE_BUILD=${_build} npx webpack --config ${WEBPACK_DEV}`;
+    return `SELECTIVE_BUILD=${_build} npx webpack --config ${WEBPACK_DEV} --watch`;
 };
 
 module.exports = _withExecSync({

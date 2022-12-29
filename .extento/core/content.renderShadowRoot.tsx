@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 
 export type ShadowRootProps = {
     children: JSX.Element,
-    id: string,
-    class: string,
+    id: any,
+    class: any,
     shadow_options?: ShadowRootInit,
 };
 

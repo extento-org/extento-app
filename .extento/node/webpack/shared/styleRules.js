@@ -1,14 +1,14 @@
-const constants = require('~/node/constants');
+const _constants = require('~/node/constants');
 
-const layerStyles = constants.LAYERS
-    .map(layer => ({
-        test: new RegExp(`(layers).*(${layer}).*\.(scss|css)$`),
+const layerStyles = _constants.LAYERS
+    .map(injectLayer => ({
+        test: new RegExp(`(layers).*(${injectLayer}).*\.(scss|css)$`),
         exclude: /node_modules/,
         use: [
             {
                 loader: 'style-loader',
                 options: {
-                    attributes: { layer, constants: JSON.stringify(constants) },
+                    attributes: { layer: injectLayer, constants: JSON.stringify(_constants) },
                     insert: function (linkTag) {
                         const appendToShadowRoot = (selector, child) => {
                             const append = (element) => {
@@ -36,25 +36,24 @@ const layerStyles = constants.LAYERS
                             });
                         };
 
-                        const INSERT_LAYER = linkTag.getAttribute('layer');
-                        const INSERT_CONSTANTS = JSON.parse(linkTag.getAttribute('constants'));
-                        const INSERT_ID_UI = `extento-layer-${INSERT_LAYER}-shadow-ui`;
+                        const layer = linkTag.getAttribute('layer');
+                        const constants = JSON.parse(linkTag.getAttribute('constants'));
+                        const { SELECTIVE_BUILD, USER_CONFIG } = constants;
 
-                        const { SELECTIVE_BUILD, USER_CONFIG } = INSERT_CONSTANTS;
-
+                        const layer_shadow_dom_id = constants.SELECTORS_LAYERS[layer].shadow_ui;
                         const pages = USER_CONFIG.selective_builds[SELECTIVE_BUILD]?.pages;
 
-                        if (pages?.Options === INSERT_LAYER) {
-                            appendToShadowRoot(`#app-page-options-extento-shadow-node`, linkTag);
+                        if (pages?.Options === layer) {
+                            appendToShadowRoot(`#${constants.SELECTORS_PAGES.options}`, linkTag);
                         }
-                        if (pages?.Popup === INSERT_LAYER) {
-                            appendToShadowRoot(`#app-page-popup-extento-shadow-node`, linkTag);
+                        if (pages?.Popup === layer) {
+                            appendToShadowRoot(`#${constants.SELECTORS_PAGES.popup}`, linkTag);
                         }
-                        if (pages?.Tab === INSERT_LAYER) {
-                            appendToShadowRoot(`#app-page-tab-extento-shadow-node`, linkTag);
+                        if (pages?.Tab === layer) {
+                            appendToShadowRoot(`#${constants.SELECTORS_PAGES.tab}`, linkTag);
                         }
                         
-                        appendToShadowRoot(`#${INSERT_ID_UI}`, linkTag);
+                        appendToShadowRoot(`#${layer_shadow_dom_id}`, linkTag);
                     },
                 },
             },
@@ -65,11 +64,10 @@ const layerStyles = constants.LAYERS
                 loader: 'postcss-loader',
                 options: {
                     postcssOptions: {
-                        config: constants.PATH_APP_POSTCSS,
+                        config: _constants.PATH_APP_POSTCSS,
                     },
                 },
-            }
-            
+            },
         ],
     }));
 
@@ -81,6 +79,7 @@ const sharedStyles = [
             {
                 loader: 'style-loader',
                 options: {
+                    attributes: { constants: JSON.stringify(_constants) },
                     insert: function (linkTag) {
                         const appendToShadowRoot = (selector, child) => {
                             const append = (element) => {
@@ -108,9 +107,8 @@ const sharedStyles = [
                             });
                         };
 
-                        const INSERT_CLASSNAME = `extento-shadow-dom`;
-
-                        appendToShadowRoot(`.${INSERT_CLASSNAME}`, linkTag);
+                        const constants = JSON.parse(linkTag.getAttribute('constants'));
+                        appendToShadowRoot(`.${constants.SELECTOR_DOM_CLASSNAME}`, linkTag);
                     },
                 },
             },
@@ -121,18 +119,17 @@ const sharedStyles = [
                 loader: 'postcss-loader',
                 options: {
                     postcssOptions: {
-                        config: constants.PATH_APP_POSTCSS,
+                        config: _constants.PATH_APP_POSTCSS,
                     },
                 },
-            }
-            
+            },
         ],
     },
 ]
 
 const styleRules = [
     ...layerStyles,
-    ...sharedStyles
+    ...sharedStyles,
 ];
 
 module.exports = styleRules;
