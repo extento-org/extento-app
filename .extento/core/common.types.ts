@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayerName } from '@extento.types';
+import { LayerName } from '@ex.compiled';
 
 export type CodegenStyles = { [key in LayerName]: { css: string, scss: string } };
 export type CodegenUis = { [key in LayerName]: { default: React.FunctionComponent<any> } };

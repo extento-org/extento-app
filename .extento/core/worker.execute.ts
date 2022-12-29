@@ -1,5 +1,5 @@
 import { serializeError as serialize_error } from 'serialize-error';
-import { LayerName } from '@extento.types';
+import { LayerName } from '@ex.compiled';
 
 type UnknownArgsFunction = (...args: any[]) => any;
 

@@ -1,5 +1,5 @@
 {
-    "extends": "./.extento/config/tsconfigs/project.json",
+    "extends": "./.extento/node/tsconfigs/project.json",
     "compilerOptions": {
         "noImplicitAny": false
     },
@@ -7,9 +7,7 @@
         "./layers/**/*",
         "./layers/**/*.json",
         "./shared/**/*",
-        "./shared/**/*.json",
-        "./pages/**/*",
-        "./pages/**/*.json"
+        "./shared/**/*.json"
     ],
     "references": [
         { "path": "./.extento/api" }

@@ -1,0 +1,5 @@
+<% _.forEach(LAYERS, function(_layer) { %>import * as <%- _layer %> from '@app.layer/<%- _layer %>/<%- INTERFACE_NAME %>';<% }); %>
+
+export default {
+    <% _.forEach(LAYERS, function(_layer) { %><%- _layer %>,<% }); %>
+};

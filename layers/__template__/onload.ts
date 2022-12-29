@@ -1,5 +1,5 @@
-import worker from '@extento.browser/worker';
-import subscribe from '@extento.browser/subscribe';
+import worker from '@ex.browser/worker';
+import subscribe from '@ex.browser/subscribe';
 
 const onload = async () => {
     try {

@@ -1,4 +1,4 @@
 // DO NOT CHANGE THIS 
 // it ensures your code editor's built in TS linting works
 
-{ "extends": "./config/tsconfigs/webpack.json" }
+{ "extends": "./node/tsconfigs/webpack.json" }

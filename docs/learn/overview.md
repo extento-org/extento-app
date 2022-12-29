@@ -2,7 +2,7 @@
 
 Extento is a local-first Chrome Extension framework that makes it easy to build and distribute all kinds of browser extensions within your organization. 
 
-Extento comes with [@extento/cli](/docs/cli.md) which scaffolds new projects (similar to [create-react-app](https://create-react-app.dev/)). Newly scaffolded Extento projects come with pre-built abstractions and make use of developer friendly technologies: **TypeScript**, **React**, and **TailwindCSS**. No more having to inject a script into the dom to render UI overlays, handle bi-directional communication between embedded UIs and a background service worker, keep a manifest.json up to date, or deal with the quirks of Webpack and TypeScript amongst other tedious tasks.
+Extento comes with [@ex/cli](/docs/cli.md) which scaffolds new projects (similar to [create-react-app](https://create-react-app.dev/)). Newly scaffolded Extento projects come with pre-built abstractions and make use of developer friendly technologies: **TypeScript**, **React**, and **TailwindCSS**. No more having to inject a script into the dom to render UI overlays, handle bi-directional communication between embedded UIs and a background service worker, keep a manifest.json up to date, or deal with the quirks of Webpack and TypeScript amongst other tedious tasks.
 
 ## Use Case
 

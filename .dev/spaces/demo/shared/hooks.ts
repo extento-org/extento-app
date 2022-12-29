@@ -6,7 +6,7 @@ import {
     UseMutationResult,
 } from 'react-query';
 import urlMatchPattern from '@app.shared/utils/urlMatchPattern';
-import worker from '@extento.browser/worker'
+import worker from '@ex.browser/worker'
 
 /* ------------------------ WORKER API RESPONSE TYPES ----------------------- */
 export type Blacklist = Awaited<ReturnType<typeof worker.badger.getBlacklist>>;

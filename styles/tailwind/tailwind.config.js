@@ -1,4 +1,4 @@
-const withTailwindConfig = require('@extento/node/withTailwindConfig');
+const withTailwindConfig = require('@ex/node/withTailwindConfig');
 
 module.exports = withTailwindConfig({
     content: [],

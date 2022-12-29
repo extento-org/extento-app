@@ -3,17 +3,15 @@
     "include": [
         "../../layers/**/*",
         "../../layers/**/*.json",
-        "../../pages/**/*",
-        "../../pages/**/*.json",
         "../../shared/**/*",
         "../../shared/**/*.json",
-        "../codegen/**/*",
-        "../codegen/**/*.json",
+        "../.compiled/bridge/**/*",
+        "../.compiled/bridge/**/*.json",
         "./**/*",
         "./**/*.json"
     ],
     "references": [
         { "path": "../core" },
-        { "path": "../types" },
+        { "path": "../.compiled/public" }
     ]
 }

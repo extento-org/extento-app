@@ -1,5 +1,7 @@
 import React from 'react';
-import states from '@extento.react/states';
+import states from '@ex.react/states';
+
+import '@app.layer/__template__/styles/index.css';
 
 const Example = () => {
     const context = states.__template__.use();

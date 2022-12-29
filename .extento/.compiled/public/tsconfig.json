@@ -1,0 +1,7 @@
+{
+    "extends": "../../node/tsconfigs/project.json",
+    "include": [
+        "./**/*",
+        "./**/*.json"
+    ]
+}

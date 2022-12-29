@@ -1,4 +1,4 @@
-import { LayerName } from '@extento.types';
+import { LayerName } from '@ex.compiled';
 
 const getActiveTabs: () => Promise<chrome.tabs.Tab[]> = () => new Promise(
     (resolve, reject) => {

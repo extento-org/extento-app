@@ -1,0 +1,17 @@
+import states from '@_compiled/bridge/states';
+import uis from '@_compiled/bridge/uis';
+import setupLayerContexts from '@_core/api/react.setupLayerContexts';
+
+<% _.forEach(LAYERS, function(_layer) { 
+%>
+const <%- _layer %> = setupLayerContexts<typeof states['<%- _layer %>']['default']>(
+    '<%- _layer %>', 
+    states.<%- _layer %>.default, 
+    uis.<%- _layer %>.default
+);
+<% 
+}); %>
+
+export default {
+    <% _.forEach(LAYERS, function(_layer) { %><%- _layer %>,<% }); %>
+};

@@ -1,4 +1,4 @@
-import { LayerName } from '@extento.types';
+import { LayerName } from '@ex.compiled';
 import chromeWrapper from '@_core/lib.chrome';
 import constants from '@_core/constants';
 import { Publisher } from '@_core/common.types';

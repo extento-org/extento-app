@@ -1,13 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import GlobalContext from '@_core/react.contextGlobal';
-
-const sharedCss = require('@_styles/global.css');
-const pagesCss = require('@_pages/styles/index.css');
-const sharedScss = require('@_styles/global.scss');
-const pagesScss = require('@_pages/styles/index.scss');
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import renderShadowRoot from '@_core/content.renderShadowRoot';
+import constants from '@_core/constants';
 
 function App(props: {
     Tab?: React.FunctionComponent,
@@ -45,6 +39,66 @@ function App(props: {
     return <div />;
 }
 
+function TabPage(props: {
+    Tab: React.FunctionComponent,
+}) {
+    const { Tab } = props;
+
+    const params = React.useMemo(
+        () => new URLSearchParams(window.location.search),
+        [window.location.search],
+    );
+
+    if (
+        typeof Tab !== 'undefined'
+            && params.get('tab') === 'true'
+    ) {
+        return <Tab />;
+    }
+
+    return <div />;
+}
+
+function OptionsPage(props: {
+    Options: React.FunctionComponent,
+}) {
+    const { Options } = props;
+
+    const params = React.useMemo(
+        () => new URLSearchParams(window.location.search),
+        [window.location.search],
+    );
+
+    if (
+        typeof Options !== 'undefined'
+            && params.get('options') === 'true'
+    ) {
+        return <Options />;
+    }
+
+    return <div />;
+}
+
+function PopupPage(props: {
+    Popup: React.FunctionComponent,
+}) {
+    const { Popup } = props;
+
+    const params = React.useMemo(
+        () => new URLSearchParams(window.location.search),
+        [window.location.search],
+    );
+
+    if (
+        typeof Popup !== 'undefined'
+            && params.get('popup') === 'true'
+    ) {
+        return <Popup />;
+    }
+
+    return <div />;
+}
+
 App.defaultProps = {
     Options: null,
     Popup: null,
@@ -52,21 +106,51 @@ App.defaultProps = {
 };
 
 const renderPages = (opts: {
-    Popup: React.FunctionComponent,
-    Options: React.FunctionComponent,
-    Tab: React.FunctionComponent,
+    Popup?: React.FunctionComponent,
+    Options?: React.FunctionComponent,
+    Tab?: React.FunctionComponent,
 }) => {
-    const styleTag = document.createElement('style');
-    document.head.appendChild(styleTag);
-    styleTag.textContent = `${sharedCss}\n\n${sharedScss}\n\n${pagesCss}\n\n${pagesScss}`;
+    if (opts.Tab) {
+        renderShadowRoot({
+            id: `app-page-tab-${constants.DOM_ID_SHADOW_ROOT}`,
+            class: constants.DOM_ID_SHADOW_ROOT,
+            children: (
+                <React.StrictMode>
+                    <GlobalContext>
+                        <TabPage Tab={opts.Tab} />
+                    </GlobalContext>
+                </React.StrictMode>
+            ),
+        });
+    }
 
-    root.render(
-        <React.StrictMode>
-            <GlobalContext>
-                <App Popup={opts.Popup} Tab={opts.Tab} Options={opts.Options} />
-            </GlobalContext>
-        </React.StrictMode>,
-    );
+    if (opts.Options) {
+        renderShadowRoot({
+            id: `app-page-options-${constants.DOM_ID_SHADOW_ROOT}`,
+            class: constants.DOM_ID_SHADOW_ROOT,
+            children: (
+                <React.StrictMode>
+                    <GlobalContext>
+                        <OptionsPage Options={opts.Options} />
+                    </GlobalContext>
+                </React.StrictMode>
+            ),
+        });
+    }
+
+    if (opts.Popup) {
+        renderShadowRoot({
+            id: `app-page-popup-${constants.DOM_ID_SHADOW_ROOT}`,
+            class: constants.DOM_ID_SHADOW_ROOT,
+            children: (
+                <React.StrictMode>
+                    <GlobalContext>
+                        <PopupPage Popup={opts.Popup} />
+                    </GlobalContext>
+                </React.StrictMode>
+            ),
+        });
+    }
 };
 
 export default renderPages;

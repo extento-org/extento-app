@@ -1,0 +1,77 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "moduleResolution": "node",
+        "declarationMap": true,
+        "declaration": true,
+        "target": "es2022",
+        "jsx": "react",
+        "allowJs": true,
+        "types": [
+            "chrome",
+            "node"
+        ],
+        "baseUrl": ".",
+        "paths": {
+            "@_core": [
+                "../../core"
+            ],
+            "@_core/*": [
+                "../../core/*"
+            ],
+            "@_compiled/*": [
+                "../../.compiled/*"
+            ],
+            "@app.styles/*": [
+                "../../../styles/*"
+            ],
+            "@app.layer/*": [
+                "../../../layers/*"
+            ],
+            "@app.shared": [
+                "../../../shared/index.ts"
+            ],
+            "@app.shared/*": [
+                "../../../shared/*"
+            ],
+            "@ex.constants": [
+                "../../.compiled/public/constants"
+            ],
+            "@ex.compiled": [
+                "../../.compiled/public"
+            ],
+            "@ex.compiled/*": [
+                "../../.compiled/public/*"
+            ],
+            "@ex.react": [
+                "../../bridge/public/react"
+            ],
+            "@ex.react/*": [
+                "../../bridge/public/react/*"
+            ],
+            "@ex.browser": [
+                "../../bridge/public/browser"
+            ],
+            "@ex.browser/*": [
+                "../../bridge/public/browser/*"
+            ],
+            "@ex.worker": [
+                "../../bridge/public/worker"
+            ],
+            "@ex.worker/*": [
+                "../../bridge/public/worker/*"
+            ]
+        },
+        "rootDir": "../../../"
+    },
+    "exclude": [
+        "node/**/*",
+        "node/**/*.json",
+        ".eslintrc.js",
+        "tsconfig.dist",
+        "node_modules"
+    ]
+}

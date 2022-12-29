@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { LayerName, LAYER_NAMES } from '@extento.types';
+import { LayerName, LAYER_NAMES } from '@ex.compiled';
 
 const getManifestValues = (
     manifests: { [key in LayerName]: any },

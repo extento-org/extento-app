@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const defaultTheme = require('tailwindcss/defaultTheme');
-const constants = require('../config/constants');
+const constants = require('~/node/constants');
 
 // https://github.com/tailwindlabs/tailwindcss/issues/1232#issuecomment-1330042062
 function recursiveConvertRemToPixels(input, fontSize = 16) {
@@ -35,9 +35,8 @@ function recursiveConvertRemToPixels(input, fontSize = 16) {
 const baseContents = [
     `${constants.PATH_APP_SHARED}/**/*.{ts,tsx,js,jsx}`,
     `${constants.PATH_APP_LAYERS}/**/*.{ts,tsx,js,jsx}`,
-    `${constants.PATH_APP_PAGES}/**/*.{ts,tsx,js,jsx}`,
-    `${constants.PATH_INTERNAL_CORE}/src/**/*.{ts,tsx,js,jsx}`,
-    `${constants.PATH_INTERNAL_BRIDGE}/src/**/*.{ts,tsx,js,jsx}`,
+    `${constants.PATH_INTERNAL_CORE}/**/*.{ts,tsx,js,jsx}`,
+    `${constants.PATH_INTERNAL_BRIDGE}/**/*.{ts,tsx,js,jsx}`,
 ];
 
 const withTailwindConfig = (userConfig = {}) => {

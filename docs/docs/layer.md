@@ -2,7 +2,7 @@
 
 > Think of a layer directory as a mini extension.
 
-After successfully running ```@extento/cli layer <name>``` inside of your project repo, a new directory will appear: ```src/layers/<name>```. This is where you write your business logic.
+After successfully running ```@ex/cli layer <name>``` inside of your project repo, a new directory will appear: ```src/layers/<name>```. This is where you write your business logic.
 
 ```
 $EXTENTO_LAYER_DIR_STRUCTURE

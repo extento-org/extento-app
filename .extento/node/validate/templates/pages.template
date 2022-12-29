@@ -1,0 +1,9 @@
+<% if (!!PAGES.popup) { %>import Popup from '@app.layer/<%- PAGES.popup %>/pages/Popup';<% } %>
+<% if (!!PAGES.tab) { %>import Tab from '@app.layer/<%- PAGES.tab %>/pages/Tab';<% } %>
+<% if (!!PAGES.options) { %>import Options from '@app.layer/<%- PAGES.options %>/pages/Options';<% } %>
+
+export default {
+    <% if (!!PAGES.popup) { %>Popup<% } else { %>Popup: null<% } %>,
+    <% if (!!PAGES.tab) { %>Tab<% } else { %>Tab: null<% } %>,
+    <% if (!!PAGES.options) { %>Options<% } else { %>Options: null<% } %>,
+};
