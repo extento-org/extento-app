@@ -3,7 +3,7 @@ import { deserializeError as deserialize_error } from 'serialize-error';
 import chromeWrapper from '@_core/lib.chrome';
 
 import { LayerName } from '@ex.compiled';
-import constants from '@_core/constants';
+import constants from '@ex.compiled/constants';
 
 const TIMEOUT_AT = 20000;
 
@@ -47,20 +47,14 @@ const handler = (
             // provide a descriptive error that the application code can handle
             reject(new Error(
                 `The follow backend_api function: ${layer}.${prop} timed out.`,
-                {
-                    cause: {
-                        name: constants.EXTENT_WORKER_TIMEOUT,
-                        message: `Timeout occurred after ${TIMEOUT_AT} milliseconds`,
-                    },
-                },
             ));
         }
     }, TIMEOUT_AT);
 
     // send the args off to our content script proxy, kicks off the correct background api method
-    const event = new CustomEvent(constants.EXTENT_WORKER_INBOUND, {
+    const event = new CustomEvent(constants.CHANNEL_WORKER_PROXY, {
         detail: {
-            channel: constants.EXTENT_BACKGROUND_TYPE_ACTION,
+            channel: constants.CHANNEL_WORKER_INBOUND,
             requestId,
             prop,
             inner_prop,

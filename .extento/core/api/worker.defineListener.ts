@@ -1,11 +1,11 @@
 import chromeWrapper from '@_core/lib.chrome';
-import constants from '@_core/constants';
+import constants from '@ex.compiled/constants';
 import workerExecute from '../worker.execute';
 
 function defineListener(workerApis: any) {
     chromeWrapper.backgroundListen({
         // executes layer function
-        [constants.EXTENT_BACKGROUND_TYPE_ACTION]: (
+        [constants.CHANNEL_WORKER_INBOUND]: (
             request: any,
             send_response: (response?: any) => void,
         ) => {

@@ -7,11 +7,13 @@ const initial: State = {
 };
 
 export type Other = {
-    some: string
+    first: string,
+    second: string,
 };
 
 const other: Other = {
-    some: 'otherfield'
+    first: 'otherfield',
+    second: 'hmmm'
 };
 
 export default {

@@ -9,7 +9,7 @@ $EXTENTO_LAYER_DIR_STRUCTURE
 ├── <layer_name>
 │   ├── worker.ts
 │   ├── config.ts
-│   ├── contentScriptProcess.ts
+│   ├── contentScript.ts
 │   ├── manifest.json
 │   ├── onload.ts
 │   ├── readme.md

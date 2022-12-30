@@ -1,10 +1,10 @@
-import constants from '@_core/constants';
+import constants from '@ex.compiled/constants';
 import { Subscriber } from '@_core/common.types';
 
 const subscribe: any = new Proxy({}, {
     get: (_, layer) => (func: Function) => {
         window.addEventListener(
-            constants.EXTENT_BACKGROUND_PUBLISHER,
+            constants.CHANNEL_PUBLISH,
             (_event: any) => {
                 const request = _event?.detail?.request;
                 if (request?.layer === layer) {
