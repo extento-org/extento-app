@@ -5,12 +5,12 @@ import '@app.layer/__template__/styles/index.css';
 
 const Example = () => {
     const context = states.__template__.use();
-    console.log(context)
     React.useEffect(() => {
         setTimeout(() => {
-            context.applyState('other')
+            context.set('other', (last) => ({ second: 'ok' }))
         }, 4000)
     }, [])
+    console.log(context.state);
     return(
         <div className="fixed top-0 left-0 z-50 w-2 h-2 bg-red-500 rounded-full text-cyan-200">
             EXAMPLE COMPONENT

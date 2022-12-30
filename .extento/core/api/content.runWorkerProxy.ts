@@ -1,10 +1,10 @@
 import chromeWrapper from '@_core/lib.chrome';
-import constants from '@_core/constants';
+import constants from '@ex.compiled/constants';
 
 const runWorkerProxy = () => {
     // connects our browser/content script code to the background apis
     window.addEventListener(
-        constants.EXTENT_WORKER_INBOUND,
+        constants.CHANNEL_WORKER_PROXY,
         (_event: CustomEvent) => {
             try {
                 chromeWrapper.postWindowMessage(_event.detail);
@@ -18,12 +18,12 @@ const runWorkerProxy = () => {
 
     // used for one-way pub events fired from our background script
     chromeWrapper.contentScriptListen({
-        [constants.EXTENT_BACKGROUND_PUBLISHER]: (
+        [constants.CHANNEL_PUBLISH]: (
             request: any,
             send_response: (response?: any) => void,
         ) => {
             const event = new CustomEvent(
-                constants.EXTENT_BACKGROUND_PUBLISHER,
+                constants.CHANNEL_PUBLISH,
                 { detail: { request } },
             );
 

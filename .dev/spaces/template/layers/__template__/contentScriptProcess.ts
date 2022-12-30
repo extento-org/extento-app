@@ -1,7 +1,7 @@
 import worker from '@ex.browser/worker';
 import subscribe from '@ex.browser/subscribe';
 
-const contentScriptProcess = async () => {
+const contentScript = async () => {
     subscribe.__template__(
         (data: any) => console.info(
             'subscription worked in admin', 
@@ -15,4 +15,4 @@ const contentScriptProcess = async () => {
     }, 5000));
 };
 
-export default contentScriptProcess;
+export default contentScript;

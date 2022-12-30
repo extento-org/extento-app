@@ -39,8 +39,6 @@ const layerStyles = _constants.LAYERS
                         const layer = linkTag.getAttribute('layer');
                         const constants = JSON.parse(linkTag.getAttribute('constants'));
                         const { SELECTIVE_BUILD, USER_CONFIG } = constants;
-
-                        const layer_shadow_dom_id = constants.SELECTORS_LAYERS[layer].shadow_ui;
                         const pages = USER_CONFIG.selective_builds[SELECTIVE_BUILD]?.pages;
 
                         if (pages?.Options === layer) {
@@ -53,7 +51,7 @@ const layerStyles = _constants.LAYERS
                             appendToShadowRoot(`#${constants.SELECTORS_PAGES.tab}`, linkTag);
                         }
                         
-                        appendToShadowRoot(`#${layer_shadow_dom_id}`, linkTag);
+                        appendToShadowRoot(`#${constants.SELECTORS_LAYERS[layer].shadow_ui}`, linkTag);
                     },
                 },
             },

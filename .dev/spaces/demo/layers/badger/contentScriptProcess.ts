@@ -1,3 +1,3 @@
-const contentScriptProcess = async () => {};
+const contentScript = async () => {};
 
-export default contentScriptProcess;
+export default contentScript;

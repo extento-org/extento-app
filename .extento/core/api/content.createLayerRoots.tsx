@@ -13,7 +13,7 @@ function createLayerRoots(
     LAYER_NAMES.map((layer) => {
         const { FunctionalComponent } = layer_context[layer];
         return renderShadowRoot({
-            id: constants.SELECTORS_LAYERS[layer],
+            id: constants.SELECTORS_LAYERS[layer].shadow_ui,
             class: constants.SELECTOR_DOM_CLASSNAME,
             children: (
                 <GlobalContext>

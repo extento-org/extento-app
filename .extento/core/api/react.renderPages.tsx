@@ -70,6 +70,7 @@ const renderPages = (opts: {
 }) => {
     if (opts.Tab) {
         renderShadowRoot({
+            reset_page: true,
             id: constants.SELECTORS_PAGES.tab,
             class: constants.SELECTOR_DOM_CLASSNAME,
             children: (
@@ -84,6 +85,7 @@ const renderPages = (opts: {
 
     if (opts.Options) {
         renderShadowRoot({
+            reset_page: true,
             id: constants.SELECTORS_PAGES.options,
             class: constants.SELECTOR_DOM_CLASSNAME,
             children: (
@@ -98,6 +100,7 @@ const renderPages = (opts: {
 
     if (opts.Popup) {
         renderShadowRoot({
+            reset_page: true,
             id: constants.SELECTORS_PAGES.popup,
             class: constants.SELECTOR_DOM_CLASSNAME,
             children: (

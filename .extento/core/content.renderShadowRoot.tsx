@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 export type ShadowRootProps = {
+    reset_page?: boolean,
     children: JSX.Element,
     id: any,
     class: any,
@@ -14,6 +15,15 @@ const renderShadowRoot = (props: ShadowRootProps) => {
         mode: 'open',
         ...(props.shadow_options || {}),
     };
+
+    // remove default padding/margin
+    const resetCss = props.reset_page
+        ? '<style>html, body { margin: 0px; padding: 0px; }</style>'
+        : '';
+    if (resetCss) {
+        document.head.innerHTML += resetCss;
+    }
+
     const shadowContainer = document.createElement('div');
     shadowContainer.setAttribute('id', props.id);
     shadowContainer.className = `${shadowContainer.className} ${props.class}`;

@@ -49,7 +49,7 @@ const { extento: USER_CONFIG } = PACKAGE_JSON;
 // a list of files we want to aggregate in codegen
 const CODE_GEN_LAYER_EXPORTS = [
     'worker.ts',
-    'contentScriptProcess.ts',
+    'contentScript.ts',
     'manifest.json',
     'onload.ts',
     'ui',
@@ -93,6 +93,11 @@ const SELECTORS_PAGES = {
 
 const SELECTOR_DOM_CLASSNAME = formatDomSelector('extento-shadow-dom');
 
+// channels for events and messages 
+const CHANNEL_PUBLISH = 'EXTENTO_CHANNEL_PUBLISH';
+const CHANNEL_WORKER_PROXY = 'EXTENTO_CHANNEL_WORKER_PROXY';
+const CHANNEL_WORKER_INBOUND = 'EXTENTO_CHANNEL_WORKER_INBOUND';
+
 // selective builds
 const PROVIDED_SELECTIVE_BUILD_CONFIG = USER_CONFIG.selective_builds;
 const DEFAULT_SELECTIVE_BUILD = 'master';
@@ -129,6 +134,9 @@ const ICONS = fs.readdirSync(PATH_APP_ICONS)
     }));
 
 module.exports = throwOnNonExistence({
+    CHANNEL_PUBLISH,
+    CHANNEL_WORKER_PROXY,
+    CHANNEL_WORKER_INBOUND,
     CLEARABLE_PREFIXES,
     CODE_GEN_LAYER_EXPORTS,
     DEFAULT_SELECTIVE_BUILD,

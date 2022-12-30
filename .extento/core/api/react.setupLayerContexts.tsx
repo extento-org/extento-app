@@ -2,26 +2,25 @@ import { noop } from 'lodash';
 import React from 'react';
 import { LayerName } from '@ex.compiled';
 
-type UIState<LayerUIStates> = LayerUIStates[keyof LayerUIStates];
-
-type SetState<LayerUIStates> = React
-    .Dispatch<React.SetStateAction<Partial<UIState<LayerUIStates>>>>;
-
-type ApplyState<LayerUIStates> = (
+type Set<LayerUIStates> = (
     typeof noop
-        | ((state_name: keyof LayerUIStates) => UIState<LayerUIStates>)
+        | (
+            (
+                state_name: keyof LayerUIStates,
+                val: React.SetStateAction<Partial<LayerUIStates[typeof state_name]>>,
+            ) => void
+        )
 );
 
 function createContext<LayerUIStates>(
-    state: UIState<LayerUIStates>,
+    state: LayerUIStates[keyof LayerUIStates],
 ): React.Context<{
-        set: SetState<LayerUIStates>,
-        applyState: ApplyState<LayerUIStates>,
-    } & UIState<LayerUIStates>> {
+        set: Set<LayerUIStates>,
+        state: LayerUIStates[keyof LayerUIStates]
+    }> {
     return React.createContext({
-        ...state,
+        state,
         set: noop,
-        applyState: noop,
     });
 }
 
@@ -33,38 +32,44 @@ function Provider<State>(props: {
     const { state, context, children } = props;
 
     const untypedUiState: any = state;
+    const INITIAL_KEY = 'initial';
 
-    const [providerState, setProviderState] = React.useState<UIState<State>>(
-        untypedUiState.initial,
-    );
+    const [providerState, setProviderState] = React.useState<{
+        state: State[keyof State],
+        key: keyof State | typeof INITIAL_KEY,
+    }>({
+        state: untypedUiState[INITIAL_KEY],
+        key: INITIAL_KEY,
+    });
 
-    const applyState = React.useCallback(
-        (state_name: keyof State) => setProviderState(untypedUiState[state_name]),
+    const set = React.useCallback(
+        (
+            state_name: keyof State,
+            val?: React.SetStateAction<Partial<State[typeof state_name]>>,
+        ) => setProviderState(val ? (
+            (last: { state: any, key: keyof State }) => {
+                let previousState: any = last.state;
+                if (last.key !== state_name) {
+                    previousState = untypedUiState[state_name];
+                }
+                let slice = val;
+                if (typeof val === 'function') {
+                    slice = val(previousState);
+                }
+                return {
+                    ...last,
+                    state: { ...previousState, ...slice },
+                };
+            }
+        ) : { key: state_name, state: untypedUiState[state_name] }),
         [untypedUiState],
     );
 
-    const set = React.useCallback((
-        arg1: Partial<UIState<State>> | (
-            (last: UIState<State>) => UIState<State>
-        ),
-    ) => setProviderState(
-        (last: any) => {
-            let slice = arg1;
-            if (typeof arg1 === 'function') {
-                slice = arg1(last);
-            }
-
-            return { ...last, ...slice };
-        },
-    ), []);
-
     const value: {
-        applyState: ApplyState<State>,
-        set: SetState<State>,
-        state: UIState<State>,
+        set: Set<State>,
+        state: State[keyof State],
     } = React.useMemo(() => ({
-        state: providerState,
-        applyState,
+        state: providerState.state,
         set,
     }), [providerState]);
 
