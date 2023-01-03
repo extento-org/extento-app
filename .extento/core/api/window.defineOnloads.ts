@@ -1,7 +1,6 @@
 import { LAYER_NAMES } from '@ex.compiled';
-import { CodegenOnloads } from '@_core/common.types';
 
-export default (onloads: CodegenOnloads) => {
+export default (onloads: Record<string, { default: any }>) => {
     window.onload = async () => {
         LAYER_NAMES.forEach((layer) => {
             const onload = onloads[layer]?.default;

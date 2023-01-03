@@ -1,9 +1,8 @@
 import React from 'react';
-import LayerUiOverlay from '@_core/react.layerUiOverlay';
+import LayerUiOverlay from '@_core/ui/LayerOverlay';
+import renderShadowRoot from '@_core/ui/renderShadowRoot';
 import { UI_ORDERING, LayerName, LAYER_NAMES } from '@ex.compiled';
 import constants from '@ex.compiled/constants';
-import renderShadowRoot from '@_core/content.renderShadowRoot';
-import GlobalContext from '@_core/react.contextGlobal';
 
 function createLayerRoots(
     layer_context: {
@@ -16,11 +15,9 @@ function createLayerRoots(
             id: constants.SELECTORS_LAYERS[layer].shadow_ui,
             class: constants.SELECTOR_DOM_CLASSNAME,
             children: (
-                <GlobalContext>
-                    <LayerUiOverlay offset={UI_ORDERING.indexOf(layer)}>
-                        <FunctionalComponent />
-                    </LayerUiOverlay>
-                </GlobalContext>
+                <LayerUiOverlay offset={UI_ORDERING.indexOf(layer)}>
+                    <FunctionalComponent />
+                </LayerUiOverlay>
             ),
         });
     });

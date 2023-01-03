@@ -1,18 +1,17 @@
-import { v4 as uuid_v4 } from 'uuid';
-import { deserializeError as deserialize_error } from 'serialize-error';
-import chromeWrapper from '@_core/lib.chrome';
+import { v4 as uuidv4 } from 'uuid';
+import { deserializeError } from 'serialize-error';
 
 import { LayerName } from '@ex.compiled';
 import constants from '@ex.compiled/constants';
+import { sendMessageToWorker } from '@_core/api/content.runWorkerProxy';
 
-const TIMEOUT_AT = 20000;
+const TWENTY_SECONDS = 20000;
 
 const handler = (
     layer: LayerName,
     prop: any,
-    inner_prop?: string,
 ) => (...args: any[]) => new Promise((resolve, reject) => {
-    const requestId = uuid_v4();
+    const requestId = uuidv4();
 
     // protect against race condition if the timeout happens too close to a received event
     let resolved = false;
@@ -21,21 +20,23 @@ const handler = (
     // (which just proxies the response from the background api)
     const onMessageHandler = (event: MessageEvent) => {
         // only deal with events that we emitted
-        if (event.data.requestId === requestId) {
+        if (event?.data?.detail?.requestId === requestId) {
             // prevent timeout error from occuring
             resolved = true;
 
             // serialized error originates from the background api
-            if (event.data.error) {
-                reject(deserialize_error(event.data.error));
+            if (event?.data?.worker?.error) {
+                reject(deserializeError(event.data.worker.error));
             } else {
-                resolve(event.data.response);
+                resolve(event?.data?.worker?.response);
             }
         }
     };
 
     // listen for message events from the content script proxy
-    window.addEventListener('message', onMessageHandler, false);
+    window.addEventListener('message', onMessageHandler);
+
+    console.info(`registered ${onMessageHandler.toString()}`);
 
     // if it takes to long to get a response from the background api/content script proxy
     // we should reject with a descriptive error
@@ -46,10 +47,10 @@ const handler = (
         if (!resolved) {
             // provide a descriptive error that the application code can handle
             reject(new Error(
-                `The follow backend_api function: ${layer}.${prop} timed out.`,
+                `The follow workerApi function: ${layer}.${prop} timed out.`,
             ));
         }
-    }, TIMEOUT_AT);
+    }, TWENTY_SECONDS);
 
     // send the args off to our content script proxy, kicks off the correct background api method
     const event = new CustomEvent(constants.CHANNEL_WORKER_PROXY, {
@@ -57,7 +58,6 @@ const handler = (
             channel: constants.CHANNEL_WORKER_INBOUND,
             requestId,
             prop,
-            inner_prop,
             layer,
             args,
         },
@@ -65,42 +65,26 @@ const handler = (
 
     // attempt to bypass content script if we can
     try {
-        chromeWrapper.postWindowMessage(event.detail);
+        sendMessageToWorker(event);
     } catch (err) {
         window.dispatchEvent(event);
     }
 });
 
-function buildProxy<WorkerApis>(typed_workers: WorkerApis): WorkerApis {
+function workerApiProxy<WorkerApis>(workerApis: any): WorkerApis {
     return new Proxy({}, {
         get: (...[, layer]: [any, LayerName]) => new Proxy({}, {
             get: (...[, prop]: [any, any]) => {
-                const workers: any = typed_workers;
-                if (!workers[layer][prop]) {
+                if (typeof workerApis[layer][prop] !== 'function') {
                     throw new Error(
                         `The follow backend_api function: ${layer}.${prop} does not exist`,
                     );
                 }
 
-                if (typeof workers[layer][prop] === 'function') {
-                    return handler(layer, prop);
-                }
-
-                return new Proxy({}, {
-                    get: (_: any, inner_prop: string) => {
-                        const mod: any = workers[layer][prop];
-                        if (!mod[inner_prop]) {
-                            throw new Error(
-                                `The follow backend_api function: ${layer}.${inner_prop} does not exist`,
-                            );
-                        }
-
-                        return handler(layer, prop, inner_prop);
-                    },
-                });
+                return handler(layer, prop);
             },
         }),
     });
 }
 
-export default buildProxy;
+export default workerApiProxy;

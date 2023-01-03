@@ -16,7 +16,7 @@ const PATH_INTERNAL = path.resolve(__dirname, '..');
 const PATH_INTERNAL_BRIDGE = path.resolve(PATH_INTERNAL, 'bridge');
 const PATH_INTERNAL_BRIDGE_ENTRIES = path.resolve(PATH_INTERNAL_BRIDGE, 'entries');
 const PATH_INTERNAL_BRIDGE_ENTRIES_BACKGROUND = path.resolve(PATH_INTERNAL_BRIDGE_ENTRIES, 'background.ts');
-const PATH_INTERNAL_BRIDGE_ENTRIES_CONTENT_SCRIPT = path.resolve(PATH_INTERNAL_BRIDGE_ENTRIES, 'content_script.ts');
+const PATH_INTERNAL_BRIDGE_ENTRIES_CONTENT_SCRIPT = path.resolve(PATH_INTERNAL_BRIDGE_ENTRIES, 'contentScript.ts');
 const PATH_INTERNAL_BRIDGE_ENTRIES_ONLOAD = path.resolve(PATH_INTERNAL_BRIDGE_ENTRIES, 'onload.ts');
 const PATH_INTERNAL_BRIDGE_ENTRIES_PAGES = path.resolve(PATH_INTERNAL_BRIDGE_ENTRIES, 'pages.tsx');
 const PATH_INTERNAL_BRIDGE_ENTRIES_PAGES_HTML = path.resolve(PATH_INTERNAL_BRIDGE_ENTRIES, 'pages.html');
@@ -93,8 +93,6 @@ const SELECTORS_PAGES = {
 
 const SELECTOR_DOM_CLASSNAME = formatDomSelector('extento-shadow-dom');
 
-// channels for events and messages 
-const CHANNEL_PUBLISH = 'EXTENTO_CHANNEL_PUBLISH';
 const CHANNEL_WORKER_PROXY = 'EXTENTO_CHANNEL_WORKER_PROXY';
 const CHANNEL_WORKER_INBOUND = 'EXTENTO_CHANNEL_WORKER_INBOUND';
 
@@ -134,7 +132,6 @@ const ICONS = fs.readdirSync(PATH_APP_ICONS)
     }));
 
 module.exports = throwOnNonExistence({
-    CHANNEL_PUBLISH,
     CHANNEL_WORKER_PROXY,
     CHANNEL_WORKER_INBOUND,
     CLEARABLE_PREFIXES,

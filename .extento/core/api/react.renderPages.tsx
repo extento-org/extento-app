@@ -1,12 +1,12 @@
 import React from 'react';
-import GlobalContext from '@_core/react.contextGlobal';
-import renderShadowRoot from '@_core/content.renderShadowRoot';
+import renderShadowRoot from '@_core/ui/renderShadowRoot';
 import constants from '@ex.compiled/constants';
 
-function TabPage(props: {
-    Tab: React.FunctionComponent,
+function AppPage(props: {
+    FunctionComponent: React.FunctionComponent,
+    param: 'popup' | 'options' | 'tab',
 }) {
-    const { Tab } = props;
+    const { param, FunctionComponent } = props;
 
     const params = React.useMemo(
         () => new URLSearchParams(window.location.search),
@@ -14,50 +14,10 @@ function TabPage(props: {
     );
 
     if (
-        typeof Tab !== 'undefined'
-            && params.get('tab') === 'true'
+        typeof FunctionComponent !== 'undefined'
+            && params.get(param) === 'true'
     ) {
-        return <Tab />;
-    }
-
-    return <div />;
-}
-
-function OptionsPage(props: {
-    Options: React.FunctionComponent,
-}) {
-    const { Options } = props;
-
-    const params = React.useMemo(
-        () => new URLSearchParams(window.location.search),
-        [window.location.search],
-    );
-
-    if (
-        typeof Options !== 'undefined'
-            && params.get('options') === 'true'
-    ) {
-        return <Options />;
-    }
-
-    return <div />;
-}
-
-function PopupPage(props: {
-    Popup: React.FunctionComponent,
-}) {
-    const { Popup } = props;
-
-    const params = React.useMemo(
-        () => new URLSearchParams(window.location.search),
-        [window.location.search],
-    );
-
-    if (
-        typeof Popup !== 'undefined'
-            && params.get('popup') === 'true'
-    ) {
-        return <Popup />;
+        return <FunctionComponent />;
     }
 
     return <div />;
@@ -75,9 +35,7 @@ const renderPages = (opts: {
             class: constants.SELECTOR_DOM_CLASSNAME,
             children: (
                 <React.StrictMode>
-                    <GlobalContext>
-                        <TabPage Tab={opts.Tab} />
-                    </GlobalContext>
+                    <AppPage param="tab" FunctionComponent={opts.Tab} />
                 </React.StrictMode>
             ),
         });
@@ -90,9 +48,7 @@ const renderPages = (opts: {
             class: constants.SELECTOR_DOM_CLASSNAME,
             children: (
                 <React.StrictMode>
-                    <GlobalContext>
-                        <OptionsPage Options={opts.Options} />
-                    </GlobalContext>
+                    <AppPage param="options" FunctionComponent={opts.Options} />
                 </React.StrictMode>
             ),
         });
@@ -105,9 +61,7 @@ const renderPages = (opts: {
             class: constants.SELECTOR_DOM_CLASSNAME,
             children: (
                 <React.StrictMode>
-                    <GlobalContext>
-                        <PopupPage Popup={opts.Popup} />
-                    </GlobalContext>
+                    <AppPage param="popup" FunctionComponent={opts.Popup} />
                 </React.StrictMode>
             ),
         });

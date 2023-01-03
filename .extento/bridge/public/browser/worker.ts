@@ -1,6 +1,6 @@
 // @ts-nocheck
 
 import workerApis from '@_compiled/bridge/workerApis';
-import instantiateCallWorker from '@_core/api/browser.instantiateCallWorker';
+import workerApiProxy from '@_core/api/browser.workerApiProxy';
 
-export default instantiateCallWorker<typeof workerApis>(workerApis);
+export default workerApiProxy<typeof workerApis>(workerApis);
