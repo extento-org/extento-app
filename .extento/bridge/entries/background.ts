@@ -3,7 +3,7 @@
 import workers from '@_compiled/bridge/workers';
 import workerApis from '@_compiled/bridge/workerApis';
 import defineWorkers from '@_core/api/worker.defineWorkers';
-import defineListener from '@_core/api/worker.defineListener';
+import defineApiListener from '@_core/api/worker.defineApiListener';
 
-defineListener(workerApis);
+defineApiListener(workerApis);
 defineWorkers(workers);

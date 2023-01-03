@@ -1,6 +1,6 @@
 import React from 'react';
 
-function LayerUiOverlay(props: { children: JSX.Element, offset: number }) {
+function LayerOverlay(props: { children: JSX.Element, offset: number }) {
     const { offset, children } = props;
     return (
         <div
@@ -14,4 +14,4 @@ function LayerUiOverlay(props: { children: JSX.Element, offset: number }) {
     );
 }
 
-export default LayerUiOverlay;
+export default LayerOverlay;

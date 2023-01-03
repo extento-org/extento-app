@@ -1,13 +1,6 @@
 import worker from '@ex.browser/worker';
-import subscribe from '@ex.browser/subscribe';
 
 const contentScript = async () => {
-    subscribe.__template__(
-        (data: any) => console.info(
-            'subscription worked in admin', 
-            data,
-        ),
-    );
 
     (setInterval(async () => {
         const response = await worker.__template__.example();

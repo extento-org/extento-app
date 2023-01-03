@@ -43,23 +43,3 @@ export const UI_ORDERING: Array<AllLayerName> = [
     }) 
 %>
 ];
-<% if (MANIFEST_V3.permissions.length) { %>
-export type ManifestPermission = <% _.forEach(MANIFEST_V3.permissions, function(_permission, i) { %><% if (i !== 0) { %> | <% } %>'<%- _permission %>'<% }); %>
-<% } else { %>
-export type ManifestPermission = void
-<% } %>
-
-export const MANIFEST_VERSION = '<%- MANIFEST_V3.version %>';
-
-export const MANIFEST_NAME = '<%- MANIFEST_V3.name %>';
-<% if (MANIFEST_V3.permissions.length) { %>
-export const MANIFEST_PERMISSIONS: Array<ManifestPermission> = [
-<% 
-    _.forEach(MANIFEST_V3.permissions, function(_permission) { 
-        %>'<%- _permission %>',<% 
-    }) 
-%>
-];
-<% } else { %>
-export const MANIFEST_PERMISSIONS: Array<ManifestPermission> = [];
-<% } %>
